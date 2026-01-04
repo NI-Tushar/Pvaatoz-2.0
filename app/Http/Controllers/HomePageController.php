@@ -9,5 +9,9 @@ class HomePageController extends Controller
         
         return view('Pages.home');
     } 
+    public function about(){
+        
+        return view('Pages.about');
+    } 
 
 }

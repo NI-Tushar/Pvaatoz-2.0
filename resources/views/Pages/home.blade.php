@@ -8,16 +8,430 @@
 
 @section('app-content')
 
-    <h1>Landing page</h1>
-                        <form action="{{ route('logout') }}" method="POST" class="dropdown-item notify-item">
-                        <i class="fe-log-out"></i>
-                        @csrf
-                        <button type="submit" class="log_out_confirm" style="background: transparent;border:transparent;outline:none;width:100%;text-align:left;padding:0;color:rgb(58, 58, 58)">
-                            <span>{{ __('message.Logout') }}</span>
-                        </button>
-                    </form>
+    <!-- ======= hero Section ======= -->
+    <section
+        id="hero-wrapper"
+        class="relative w-full min-h-screen text-slate-50 antialiased selection:bg-emerald-500 selection:text-white flex items-center overflow-x-hidden"
+        style="font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #022c22 0%, #064e1cff 50%, #020617 100%);">
+
+        <!-- 1. Base Grid Pattern (Green Theme) -->
+        <div class="absolute inset-0 bg-[size:40px_40px] bg-[linear-gradient(to_right,#064e3b_1px,transparent_1px),linear-gradient(to_bottom,#064e3b_1px,transparent_1px)] opacity-50 pointer-events-none z-0"></div>
+        
+        <!-- 2. Radial Gradient Mask (Vignette) -->
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-950/20 via-emerald-950/80 to-emerald-950 z-0 pointer-events-none"></div>
+
+        <!-- 3. Green Gradient Glows (Blobs) -->
+        <!-- Top Left Glow (Emerald) -->
+        <div class="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-emerald-500/30 rounded-full blur-[120px] animate-pulse-slow z-[-1]"></div>
+        
+        <!-- Bottom Right Glow (Teal) -->
+        <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-teal-400/20 rounded-full blur-[120px] animate-pulse-slow z-[-1]"></div>
+        
+        <!-- Center Subtle Glow (Green) -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green-600/20 rounded-full blur-[100px] z-[-1]"></div>
+
+
+        <!-- Hero Section Container -->
+        <header class="relative z-10 w-full py-20 lg:py-32">
+            
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                    
+                    <!-- Left Side: Content -->
+                    <div 
+                        class="lg:w-5/12 flex flex-col ">
+                        <!-- Status Badge -->
+                        <div style="border: 1px solid #10b98180;" 
+                            class="inline-flex items-center lg:items-left gap-2 px-3 py-1 rounded-full bg-emerald-900/60 text-emerald-400 text-xs font-semibold w-fit uppercase tracking-wide mb-6 backdrop-blur-sm">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Live Stock Available
+                        </div>
+
+                        <!-- Headline -->
+                        <h1 class="text-4xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
+                            Bulk Accounts <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400">
+                                Supercharged
+                            </span>
+                        </h1>
+
+                        <!-- Subheadline -->
+                        <p class="text-lg text-emerald-100/80 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                            Get access to largest inventory of PVA and aged accounts. From Facebook to Telegram, we supply to tools you need to scale.
+                        </p>
+
+                        <!-- CTA Buttons -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
+                            <a href="#pricing"
+                            class="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-lg shadow-lg shadow-emerald-500/30 transition-all transform hover:-translate-y-1 text-center">
+                                Get Start
+                            </a>
+                            <a href="#api" style="border: 1px solid #34d39980;" 
+                            class="w-full sm:w-auto px-8 py-3 bg-emerald-950/50 hover:bg-emerald-900 text-white font-bold rounded-lg hover:border-emerald-400 backdrop-blur-sm transition-all text-center">
+                                Contact Us
+                            </a>
+                        </div>
+
+                        <!-- Trust Stats -->
+                        <div class="grid grid-cols-3 gap-4 border-t border-emerald-500/20 pt-6 text-center lg:text-left">
+                            <div class="items-center justify-center lg:justify-start">
+                                <p class="text-2xl font-bold text-white text-left">500k+</p>
+                                <p class="text-xs text-emerald-200 uppercase text-left tracking-wide">Accounts Sold</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-white text-left">24/7</p>
+                                <p class="text-xs text-emerald-200 uppercase tracking-wide text-left">Live Support</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-white text-left">&lt;5m</p>
+                                <p class="text-xs text-emerald-200 uppercase tracking-wide text-left">Delivery Time</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Side: The "Dashboard" Visual -->
+                    <div class="lg:w-7/12 w-full relative">
+                        
+                        <!-- Main Dashboard Card -->
+                        <div style="border: 1px solid #10b98140;"  
+                            class="relative bg-emerald-950/60 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden animate-float">
+                            
+                            <!-- Dashboard Header -->
+                            <div style="border-bottom: 1px solid #10b98140;" 
+                                class="bg-emerald-950/40 px-6 py-4 flex justify-between items-center backdrop-blur-md">
+                                <div class="flex items-center gap-2">
+                                    <div class="flex gap-1.5">
+                                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                    </div>
+                                    <span class="ml-2 text-sm text-emerald-100 font-mono">Bulk Accounts</span>
+                                </div>
+                                <div style="border: 1px solid #10b98180;" 
+                                    class="text-xs font-mono text-emerald-400 bg-emerald-900/20 px-2 py-1 rounded">
+                                    SYSTEM ONLINE
+                                </div>
+                            </div>
+
+                            <!-- Grid of Accounts -->
+                            <div class="p-3 lg:p-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
+                                
+                                <!-- Item 1: Facebook -->
+                                <div style="border: 1px solid #10b98130;" 
+                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80 shadow hover:border-emerald-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-emerald-900/20">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-blue-600/30">
+                                            <i class="fa-brands fa-facebook-f text-lg"></i>
+                                        </div>
+                                        <span style="border: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono ">IN STOCK</span>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm mb-1">Facebook</h4>
+                                    <p class="text-xs text-emerald-200 mb-2">PVA + Friends</p>
+                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-emerald-500 to-teal-400 w-[90%] h-full"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Item 2: Instagram -->
+                                <div style="border: 1px solid #10b98130;" 
+                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-green-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-green-900/20">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-pink-600/30">
+                                            <i class="fa-brands fa-instagram text-lg"></i>
+                                        </div>
+                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono ">IN STOCK</span>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm mb-1">Instagram</h4>
+                                    <p class="text-xs text-emerald-200 mb-2">Aged & Active</p>
+                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-green-500 to-emerald-400 w-[75%] h-full"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Item 3: Gmail -->
+                                <div style="border: 1px solid #10b98130;" 
+                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-orange-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-orange-900/20">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="w-10 h-10 rounded-lg bg-red-500 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-red-600/30">
+                                            <i class="fa-solid fa-envelope text-lg"></i>
+                                        </div>
+                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-orange-500/10 text-orange-400 px-1.5 py-0.5 rounded font-mono border border-orange-500/20">HOT</span>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm mb-1">Gmail</h4>
+                                    <p class="text-xs text-emerald-200 mb-2">G-Suite Verified</p>
+                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-red-500 to-orange-400 w-[95%] h-full"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Item 4: Twitter (X) -->
+                                <div style="border: 1px solid #10b98130;" 
+                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-gray-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-gray-900/20">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="w-10 h-10 rounded-lg bg-black border border-slate-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-white/10">
+                                            <i class="fa-brands fa-x-twitter text-lg"></i>
+                                        </div>
+                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono ">IN STOCK</span>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm mb-1">Twitter (X)</h4>
+                                    <p class="text-xs text-emerald-200 mb-2">Phone Verified</p>
+                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-gray-500 to-white w-[60%] h-full"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Item 5: TikTok -->
+                                <div style="border: 1px solid #10b98130;" 
+                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-teal-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-teal-900/20">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="w-10 h-10 rounded-lg bg-black border border-slate-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-teal-500/20">
+                                            <i class="fa-brands fa-tiktok text-lg"></i>
+                                        </div>
+                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-lime-500/10 text-lime-400 px-1.5 py-0.5 rounded font-mono border border-lime-500/20">LOW</span>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm mb-1">TikTok</h4>
+                                    <p class="text-xs text-emerald-200 mb-2">US & UK Region</p>
+                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-teal-400 to-green-500 w-[40%] h-full"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Item 6: Telegram -->
+                                <div style="border: 1px solid #10b98130;" 
+                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-sky-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-sky-900/20">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="w-10 h-10 rounded-lg bg-sky-400 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-sky-400/30">
+                                            <i class="fa-brands fa-telegram text-lg"></i>
+                                        </div>
+                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono ">IN STOCK</span>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm mb-1">Telegram</h4>
+                                    <p class="text-xs text-emerald-200 mb-2">Premium Members</p>
+                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-sky-400 to-blue-500 w-[85%] h-full"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Item 7: LinkedIn -->
+                                <div style="border: 1px solid #10b98130;" 
+                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-blue-700/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-blue-900/20">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="w-10 h-10 rounded-lg bg-blue-700 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-blue-700/30">
+                                            <i class="fa-brands fa-linkedin-in text-lg"></i>
+                                        </div>
+                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono ">IN STOCK</span>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm mb-1">LinkedIn</h4>
+                                    <p class="text-xs text-emerald-200 mb-2">Corporate Profiles</p>
+                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-blue-700 to-blue-500 w-[55%] h-full"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Item 8: Pinterest -->
+                                <div style="border: 1px solid #10b98130;" 
+                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-red-600/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-red-900/20">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="w-10 h-10 rounded-lg bg-red-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-red-600/30">
+                                            <i class="fa-brands fa-pinterest-p text-lg"></i>
+                                        </div>
+                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono ">IN STOCK</span>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm mb-1">Pinterest</h4>
+                                    <p class="text-xs text-emerald-200 mb-2">Business Accounts</p>
+                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-red-600 to-red-400 w-[70%] h-full"></div>
+                                    </div>
+                                </div>
+
+                                    <!-- Ticketmaster -->
+                                <div style="border: 1px solid #10b98130;"
+                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80 hover:border-blue-600/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-blue-900/20">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-blue-600/30">
+                                            <i class="fa-solid fa-ticket text-lg"></i>
+                                        </div>
+                                        <span style="border-bottom: 1px solid #10b98140;"
+                                            class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono">
+                                            IN STOCK
+                                        </span>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm mb-1">Ticketmaster</h4>
+                                    <p class="text-xs text-emerald-200 mb-2">Verified Accounts</p>
+                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-blue-600 to-blue-400 w-[65%] h-full"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Medium -->
+                                <div style="border: 1px solid #10b98130;"
+                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80 hover:border-black/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-black/30">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="w-10 h-10 rounded-lg bg-black flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-black/40">
+                                            <i class="fa-brands fa-medium text-lg"></i>
+                                        </div>
+                                        <span style="border-bottom: 1px solid #10b98140;"
+                                            class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono">
+                                            IN STOCK
+                                        </span>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm mb-1">Medium</h4>
+                                    <p class="text-xs text-emerald-200 mb-2">Aged Writer Accounts</p>
+                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-neutral-700 to-neutral-500 w-[60%] h-full"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Naver -->
+                                <div style="border: 1px solid #10b98130;"
+                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80 hover:border-green-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-green-900/20">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="w-10 h-10 rounded-lg bg-green-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-green-600/30">
+                                            <span class="font-extrabold text-lg">N</span>
+                                        </div>
+                                        <span style="border-bottom: 1px solid #10b98140;"
+                                            class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono">
+                                            IN STOCK
+                                        </span>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm mb-1">Naver</h4>
+                                    <p class="text-xs text-emerald-200 mb-2">Verified Accounts</p>
+                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-green-600 to-green-400 w-[75%] h-full"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Binance -->
+                                <div style="border: 1px solid #10b98130;"
+                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80 hover:border-yellow-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-yellow-900/20">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="w-10 text-white h-10 rounded-lg bg-yellow-500 flex items-center justify-center text-black group-hover:scale-110 transition-transform shadow-lg shadow-yellow-500/30">
+                                            <span class="font-extrabold text-lg">B</span>
+                                        </div>
+                                        <span style="border-bottom: 1px solid #10b98140;"
+                                            class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono">
+                                            IN STOCK
+                                        </span>
+                                    </div>
+                                    <h4 class="font-bold text-white text-sm mb-1">Binance</h4>
+                                    <p class="text-xs text-emerald-200 mb-2">KYC Ready Accounts</p>
+                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                        <div class="bg-gradient-to-r from-yellow-500 to-yellow-300 w-[80%] h-full"></div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <!-- Dashboard Footer -->
+                            <div class="bg-emerald-950/40 px-6 py-3 border-t border-emerald-500/20 flex justify-between items-center text-xs text-emerald-200 backdrop-blur-md">
+                                <span>Server: US-East-1</span>
+                                <span class="text-emerald-400">Latency: 12ms</span>
+                            </div>
+                        </div>
+
+                        <!-- Decorative Floating Elements behind dashboard -->
+                        <div
+                            style="border: 1px solid #34d39980;"
+                            class="hidden lg:flex absolute -top-12 -right-12 w-32 h-32 bg-emerald-950/80 backdrop-blur-md rounded-2xl p-4 flex-col items-center justify-center animate-float-delayed shadow-xl z-[-1]">
+                            <i class="fa-brands fa-google text-4xl text-transparent bg-clip-text bg-gradient-to-br from-red-500 via-yellow-500 to-green-500 mb-2"></i>
+                            <span class="text-xs font-bold text-emerald-200">G-Suite</span>
+                        </div>
+
+                        <div
+                            style="border: 1px solid #34d39980;"
+                            class="hidden lg:flex absolute -bottom-10 -left-10 w-28 h-28 bg-emerald-950/80 backdrop-blur-md rounded-2xl p-4 flex-col items-center justify-center animate-float shadow-xl z-[-1]">
+                            <i class="fa-brands fa-yahoo text-4xl text-purple-500 mb-2"></i>
+                            <span class="text-xs font-bold text-emerald-200">Yahoo</span>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+    <!-- End Hero Section -->
+
+
+    
+    <!-- ======= Services Section ======= -->
+    <section id="services">
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header wow fadeInUp">
+          <h3>Services</h3>
+          <p>Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant vituperatoribus, ad pro quaestio laboramus. Ei ubique vivendum pro. At ius nisl accusam lorenta zanos paradigno tridexa panatarel.</p>
+        </header>
+
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon"><i class="bi bi-briefcase"></i></div>
+            <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+          </div>
+          <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon"><i class="bi bi-card-checklist"></i></div>
+            <h4 class="title"><a href="">Dolor Sitema</a></h4>
+            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+          </div>
+          <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon"><i class="bi bi-bar-chart"></i></div>
+            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
+            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+          </div>
+          <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon"><i class="bi bi-binoculars"></i></div>
+            <h4 class="title"><a href="">Magni Dolores</a></h4>
+            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+          </div>
+          <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon"><i class="bi bi-brightness-high"></i></div>
+            <h4 class="title"><a href="">Nemo Enim</a></h4>
+            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+          </div>
+          <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="400">
+            <div class="icon"><i class="bi bi-calendar4-week"></i></div>
+            <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
+            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+
+    <!-- ======= Featured Services Section Section ======= -->
+    <section id="featured-services">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4 box">
+            <i class="bi bi-briefcase"></i>
+            <h4 class="title"><a href="">Lorem Ipsum Delino</a></h4>
+            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+          </div>
+
+          <div class="col-lg-4 box box-bg">
+            <i class="bi bi-card-checklist"></i>
+            <h4 class="title"><a href="">Dolor Sitema</a></h4>
+            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+          </div>
+
+          <div class="col-lg-4 box">
+            <i class="bi bi-binoculars"></i>
+            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
+            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- End Featured Services Section -->
+
      
 @endsection
 @push('script')
-
 @endpush
