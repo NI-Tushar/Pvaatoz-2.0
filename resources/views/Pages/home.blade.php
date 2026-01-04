@@ -361,44 +361,93 @@
       <div class="container" data-aos="fade-up">
 
         <header class="section-header wow fadeInUp">
-          <h3>Services</h3>
-          <p>Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant vituperatoribus, ad pro quaestio laboramus. Ei ubique vivendum pro. At ius nisl accusam lorenta zanos paradigno tridexa panatarel.</p>
+            <h3>Why Choose PVAAtoZ</h3>
+            <p class="mt-2">We provide 100% verified PVA and aged accounts to help you achieve your digital goals. With years of experience in the industry, we ensure secure, reliable, and fast delivery for businesses and professionals. Trust PVAATOZ for high-quality accounts and exceptional service that scales with your needs.</p>
         </header>
 
-        <div class="row">
+    <div class="row justify-content-center gap-4 pl-4 pr-4">
 
-          <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon"><i class="bi bi-briefcase"></i></div>
-            <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon"><i class="bi bi-card-checklist"></i></div>
-            <h4 class="title"><a href="">Dolor Sitema</a></h4>
-            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="300">
-            <div class="icon"><i class="bi bi-bar-chart"></i></div>
-            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon"><i class="bi bi-binoculars"></i></div>
-            <h4 class="title"><a href="">Magni Dolores</a></h4>
-            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="300">
-            <div class="icon"><i class="bi bi-brightness-high"></i></div>
-            <h4 class="title"><a href="">Nemo Enim</a></h4>
-            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-          </div>
-          <div class="col-lg-4 col-md-6 box" data-aos="fade-up" data-aos-delay="400">
-            <div class="icon"><i class="bi bi-calendar4-week"></i></div>
-            <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
-            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-          </div>
-
+        <!-- Our Payment Method -->
+        <div 
+            class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
+            style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
+            data-aos="fade-up" data-aos-delay="100">
+            <div class="text-center w-100">
+                <div class="d-flex justify-content-center mb-3">
+                    <img class="h-[60px] w-auto" src="{{ asset('Frontend/icons/services/payment.png') }}" alt="">
+                </div>
+                <!-- Text changes color on card hover -->
+                <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">
+                    Our Payment Method
+                </h4>
+                <p class="text-center">
+                    We support secure and flexible payment options to ensure fast, reliable, and hassle-free transactions.
+                </p>
+            </div>
         </div>
+
+        <!-- Our Products -->
+        <div style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
+            class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
+            data-aos="fade-up" data-aos-delay="200">
+            <div class="text-center w-100">
+                <div class="d-flex justify-content-center mb-3">
+                    <img src="{{ asset('Frontend/icons/services/products.png') }}" alt="">
+                </div>
+                <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">Our Products</h4>
+                <p class="text-center">
+                    Explore our wide range of verified and aged digital products designed for business needs.
+                </p>
+            </div>
+        </div>
+
+        <!-- About Products -->
+        <div style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
+            class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
+            data-aos="fade-up" data-aos-delay="300">
+            <div class="text-center w-100">
+                <div class="d-flex justify-content-center mb-3">
+                    <img src="{{ asset('Frontend/icons/services/information.png') }}" alt="">
+                </div>
+                <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">About Products</h4>
+                <p class="text-center">
+                    Each product is tested and verified to ensure quality, security, and long-term usability.
+                </p>
+            </div>
+        </div>
+
+        <!-- About Us -->
+        <div style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
+            class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
+            data-aos="fade-up" data-aos-delay="200">
+            <div class="text-center w-100">
+                <div class="d-flex justify-content-center mb-3">
+                    <img src="{{ asset('Frontend/icons/services/group.png') }}" alt="">
+                </div>
+                <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">About Us</h4>
+                <p class="text-center">
+                    We are a trusted digital service provider with years of experience delivering solutions worldwide.
+                </p>
+            </div>
+        </div>
+
+        <!-- Our Amazing Features -->
+        <div style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
+            class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
+            data-aos="fade-up" data-aos-delay="300">
+            <div class="text-center w-100">
+                <div class="d-flex justify-content-center mb-3">
+                    <img src="{{ asset('Frontend/icons/services/features.png') }}" alt="">
+                </div>
+                <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">Our Amazing Features</h4>
+                <p class="text-center">
+                    Enjoy instant delivery, 24/7 support, high success rates, and scalable solutions.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
 
       </div>
     </section><!-- End Services Section -->
