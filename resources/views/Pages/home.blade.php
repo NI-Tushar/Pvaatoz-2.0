@@ -353,8 +353,6 @@
         </header>
     </section>
     <!-- End Hero Section -->
-
-
     
     <!-- ======= Services Section ======= -->
     <section id="services">
@@ -661,7 +659,6 @@
     <!-- Amazing feature card end -->
 
     <!-- text contents start -->
-
     <section class="py-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
@@ -823,7 +820,6 @@
             </article>
         </div>
     </section>
-
     <!-- text contents end -->
 
      
