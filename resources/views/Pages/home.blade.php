@@ -654,6 +654,172 @@
     </section>
     <!-- Amazing feature card end -->
 
+    <!-- text contents start -->
+
+    <section class="py-5">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <h3>Our Amazing Features</h3>
+                <p class="mt-2">Our platform offers a complete range of premium PVA account services, including 100% genuine and manually created accounts, multiple package options, fast and reliable delivery, aged accounts for better performance, flexible payment methods, and a trusted replacement guarantee. Every feature is designed to ensure security, authenticity, and a smooth experience from purchase to delivery.</p>
+            </header>
+            <article class="w-full mx-auto px-4 py-16">
+
+                <!-- SECTION 1: Our PVA Service -->
+                <section class="mb-4 border-b border-gray-200 pb-10">
+                    <!-- Header: Taller Icon, Shorter Text -->
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-lg border-2 border-emerald-500 bg-white flex items-center justify-center shrink-0">
+                            <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/text_icon/call.png') }}" alt="">
+                        </div>
+                        <h2 class="text-[20px] md:text-[25px] font-serif font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
+                            OUR PVA SERVICE:
+                        </h2>
+                    </div>
+                    
+                    <div class="space-y-6 text-lg leading-relaxed text-slate-600">
+                        <p class="first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-emerald-600 first-letter:float-left first-letter:mr-2">
+                            Elevate your online business with our selection of bulk email accounts and various social profiles. Our inventory includes verified email and social accounts complete with authentic phone numbers, allowing you to expand your online presence effortlessly. Explore our cost-effective options for purchasing phone-verified social accounts and start boosting your online business today.
+                        </p>
+                        <p>
+                            Take your online business to new heights with our assortment of bulk email accounts and other social accounts. All our accounts are verified and tied to authentic phone numbers, ensuring reliability. Don't miss out on the opportunity to acquire budget-friendly, phone-verified social accounts.
+                        </p>
+                        <p>
+                            Boost your online business with ease by securing bulk email accounts and a variety of social accounts from our services. You can trust in the authenticity of our email and social accounts, thanks to their real phone number verifications. And the best part? You can enjoy these phone-verified social accounts at a highly competitive price.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- SECTION 2: Why Buy From Us? -->
+                <section class="mb-4 border-b border-gray-200 pb-10">
+                    <!-- Header: Taller Icon, Shorter Text -->
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-lg border-2 border-emerald-500 bg-white flex items-center justify-center shrink-0">
+                            <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/text_icon/question.png') }}" alt="">
+                        </div>
+                        <h2 class="text-[20px] md:text-[25px] font-serif font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
+                            WHY YOU SHOULD BUY ACCOUNTS FROM pvaatoz?
+                        </h2>
+                    </div>
+                    
+                    <ul class="space-y-3 pl-1 md:pl-8">
+                        <!-- Item 1 -->
+                        <li class="flex items-start">
+                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">01.</span>
+                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                                pvaatoz is one of the foremost well-known social media account providers.
+                            </p>
+                        </li>
+                        <!-- Item 2 -->
+                        <li class="flex items-start">
+                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">02.</span>
+                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                                You can purchase your AOL accounts with PayPal right away; nearly 5 to 10 minutes will take to provide your wanted AOL package.
+                            </p>
+                        </li>
+                        <!-- Item 3 -->
+                        <li class="flex items-start">
+                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">03.</span>
+                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                                You have a 7 days cash back ensure for any kind of problem.
+                            </p>
+                        </li>
+                        <!-- Item 4 -->
+                        <li class="flex items-start">
+                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">04.</span>
+                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                                You can arrange more seasoned or fresher indeed any matured AOL PVA account.
+                            </p>
+                        </li>
+                        <!-- Item 5 -->
+                        <li class="flex items-start">
+                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">05.</span>
+                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                                We continuously center on our committed client bolster so we are accessible to any kind of social media stage where you'll get moment offer assistance from us.
+                            </p>
+                        </li>
+                        <!-- Item 6 -->
+                        <li class="flex items-start">
+                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">06.</span>
+                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                                We accept diverse sorts of installment strategies so you don’t ought to stress almost your installments framework to pay us.
+                            </p>
+                        </li>
+                        <!-- Item 7 -->
+                        <li class="flex items-start">
+                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">07.</span>
+                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                                All AOL accounts are phone confirmed from a secure source.
+                            </p>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- SECTION 3: How To Buy -->
+                <section class="mb-4 border-b border-gray-200 pb-10">
+                    <!-- Header: Taller Icon, Shorter Text -->
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-lg border-2 border-emerald-500 bg-white flex items-center justify-center shrink-0">
+                            <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/text_icon/shopping.png') }}" alt="">
+                        </div>
+                        <h2 class="text-[20px] md:text-[25px] font-serif font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
+                            HOW TO BUY ACCOUNTS FROM pvaatoz
+                        </h2>
+                    </div>
+                    
+                    <div class="space-y-4 text-lg leading-relaxed text-slate-600 bg-white p-8 border border-gray-100 rounded-lg">
+                        <p>
+                            It is exceptionally simple to purchase Accounts on the off chance that you have got cash. Our accounts can be effectively opened if you'll verify them effectively along with your phone number or Facebook.
+                        </p>
+                        <p>
+                            You'll be able effortlessly to make an AOL account from your pc or versatile phone but you cannot make boundless AOL PVA accounts. So you ought to confirm the AOL PVA with a phone number. But you should keep in mind that your service supplier will not let you employ the phone number once more and again. That’s why you would like to discover a website who will assist you to purchase AOL accounts with a watchword at a sensible cost at the same time. You'll purchase moreover purchase Facebook accounts.
+                        </p>
+                        <p class="border-t border-gray-100 pt-6">
+                            <strong class="text-slate-900 uppercase tracking-widest text-sm mb-2 block">Step 1: Browse & Select</strong>
+                            To purchase ancient AOL accounts from pvaatoz you've got to browse the landing page to begin with. At that point you've got to go to the benefit segment once you will see the AOL account administrations recorded.
+                        </p>
+                        <p>
+                            <strong class="text-slate-900 uppercase tracking-widest text-sm mb-2 block">Step 2: Choose Package</strong>
+                            Go to the AOL account page and you may see distinctive sorts of packages. From there fair select your craved bundle that you simply need to purchase. Select or tap any bundles and it'll let you divert to the installment page where you'll be able to pay with a diverse installment choice.
+                        </p>
+                        <p>
+                            <strong class="text-slate-900 uppercase tracking-widest text-sm mb-2 block">Step 3: Payment</strong>
+                            pvaatoz basically acknowledges all sorts of installment alternatives such as PayPal, MasterCard installment, culminate cash and Bitcoin. In some cases pvaatoz offer a few rebates for particular bulk AOL accounts bundles which is astonishing. You'll be able to snatch our rebate offer by paying with a particular installment alternative.
+                        </p>
+                        <p>
+                            <strong class="text-slate-900 uppercase tracking-widest text-sm mb-2 block">Step 4: Delivery</strong>
+                            After installment you have got to wait for a minute and you may be informed before long to provide your accounts by email. pvaatoz mainly conveys accounts in a spreadsheet which may be exceptionally helpful highlight that will assist you to oversee the accounts effectively.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- SECTION 4: Why Buy Old Accounts? -->
+                <section class="mb-4">
+                    <!-- Header: Taller Icon, Shorter Text -->
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-lg border-2 border-emerald-500 bg-white flex items-center justify-center shrink-0">
+                            <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/text_icon/tag.png') }}" alt="">
+                        </div>
+                        <h2 class="text-[20px] md:text-[25px] font-serif font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
+                            WHY WOULD YOU BUY OLD ACCOUNT AT REASONABLE PRICE
+                        </h2>
+                    </div>
+                    
+                    <div class="space-y-4 text-lg leading-relaxed text-slate-600">
+                        <p>
+                            You'll have a part of websites which give AOL mail for your marketing. Regular we need to spend a part of cash to induce appropriate administrations. But the thing is that most of the websites on the web don’t give quality benefit particularly they by and large take the cash from the client but in return they give exceptionally poor services.
+                        </p>
+                        <p>
+                            So to buy AOL channel, pvaatoz can be a trusted source since it is solid and it has a dedicated team bolster. You are doing not ought to stress almost the quality of any sorts of accounts. Pvanet some of the time offers astounding rebates and you'll snatch it from there on the off chance that you're a customary client otherwise you can contact us for a special offer by subscribing to our bulletin. We'll inform you through e-mail on the off chance that any offer is running.
+                        </p>
+                    </div>
+                </section>
+
+            </article>
+        </div>
+    </section>
+
+    <!-- text contents end -->
+
      
 @endsection
 @push('script')
