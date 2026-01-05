@@ -12,6 +12,9 @@
 :root {
   --brand-green: #18d26e;
 }
+.border-brand {
+  border-color: var(--brand-green);
+}
 
 body {
   background: #fff;

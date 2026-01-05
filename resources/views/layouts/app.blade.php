@@ -132,7 +132,7 @@
                                         <i class="bi bi-chevron-down"></i>
                                     </a>
 
-                                    <ul class="d-flex rounded" style="background-color: rgba(136, 136, 136, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+                                    <ul class="d-flex rounded" style="background-color: rgba(23, 23, 23, 0.51); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
                                         <div>
                                             <li><a href="#" class="text-white hover:!text-[#00b931fe]">Edu Mail</a></li>
                                             <li><a href="#" class="text-white hover:!text-[#00b931fe]">Tinder</a></li>
@@ -166,7 +166,7 @@
                                         <i class="bi bi-chevron-down"></i>
                                     </a>
 
-                                    <ul class="d-flex rounded" style="background-color: rgba(136, 136, 136, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+                                    <ul class="d-flex rounded" style="background-color: rgba(23, 23, 23, 0.51); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
                                         <div>
                                             <li><a href="#" class="text-white hover:!text-[#00b931fe]">Ticketmaster</a></li>
                                             <li><a href="#" class="text-white hover:!text-[#00b931fe]">Medium Account</a></li>

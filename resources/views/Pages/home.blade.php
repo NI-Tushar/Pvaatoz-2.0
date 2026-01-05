@@ -365,93 +365,91 @@
             <p class="mt-2">We provide 100% verified PVA and aged accounts to help you achieve your digital goals. With years of experience in the industry, we ensure secure, reliable, and fast delivery for businesses and professionals. Trust PVAATOZ for high-quality accounts and exceptional service that scales with your needs.</p>
         </header>
 
-    <div class="row justify-content-center gap-4 pl-4 pr-4">
+        <div class="row justify-content-center gap-4 pl-4 pr-4">
 
-        <!-- Our Payment Method -->
-        <div 
-            class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
-            style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
-            data-aos="fade-up" data-aos-delay="100">
-            <div class="text-center w-100">
-                <div class="d-flex justify-content-center mb-3">
-                    <img class="h-[60px] w-auto" src="{{ asset('Frontend/icons/services/payment.png') }}" alt="">
+            <!-- Our Payment Method -->
+            <div 
+                class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
+                style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
+                data-aos="fade-up" data-aos-delay="100">
+                <div class="text-center w-100">
+                    <div class="d-flex justify-content-center mb-3">
+                        <img class="h-[60px] w-auto" src="{{ asset('Frontend/icons/services/payment.png') }}" alt="">
+                    </div>
+                    <!-- Text changes color on card hover -->
+                    <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">
+                        Our Payment Method
+                    </h4>
+                    <p class="text-center text-[15px] mt-2">
+                        We support secure and flexible payment options to ensure fast, reliable, and hassle-free transactions.
+                    </p>
                 </div>
-                <!-- Text changes color on card hover -->
-                <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">
-                    Our Payment Method
-                </h4>
-                <p class="text-center">
-                    We support secure and flexible payment options to ensure fast, reliable, and hassle-free transactions.
-                </p>
             </div>
-        </div>
 
-        <!-- Our Products -->
-        <div style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
-            class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
-            data-aos="fade-up" data-aos-delay="200">
-            <div class="text-center w-100">
-                <div class="d-flex justify-content-center mb-3">
-                    <img src="{{ asset('Frontend/icons/services/products.png') }}" alt="">
+            <!-- Our Products -->
+            <div style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
+                class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
+                data-aos="fade-up" data-aos-delay="200">
+                <div class="text-center w-100">
+                    <div class="d-flex justify-content-center mb-3">
+                        <img src="{{ asset('Frontend/icons/services/products.png') }}" alt="">
+                    </div>
+                    <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">Our Products</h4>
+                    <p class="text-center text-[15px] mt-2">
+                        Explore our wide range of verified and aged digital products designed for business needs.
+                    </p>
                 </div>
-                <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">Our Products</h4>
-                <p class="text-center">
-                    Explore our wide range of verified and aged digital products designed for business needs.
-                </p>
             </div>
-        </div>
 
-        <!-- About Products -->
-        <div style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
-            class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
-            data-aos="fade-up" data-aos-delay="300">
-            <div class="text-center w-100">
-                <div class="d-flex justify-content-center mb-3">
-                    <img src="{{ asset('Frontend/icons/services/information.png') }}" alt="">
+            <!-- About Products -->
+            <div style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
+                class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
+                data-aos="fade-up" data-aos-delay="300">
+                <div class="text-center w-100">
+                    <div class="d-flex justify-content-center mb-3">
+                        <img src="{{ asset('Frontend/icons/services/information.png') }}" alt="">
+                    </div>
+                    <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">About Products</h4>
+                    <p class="text-center text-[15px] mt-2">
+                        Each product is tested and verified to ensure quality, security, and long-term usability.
+                    </p>
                 </div>
-                <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">About Products</h4>
-                <p class="text-center">
-                    Each product is tested and verified to ensure quality, security, and long-term usability.
-                </p>
             </div>
-        </div>
 
-        <!-- About Us -->
-        <div style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
-            class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
-            data-aos="fade-up" data-aos-delay="200">
-            <div class="text-center w-100">
-                <div class="d-flex justify-content-center mb-3">
-                    <img src="{{ asset('Frontend/icons/services/group.png') }}" alt="">
+            <!-- About Us -->
+            <div style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
+                class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
+                data-aos="fade-up" data-aos-delay="200">
+                <div class="text-center w-100">
+                    <div class="d-flex justify-content-center mb-3">
+                        <img src="{{ asset('Frontend/icons/services/group.png') }}" alt="">
+                    </div>
+                    <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">About Us</h4>
+                    <p class="text-center text-[15px] mt-2">
+                        We are a trusted digital service provider with years of experience delivering solutions worldwide.
+                    </p>
                 </div>
-                <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">About Us</h4>
-                <p class="text-center">
-                    We are a trusted digital service provider with years of experience delivering solutions worldwide.
-                </p>
             </div>
-        </div>
 
-        <!-- Our Amazing Features -->
-        <div style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
-            class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
-            data-aos="fade-up" data-aos-delay="300">
-            <div class="text-center w-100">
-                <div class="d-flex justify-content-center mb-3">
-                    <img src="{{ asset('Frontend/icons/services/features.png') }}" alt="">
+            <!-- Our Amazing Features -->
+            <div style="box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
+                class="group p-4 rounded-lg col-lg-3 col-md-6 d-flex justify-content-center cursor-pointer transform transition-transform hover:scale-105"
+                data-aos="fade-up" data-aos-delay="300">
+                <div class="text-center w-100">
+                    <div class="d-flex justify-content-center mb-3">
+                        <img src="{{ asset('Frontend/icons/services/features.png') }}" alt="">
+                    </div>
+                    <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">Our Amazing Features</h4>
+                    <p class="text-center text-[15px] mt-2">
+                        Enjoy instant delivery, 24/7 support, high success rates, and scalable solutions.
+                    </p>
                 </div>
-                <h4 class="text-center font-bold text-black group-hover:!text-[var(--brand-green)] transition-colors">Our Amazing Features</h4>
-                <p class="text-center">
-                    Enjoy instant delivery, 24/7 support, high success rates, and scalable solutions.
-                </p>
             </div>
+
         </div>
-
-    </div>
-
 
       </div>
     </section><!-- End Services Section -->
-
 
     <!-- ======= Featured Services Section Section ======= -->
     <section id="featured-services">
@@ -479,6 +477,182 @@
         </div>
       </div>
     </section><!-- End Featured Services Section -->
+
+    <!-- Amazing feature card start -->
+    <section id="about">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <h3>Our Amazing Features</h3>
+                <p class="mt-2">Our platform offers a complete range of premium PVA account services, including 100% genuine and manually created accounts, multiple package options, fast and reliable delivery, aged accounts for better performance, flexible payment methods, and a trusted replacement guarantee. Every feature is designed to ensure security, authenticity, and a smooth experience from purchase to delivery.</p>
+            </header>
+            <div class="container mx-auto p-4">
+                <!-- Grid Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                    <!-- Card 1: Genuine PVA (Emerald/Teal) -->
+                    <div class="relative bg-white rounded  shadow-xl h-60 flex flex-col overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                        <!-- Top 1/3: Multi-Color Green Gradient -->
+                        <div class="h-1/3 w-full bg-[linear-gradient(135deg,#059669_0%,#10b981_25%,#34d399_50%,#2dd4bf_75%,#0f766e_100%)] relative z-10 ">
+                            
+                            <!-- Carved Border (SVG Wave) -->
+                            <svg class="absolute bottom-0 w-full h-10 text-white" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                                <path fill="currentColor" d="M0,160 C480,260 960,60 1440,160 L1440,320 L0,320 Z"></path>
+                            </svg>
+
+                            <!-- 3D Absolute Icon (Sitting on the border) -->
+                            <div style="border: 2px solid var(--brand-green); box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;" 
+                                class="absolute -bottom-4 left-6 z-30 w-16 h-16  bg-white rounded-xl  flex items-center justify-center text-emerald-600 text-2xl border-2 border-emerald-100">
+                                <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/features/genuine.png') }}" alt="">
+                            </div>
+                        </div>
+
+                        <!-- Bottom 2/3: Text Content -->
+                        <div class="h-2/3 w-full px-6 pt-1 flex flex-col justify-center">
+                            <h3 class="text-lg font-extrabold text-gray-900 mb-2">Genuine PVA Accounts</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                You will get 100% Genuine PVA Accounts from us at a very low rate.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Genuine PVA (Forest/Green) -->
+                    <div class="relative bg-white rounded  shadow-xl h-60 flex flex-col overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-1/3 w-full bg-[linear-gradient(135deg,#059669_0%,#10b981_25%,#34d399_50%,#2dd4bf_75%,#0f766e_100%)] relative z-10 ">
+                            <svg class="absolute bottom-0 w-full h-10 text-white" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                                <path fill="currentColor" d="M0,160 C480,260 960,60 1440,160 L1440,320 L0,320 Z"></path>
+                            </svg>
+                            <div style="border: 2px solid var(--brand-green); box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;" 
+                                class="absolute -bottom-4 left-6 z-30 w-16 h-16  bg-white rounded-xl  flex items-center justify-center text-green-700 text-2xl border-2 border-green-100">
+                                <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/features/packages.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="h-2/3 w-full px-6 pt-1 flex flex-col justify-center">
+                            <h3 class="text-lg font-extrabold text-gray-900 mb-2">Various PVA Packages</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                Different Packages Available for your convenience at the best rate.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Manual PVA (Lime/Chartreuse) -->
+                    <div class="relative bg-white rounded  shadow-xl h-60 flex flex-col overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-1/3 w-full bg-[linear-gradient(135deg,#059669_0%,#10b981_25%,#34d399_50%,#2dd4bf_75%,#0f766e_100%)] relative z-10 ">
+                            <svg class="absolute bottom-0 w-full h-10 text-white" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                                <path fill="currentColor" d="M0,160 C480,260 960,60 1440,160 L1440,320 L0,320 Z"></path>
+                            </svg>
+                            <div style="border: 2px solid var(--brand-green); box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;" 
+                                class="absolute -bottom-4 left-6 z-30 w-16 h-16  bg-white rounded-xl  flex items-center justify-center text-lime-600 text-2xl border-2 border-lime-100">
+                                <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/features/manual.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="h-2/3 w-full px-6 pt-1 flex flex-col justify-center">
+                            <h3 class="text-lg font-extrabold text-gray-900 mb-2">Manual PVA Creation</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                All accounts are created manually & using safety for authenticity.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Fast Delivery (Cyan/Mint) -->
+                    <div class="relative bg-white rounded  shadow-xl h-60 flex flex-col overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-1/3 w-full bg-[linear-gradient(135deg,#059669_0%,#10b981_25%,#34d399_50%,#2dd4bf_75%,#0f766e_100%)] relative z-10 ">
+                            <svg class="absolute bottom-0 w-full h-10 text-white" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                                <path fill="currentColor" d="M0,160 C480,260 960,60 1440,160 L1440,320 L0,320 Z"></path>
+                            </svg>
+                            <div style="border: 2px solid var(--brand-green); box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;"  
+                                class="absolute -bottom-4 left-6 z-30 w-16 h-16  bg-white rounded-xl  flex items-center justify-center text-teal-600 text-2xl border-2 border-teal-100">
+                                <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/features/delivery.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="h-2/3 w-full px-6 pt-1 flex flex-col justify-center">
+                            <h3 class="text-lg font-extrabold text-gray-900 mb-2">Fast Delivery</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                All accounts are delivered as fast as possible with highest quality.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Replacement Guarantee (Sage/Gray Green) -->
+                    <div class="relative bg-white rounded  shadow-xl h-60 flex flex-col overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-1/3 w-full bg-[linear-gradient(135deg,#059669_0%,#10b981_25%,#34d399_50%,#2dd4bf_75%,#0f766e_100%)] relative z-10 ">
+                            <svg class="absolute bottom-0 w-full h-10 text-white" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                                <path fill="currentColor" d="M0,160 C480,260 960,60 1440,160 L1440,320 L0,320 Z"></path>
+                            </svg>
+                            <div style="border: 2px solid var(--brand-green); box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;" 
+                                class="absolute -bottom-4 left-6 z-30 w-16 h-16  bg-white rounded-xl  flex items-center justify-center text-green-600 text-2xl border-2 border-green-100">
+                                <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/features/replace.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="h-2/3 w-full px-6 pt-1 flex flex-col justify-center">
+                            <h3 class="text-lg font-extrabold text-gray-900 mb-2">Replacement Guarantee</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                You can replace any PVA Accounts within seven days if anything wrong.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Payment Methods (Mint/Jade) -->
+                    <div class="relative bg-white rounded  shadow-xl h-60 flex flex-col overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-1/3 w-full bg-[linear-gradient(135deg,#059669_0%,#10b981_25%,#34d399_50%,#2dd4bf_75%,#0f766e_100%)] relative z-10 ">
+                            <svg class="absolute bottom-0 w-full h-10 text-white" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                                <path fill="currentColor" d="M0,160 C480,260 960,60 1440,160 L1440,320 L0,320 Z"></path>
+                            </svg>
+                            <div style="border: 2px solid var(--brand-green); box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;" 
+                                class="absolute -bottom-4 left-6 z-30 w-16 h-16  bg-white rounded-xl  flex items-center justify-center text-teal-500 text-2xl border-2 border-teal-100">
+                                <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/features/payment.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="h-2/3 w-full px-6 pt-1 flex flex-col justify-center">
+                            <h3 class="text-lg font-extrabold text-gray-900 mb-2">Various Payment Methods</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                Almost all major payment methods accepted for your convenience.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 7: Aged PVA (Olive/Moss) -->
+                    <div class="relative bg-white rounded  shadow-xl h-60 flex flex-col overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-1/3 w-full bg-[linear-gradient(135deg,#059669_0%,#10b981_25%,#34d399_50%,#2dd4bf_75%,#0f766e_100%)] relative z-10 ">
+                            <svg class="absolute bottom-0 w-full h-10 text-white" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                                <path fill="currentColor" d="M0,160 C480,260 960,60 1440,160 L1440,320 L0,320 Z"></path>
+                            </svg>
+                            <div style="border: 2px solid var(--brand-green); box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;"  
+                            class="absolute -bottom-4 left-6 z-30 w-16 h-16  bg-white rounded-xl  flex items-center justify-center text-olive-600 text-2xl border-2 border-olive-100">
+                                <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/features/aged.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="h-2/3 w-full px-6 pt-1 flex flex-col justify-center">
+                            <h3 class="text-lg font-extrabold text-gray-900 mb-2">Aged PVA Accounts</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                Aged PVA accounts for genuine marketing and better results.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 8: Satisfaction (Spring Green) -->
+                    <div class="relative bg-white rounded  shadow-xl h-60 flex flex-col overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-1/3 w-full bg-[linear-gradient(135deg,#059669_0%,#10b981_25%,#34d399_50%,#2dd4bf_75%,#0f766e_100%)] relative z-10 ">
+                            <svg class="absolute bottom-0 w-full h-10 text-white" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                                <path fill="currentColor" d="M0,160 C480,260 960,60 1440,160 L1440,320 L0,320 Z"></path>
+                            </svg>
+                            <div style="border: 2px solid var(--brand-green); box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;"
+                            class="absolute -bottom-4 left-6 z-30 w-16 h-16  bg-white rounded-xl  flex items-center justify-center text-green-500 text-2xl border-2 border-green-100">
+                                <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/features/satisfaction.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="h-2/3 w-full px-6 pt-1 flex flex-col justify-center">
+                            <h3 class="text-lg font-extrabold text-gray-900 mb-2">100% Satisfaction</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                If you are not satisfied, you can get your money back as.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Amazing feature card end -->
 
      
 @endsection
