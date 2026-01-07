@@ -11,7 +11,7 @@
     <!-- ======= hero Section ======= -->
     <section
         id="hero-wrapper"
-        class="relative w-full min-h-screen text-slate-50 antialiased selection:bg-emerald-500 selection:text-white flex items-center overflow-x-hidden"
+        class="hidden relative w-full min-h-screen text-slate-50 antialiased selection:bg-emerald-500 selection:text-white flex items-center overflow-x-hidden"
         style="font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #022c22 0%, #064e1cff 50%, #020617 100%);">
 
         <!-- 1. Base Grid Pattern (Green Theme) -->
@@ -114,7 +114,7 @@
                                 </div>
                             </div>
 
-                            <!-- Grid of Accounts -->
+                            <!-- Grid of  -->
                             <div class="p-3 lg:p-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
                                 
                                 <!-- Item 1: Facebook -->
@@ -355,7 +355,7 @@
     <!-- End Hero Section -->
     
     <!-- ======= Services Section ======= -->
-    <section id="services">
+    <section id="services" class="hidden">
       <div class="container" data-aos="fade-up">
 
         <header class="section-header wow fadeInUp">
@@ -449,8 +449,1425 @@
       </div>
     </section><!-- End Services Section -->
 
-    <!-- ======= Featured Services Section Section ======= -->
-    <section id="featured-services">
+    <!-- ======= Product Section start ======= -->
+    <section id="about" class="">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <h3>Our Products</h3>
+                <p class="mt-2"> We provide a wide selection of high-quality PVA accounts built for scalability and performance. All accounts are 100% genuine, 
+                    manually created, and carefully tested to ensure reliability. Our products include bulk and aged account options, fast and secure delivery, 
+                    multiple package choices, flexible payment methods, and a dependable replacement guarantee—giving you complete confidence from purchase to use.
+                </p>
+            </header>
+            <div class="container mx-auto p-2">
+                <div class="max-w-7xl mx-auto px-0 md:px-4 py-10">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                        <!-- Facebook -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <!-- Badges -->
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <!-- Image -->
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-emerald-500 to-teal-600">
+                                <img src="https://t4.ftcdn.net/jpg/02/88/45/89/360_F_288458933_h5vQQloDeokQpqSgHc7fDoTZiEUC0v7X.jpg"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Facebook PVA Accounts">
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-3 text-center ">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2 ">
+                                    Facebook PVA Accounts
+                                </h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    100% genuine, manually created PVA accounts suitable for bulk marketing and business use.
+                                </p>
+
+                                <!-- Feature List (Left Aligned) -->
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Phone Verified (PVA)
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Manually Created
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Instant Delivery
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Replacement Guarantee
+                                    </li>
+                                </ul>
+
+                                <!-- Price -->
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$0.35</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <!-- CTA -->
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Instagram -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <!-- Badges -->
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+                            <div class="absolute top-0 right-0 z-20 overflow-hidden w-20 h-20">
+                                <span
+                                    class="absolute top-3 right-[-28px] rotate-45 
+                                        bg-gradient-to-r from-red-600 via-red-500 to-rose-500
+                                        text-white text-xs font-bold text-center
+                                        w-32 py-1 shadow-lg pl-3">
+                                    Hot Product
+                                </span>
+                            </div>
+
+
+                            <!-- Image -->
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-pink-500 to-purple-600">
+                                <img src="https://cdn.mos.cms.futurecdn.net/MRJ6A6Arab9wvL28KB5Leh.jpg"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Instagram PVA Accounts">
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-3 text-center ">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">
+                                    Instagram PVA Accounts
+                                </h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    High-quality phone-verified Instagram accounts, perfect for influencers and marketing campaigns.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Phone Verified (PVA)
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Aged Options Available
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Instant Delivery
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Full Replacement
+                                    </li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$0.45</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Gmail -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <!-- Badges -->
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <!-- Image -->
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-red-500 to-orange-600">
+                                <img src="https://p7.hiclipart.com/preview/825/621/186/inbox-by-gmail-email-google-account-icon-gmail-logo-png.jpg"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Gmail PVA Accounts">
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-3 text-center ">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">
+                                    Gmail PVA Accounts
+                                </h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Reliable phone-verified Gmail accounts for business, marketing, or personal use.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Phone Verified (PVA)
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Unique IPs
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Instant Delivery
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Money-Back Guarantee
+                                    </li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$0.25</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Twitter/X -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <!-- Badges -->
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+                            <div class="absolute top-0 right-0 z-20 overflow-hidden w-20 h-20">
+                                <span
+                                    class="absolute top-3 right-[-28px] rotate-45 
+                                        bg-gradient-to-r from-red-600 via-red-500 to-rose-500
+                                        text-white text-xs font-bold text-center
+                                        w-32 py-1 shadow-lg pl-3">
+                                    Hot Product
+                                </span>
+                            </div>
+
+                            <!-- Image -->
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-black to-gray-800">
+                                <img src="https://pimpmytype.com/wp-content/uploads/2023/08/twitter-x-app-icon-1400x788.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Twitter X PVA Accounts">
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-3 text-center ">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">
+                                    Twitter/X PVA Accounts
+                                </h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified Twitter (X) accounts ready for promotions, engagement, and growth.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Phone Verified (PVA)
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Real Profile Info
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Instant Delivery
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-emerald-600 font-bold">✓</span> Lifetime Replacement
+                                    </li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$0.50</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Wise -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-green-500 to-emerald-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" class="h-20 group-hover:scale-110 transition" alt="">
+                            </div>
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2 ">Wise Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">Verified Wise accounts for secure global payments.</p>
+                                <ul class="text-sm space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Fully Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Ready to Use</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Fast Delivery</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement</li>
+                                </ul>
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$25</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+                                <a href="#" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg font-semibold">Buy Now</a>
+                            </div>
+                        </div>
+
+                        <!-- LinkedIn -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-700">
+                                <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" class="h-20 group-hover:scale-110 transition" alt="">
+                            </div>
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2 ">LinkedIn Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">Professional LinkedIn accounts for outreach.</p>
+                                <ul class="text-sm space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Phone Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Real Profiles</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Aged Options</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement</li>
+                                </ul>
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$3.5</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+                                <a href="#" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg font-semibold">Buy Now</a>
+                            </div>
+                        </div>
+
+                        <!-- Snapchat -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-yellow-400 to-yellow-500">
+                                <img src="https://cdn-icons-png.flaticon.com/512/733/733622.png" class="h-20 group-hover:scale-110 transition" alt="">
+                            </div>
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2 ">Snapchat Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">High quality Snapchat accounts for promotion.</p>
+                                <ul class="text-sm space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Email Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Fresh Accounts</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Bulk Ready</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Support</li>
+                                </ul>
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$0.6</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+                                <a href="#" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg font-semibold">Buy Now</a>
+                            </div>
+                        </div>
+
+                        <!-- GitHub -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-900">
+                                <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" class="h-20 group-hover:scale-110 transition" alt="">
+                            </div>
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2 ">GitHub Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">Verified GitHub accounts for development use.</p>
+                                <ul class="text-sm space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Email Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Clean History</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Ready to Use</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement</li>
+                                </ul>
+                                <div class="mb-4"><span class="text-2xl font-extrabold text-emerald-600">$1.2</span></div>
+                                <a href="#" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg font-semibold">Buy Now</a>
+                            </div>
+                        </div>
+
+                        <!-- PayPal -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-blue-400 to-blue-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/196/196565.png" class="h-20 group-hover:scale-110 transition" alt="">
+                            </div>
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2 ">PayPal Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">Secure PayPal accounts for online payments.</p>
+                                <ul class="text-sm space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Verified Email</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Secure Login</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Ready to Use</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement</li>
+                                </ul>
+                                <div class="mb-4"><span class="text-2xl font-extrabold text-emerald-600">$18</span></div>
+                                <a href="#" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg font-semibold">Buy Now</a>
+                            </div>
+                        </div>
+
+                        <!-- Binance -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-yellow-500 to-orange-500">
+                                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968260.png" class="h-20 group-hover:scale-110 transition" alt="">
+                            </div>
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2 ">Binance Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">Ready Binance accounts for crypto trading.</p>
+                                <ul class="text-sm space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Secure Setup</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>KYC Options</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Fast Delivery</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement</li>
+                                </ul>
+                                <div class="mb-4"><span class="text-2xl font-extrabold text-emerald-600">$35</span></div>
+                                <a href="#" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg font-semibold">Buy Now</a>
+                            </div>
+                        </div>
+
+                        <!-- Discord -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" class="h-20 group-hover:scale-110 transition" alt="">
+                            </div>
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2 ">Discord Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">Verified Discord accounts for communities.</p>
+                                <ul class="text-sm space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Email Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Clean Accounts</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Bulk Ready</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement</li>
+                                </ul>
+                                <div class="mb-4"><span class="text-2xl font-extrabold text-emerald-600">$0.9</span></div>
+                                <a href="#" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg font-semibold">Buy Now</a>
+                            </div>
+                        </div>
+
+                        <!-- Outlook  -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-blue-500 to-sky-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Outlook Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Outlook Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Clean and verified Outlook accounts suitable for email communication and business use.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Email Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Clean Inbox</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Instant Delivery</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$0.30</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Edu Mail  -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Edu Mail Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Edu Mail Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified .edu email accounts with full student benefits and long-term access.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>.EDU Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Student Access</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Long Validity</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Full Support</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$6.00</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Tinder  -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-pink-500 to-red-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Tinder Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Tinder Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Phone-verified Tinder accounts ready for dating, promotion, or testing purposes.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Phone Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Fresh Profiles</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Instant Delivery</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$0.90</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Quora  -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-red-500 to-rose-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968908.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Quora Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Quora Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    High-quality Quora accounts suitable for posting, answering, and brand visibility.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Email Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Real Profiles</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Marketing Ready</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Instant Delivery</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$0.45</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Ticketmaster  -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-red-500 to-orange-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968859.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Ticketmaster Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Ticketmaster Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Ready-to-use Ticketmaster accounts for ticket purchasing and event access.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Email Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Fresh Accounts</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Instant Access</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$0.80</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Google Voice  -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-green-500 to-emerald-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Google Voice Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Google Voice Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Google Voice enabled accounts with active numbers for verification and calls.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Voice Enabled</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Phone Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Instant Delivery</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement Support</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$1.50</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Medium  -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-gray-800 to-black">
+                                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968906.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Medium Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Medium Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Medium accounts ready for publishing articles and content marketing.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Email Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Publishing Ready</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Unique Profiles</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Instant Access</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$0.40</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Airbnb  -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-rose-500 to-red-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111320.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Airbnb Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Airbnb Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified Airbnb accounts ready for booking, hosting, and platform use.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Email Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Profile Ready</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Secure Login</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement Support</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$1.20</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- eBay  -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-yellow-500 to-red-500">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888848.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="eBay Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">eBay Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Ready eBay accounts for buying, selling, and marketplace operations.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Email Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Clean History</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Instant Login</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement Policy</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$0.75</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Paxful  -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Accounts</span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-green-600 to-lime-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Paxful Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Paxful Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified Paxful accounts suitable for crypto trading and P2P exchanges.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Email Verified</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>KYC Ready</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Secure Access</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Replacement Support</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$1.10</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Trustpilot Reviews -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">Bulk Service</span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-green-500 to-teal-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968875.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Trustpilot Reviews">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Trustpilot Reviews</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    High-quality Trustpilot reviews to improve brand reputation and trust score.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Real Profiles</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Custom Ratings</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Fast Posting</li>
+                                    <li class="flex gap-2"><span class="text-emerald-600 font-bold">✓</span>Safe & Secure</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-emerald-600">$2.00</span>
+                                    <span class="text-sm text-gray-500">/ review</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                    Order Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Never -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-gray-700 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-gray-600 to-slate-800">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Never Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Never Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Clean and secure Never accounts created for bulk usage with full safety assurance.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-gray-700 font-bold">✓</span> Fresh Accounts</li>
+                                    <li class="flex items-center gap-2"><span class="text-gray-700 font-bold">✓</span> Secure Login</li>
+                                    <li class="flex items-center gap-2"><span class="text-gray-700 font-bold">✓</span> Fast Delivery</li>
+                                    <li class="flex items-center gap-2"><span class="text-gray-700 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-gray-700">$0.30</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-gray-700 hover:bg-gray-800 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Review Mail -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Review Mail Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Review Mail Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    High-quality review mail accounts ideal for feedback, reviews, and verification use.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-indigo-600 font-bold">✓</span> Verified Emails</li>
+                                    <li class="flex items-center gap-2"><span class="text-indigo-600 font-bold">✓</span> Clean History</li>
+                                    <li class="flex items-center gap-2"><span class="text-indigo-600 font-bold">✓</span> Ready to Use</li>
+                                    <li class="flex items-center gap-2"><span class="text-indigo-600 font-bold">✓</span> Replacement Support</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-indigo-600">$0.35</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- AliExpress -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-orange-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-orange-500 to-red-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888848.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="AliExpress Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">AliExpress Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified AliExpress buyer accounts suitable for shopping, dropshipping, and bulk orders.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Email Verified</li>
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Fresh Accounts</li>
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Safe Login</li>
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-orange-600">$0.40</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-orange-600 hover:bg-orange-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Google Ads -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-blue-500 to-cyan-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Google Ads Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Google Ads Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Ready-to-use Google Ads accounts for advertising, marketing, and campaign management.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-blue-600 font-bold">✓</span> Verified Setup</li>
+                                    <li class="flex items-center gap-2"><span class="text-blue-600 font-bold">✓</span> Ads Ready</li>
+                                    <li class="flex items-center gap-2"><span class="text-blue-600 font-bold">✓</span> Secure Access</li>
+                                    <li class="flex items-center gap-2"><span class="text-blue-600 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-blue-600">$0.50</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-blue-600 hover:bg-blue-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Google Play Console -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-green-500 to-lime-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Google Play Console Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Google Play Console Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified Google Play Console accounts ready for app management, uploads, and testing.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-green-600 font-bold">✓</span> Verified Accounts</li>
+                                    <li class="flex items-center gap-2"><span class="text-green-600 font-bold">✓</span> Developer Access</li>
+                                    <li class="flex items-center gap-2"><span class="text-green-600 font-bold">✓</span> Instant Delivery</li>
+                                    <li class="flex items-center gap-2"><span class="text-green-600 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-green-600">$0.60</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-green-600 hover:bg-green-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Twitch -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-purple-500 to-indigo-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/733/733646.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Twitch Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Twitch Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified Twitch accounts for streaming, chat engagement, and growth campaigns.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-purple-600 font-bold">✓</span> Phone Verified</li>
+                                    <li class="flex items-center gap-2"><span class="text-purple-600 font-bold">✓</span> Secure Login</li>
+                                    <li class="flex items-center gap-2"><span class="text-purple-600 font-bold">✓</span> Instant Delivery</li>
+                                    <li class="flex items-center gap-2"><span class="text-purple-600 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-purple-600">$0.50</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-purple-600 hover:bg-purple-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Taboola -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-orange-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-orange-500 to-yellow-500">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888847.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Taboola Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Taboola Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Ready-to-use Taboola accounts for advertising, content promotion, and marketing campaigns.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Verified Accounts</li>
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Ads Ready</li>
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Secure Login</li>
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-orange-600">$0.55</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-orange-600 hover:bg-orange-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Apple Developer -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-gray-900 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-gray-800 to-black">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888841.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Apple Developer Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Apple Developer Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified Apple Developer accounts for app submission, testing, and iOS development.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-gray-900 font-bold">✓</span> Verified Accounts</li>
+                                    <li class="flex items-center gap-2"><span class="text-gray-900 font-bold">✓</span> Developer Access</li>
+                                    <li class="flex items-center gap-2"><span class="text-gray-900 font-bold">✓</span> Instant Delivery</li>
+                                    <li class="flex items-center gap-2"><span class="text-gray-900 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-gray-900">$0.70</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-gray-900 hover:bg-black text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Nextdoor -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-green-700 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-green-500 to-green-800">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888846.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Nextdoor Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Nextdoor Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified Nextdoor accounts for local marketing, promotions, and community engagement.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-green-700 font-bold">✓</span> Verified Accounts</li>
+                                    <li class="flex items-center gap-2"><span class="text-green-700 font-bold">✓</span> Real Profiles</li>
+                                    <li class="flex items-center gap-2"><span class="text-green-700 font-bold">✓</span> Instant Delivery</li>
+                                    <li class="flex items-center gap-2"><span class="text-green-700 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-green-700">$0.40</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-green-700 hover:bg-green-800 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- BeReal -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-yellow-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-yellow-400 to-yellow-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888849.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="BeReal Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">BeReal Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified BeReal accounts for social interactions, sharing, and authentic networking.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-yellow-600 font-bold">✓</span> Phone Verified</li>
+                                    <li class="flex items-center gap-2"><span class="text-yellow-600 font-bold">✓</span> Real Profiles</li>
+                                    <li class="flex items-center gap-2"><span class="text-yellow-600 font-bold">✓</span> Instant Delivery</li>
+                                    <li class="flex items-center gap-2"><span class="text-yellow-600 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-yellow-600">$0.35</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-yellow-600 hover:bg-yellow-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Crunchyroll -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-orange-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-orange-500 to-orange-700">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888848.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Crunchyroll Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Crunchyroll Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified Crunchyroll accounts for anime streaming, watching, and premium features.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Verified Accounts</li>
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Premium Access</li>
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Instant Delivery</li>
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-orange-600">$0.40</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-orange-600 hover:bg-orange-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Airchat -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-cyan-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-cyan-400 to-cyan-600">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888850.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Airchat Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Airchat Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified Airchat accounts for instant messaging, social networking, and community interactions.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-cyan-600 font-bold">✓</span> Phone Verified</li>
+                                    <li class="flex items-center gap-2"><span class="text-cyan-600 font-bold">✓</span> Secure Login</li>
+                                    <li class="flex items-center gap-2"><span class="text-cyan-600 font-bold">✓</span> Instant Delivery</li>
+                                    <li class="flex items-center gap-2"><span class="text-cyan-600 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-cyan-600">$0.35</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Supernova -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-purple-700 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-purple-500 to-purple-800">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888851.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Supernova Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Supernova Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified Supernova accounts for secure access and social networking purposes.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-purple-700 font-bold">✓</span> Verified Accounts</li>
+                                    <li class="flex items-center gap-2"><span class="text-purple-700 font-bold">✓</span> Instant Access</li>
+                                    <li class="flex items-center gap-2"><span class="text-purple-700 font-bold">✓</span> Secure Login</li>
+                                    <li class="flex items-center gap-2"><span class="text-purple-700 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-purple-700">$0.35</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-purple-700 hover:bg-purple-800 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Relay -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-indigo-500 to-indigo-700">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888852.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Relay Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Relay Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Secure Relay accounts for communication, messaging, and social interaction purposes.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-indigo-600 font-bold">✓</span> Verified Accounts</li>
+                                    <li class="flex items-center gap-2"><span class="text-indigo-600 font-bold">✓</span> Instant Delivery</li>
+                                    <li class="flex items-center gap-2"><span class="text-indigo-600 font-bold">✓</span> Real Profiles</li>
+                                    <li class="flex items-center gap-2"><span class="text-indigo-600 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-indigo-600">$0.40</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Stake -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-pink-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-pink-500 to-pink-700">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888853.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Stake Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Stake Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified Stake accounts for secure online transactions and investment purposes.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-pink-600 font-bold">✓</span> Verified Accounts</li>
+                                    <li class="flex items-center gap-2"><span class="text-pink-600 font-bold">✓</span> Instant Delivery</li>
+                                    <li class="flex items-center gap-2"><span class="text-pink-600 font-bold">✓</span> Secure Login</li>
+                                    <li class="flex items-center gap-2"><span class="text-pink-600 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-pink-600">$0.45</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-pink-600 hover:bg-pink-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Payoneer -->
+                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div class="absolute top-3 left-3 z-10">
+                                <span class="bg-orange-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                    Bulk Accounts
+                                </span>
+                            </div>
+
+                            <div class="h-44 flex items-center justify-center bg-gradient-to-br from-orange-500 to-orange-700">
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888854.png"
+                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                    alt="Payoneer Accounts">
+                            </div>
+
+                            <div class="p-3 text-center">
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Payoneer Accounts</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Verified Payoneer accounts for global payments, withdrawals, and online transactions.
+                                </p>
+
+                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Verified Accounts</li>
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Instant Delivery</li>
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Secure Login</li>
+                                    <li class="flex items-center gap-2"><span class="text-orange-600 font-bold">✓</span> Replacement Guarantee</li>
+                                </ul>
+
+                                <div class="mb-4">
+                                    <span class="text-2xl font-extrabold text-orange-600">$0.50</span>
+                                    <span class="text-sm text-gray-500">/ account</span>
+                                </div>
+
+                                <a href="#" class="inline-block w-full rounded-lg bg-orange-600 hover:bg-orange-700 text-white py-2.5 font-semibold transition">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ======= Product Section end ======= -->
+
+    <!-- ======= Featured Services Section ======= -->
+    <section id="featured-services" class="hidden">
       <div class="container">
         <div class="row">
 
@@ -462,7 +1879,7 @@
                 </p>
             </div>
 
-            <div class="col-lg-4 box box-bg">
+            <div class="col-lg-4 box border-l border-[#f1f1f13b] border-r shadow">
                 <img class="h-[60px] w-auto" src="{{ asset('Frontend/icons/text_icon/gift-box.png') }}" alt="">
                 <h4 class="title"><a href="">Multiple Packages</a></h4>
                 <p class="description">
@@ -483,7 +1900,7 @@
     </section><!-- End Featured Services Section -->
 
     <!-- Amazing feature card start -->
-    <section id="about">
+    <section id="about" class="hidden">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
                 <h3>Our Amazing Features</h3>
@@ -659,11 +2076,13 @@
     <!-- Amazing feature card end -->
 
     <!-- text contents start -->
-    <section class="py-5">
+    <section class="py-5 hidden">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
-                <h3>Our Amazing Features</h3>
-                <p class="mt-2">Our platform offers a complete range of premium PVA account services, including 100% genuine and manually created accounts, multiple package options, fast and reliable delivery, aged accounts for better performance, flexible payment methods, and a trusted replacement guarantee. Every feature is designed to ensure security, authenticity, and a smooth experience from purchase to delivery.</p>
+                <h3>About Our Products</h3>
+                <p class="mt-2">
+                    Our products are carefully developed to meet the highest standards of quality, security, and reliability. Each PVA account is manually created, thoroughly verified, and tested before delivery to ensure long-term usability. We offer a variety of account types, including bulk and aged options, to support different marketing and business needs. With fast delivery, flexible payment methods, and a dependable replacement policy, our products are designed to provide a smooth, risk-free experience for every customer.
+                </p>
             </header>
             <article class="w-full mx-auto px-4 py-16">
 
@@ -708,49 +2127,49 @@
                         <!-- Item 1 -->
                         <li class="flex items-start">
                             <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">01.</span>
-                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                            <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
                                 pvaatoz is one of the foremost well-known social media account providers.
                             </p>
                         </li>
                         <!-- Item 2 -->
                         <li class="flex items-start">
                             <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">02.</span>
-                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                            <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0 italic">
                                 You can purchase your AOL accounts with PayPal right away; nearly 5 to 10 minutes will take to provide your wanted AOL package.
                             </p>
                         </li>
                         <!-- Item 3 -->
                         <li class="flex items-start">
                             <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">03.</span>
-                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                            <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
                                 You have a 7 days cash back ensure for any kind of problem.
                             </p>
                         </li>
                         <!-- Item 4 -->
                         <li class="flex items-start">
                             <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">04.</span>
-                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                            <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
                                 You can arrange more seasoned or fresher indeed any matured AOL PVA account.
                             </p>
                         </li>
                         <!-- Item 5 -->
                         <li class="flex items-start">
                             <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">05.</span>
-                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                            <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
                                 We continuously center on our committed client bolster so we are accessible to any kind of social media stage where you'll get moment offer assistance from us.
                             </p>
                         </li>
                         <!-- Item 6 -->
                         <li class="flex items-start">
                             <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">06.</span>
-                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                            <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
                                 We accept diverse sorts of installment strategies so you don’t ought to stress almost your installments framework to pay us.
                             </p>
                         </li>
                         <!-- Item 7 -->
                         <li class="flex items-start">
                             <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">07.</span>
-                            <p class="text-slate-600 leading-relaxed border-l-2 border-gray-200 pl-6 italic">
+                            <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
                                 All AOL accounts are phone confirmed from a secure source.
                             </p>
                         </li>
@@ -769,7 +2188,7 @@
                         </h2>
                     </div>
                     
-                    <div class="space-y-4 text-lg leading-relaxed text-slate-600 bg-white p-8 border border-gray-100 rounded-lg">
+                    <div class="space-y-4 text-lg leading-relaxed text-slate-600 bg-white p-0">
                         <p>
                             It is exceptionally simple to purchase Accounts on the off chance that you have got cash. Our accounts can be effectively opened if you'll verify them effectively along with your phone number or Facebook.
                         </p>
