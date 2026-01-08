@@ -11,7 +11,7 @@
     <!-- ======= hero Section ======= -->
     <section
         id="hero-wrapper"
-        class="hidden relative w-full min-h-screen text-slate-50 antialiased selection:bg-emerald-500 selection:text-white flex items-center overflow-x-hidden"
+        class="relative w-full min-h-screen text-slate-50 antialiased selection:bg-emerald-500 selection:text-white flex items-center overflow-x-hidden"
         style="font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #022c22 0%, #064e1cff 50%, #020617 100%);">
 
         <!-- 1. Base Grid Pattern (Green Theme) -->
@@ -355,7 +355,7 @@
     <!-- End Hero Section -->
     
     <!-- ======= Services Section ======= -->
-    <section id="services" class="hidden">
+    <section id="services" class="">
       <div class="container" data-aos="fade-up">
 
         <header class="section-header wow fadeInUp">
@@ -1867,7 +1867,7 @@
     <!-- ======= Product Section end ======= -->
 
     <!-- ======= Featured Services Section ======= -->
-    <section id="featured-services" class="hidden">
+    <section id="featured-services" class="">
       <div class="container">
         <div class="row">
 
@@ -1900,7 +1900,7 @@
     </section><!-- End Featured Services Section -->
 
     <!-- Amazing feature card start -->
-    <section id="about" class="hidden">
+    <section id="about" class="">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
                 <h3>Our Amazing Features</h3>
@@ -2076,7 +2076,7 @@
     <!-- Amazing feature card end -->
 
     <!-- text contents start -->
-    <section class="py-5 hidden">
+    <section class="py-5">
         <div class="container" data-aos="fade-up">
             <header class="section-header">
                 <h3>About Our Products</h3>

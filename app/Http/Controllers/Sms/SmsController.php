@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
 use App\Models\User;
+use App\Models\Agency;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -39,6 +40,7 @@ class SmsController extends Controller
                 'email' => $registrationData['email'],
                 'phone' => $registrationData['phone'],
                 'user_type' => $registrationData['user_type'],
+                'account_type' => $registrationData['user_type'] === 'Agency' ? 'Agency' : 'Personal',
                 'password' => Hash::make($registrationData['password']),
                 'email_verified_at' => now(), // Mark as verified
             ]);
@@ -51,6 +53,13 @@ class SmsController extends Controller
 
             // Clear session data
             session()->forget(['new_otp', 'registration_data']);
+
+            // ✅ If the user is an Agency, create Agency record
+            if ($user->user_type === 'Agency') {
+                \App\Models\Agency::create([
+                    'user_id' => $user->id,
+                ]);
+            }
 
             return redirect(RouteServiceProvider::HOME)
                 ->with('reg_success', 'Registration successful!');

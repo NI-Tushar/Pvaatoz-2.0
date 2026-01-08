@@ -5,263 +5,158 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Dashboard | @yield('title', 'This is Default Title')</title>
   <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Font Awesome -->
-  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('Frontend')}}/assets/img/logo/pavicon.icon">
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bbootstrap 4 -->
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/jqvmap/jqvmap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('Backend') }}/dist/css/adminlte.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/summernote/summernote-bs4.css">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-
-    <!-- Axios -->
-  <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/9f57283aa3.js" crossorigin="anonymous"></script>
-
-  <!-- Form Input -->
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/select2/css/select2.min.css">
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/bs-stepper/css/bs-stepper.min.css">
-  <link rel="stylesheet" href="{{ asset('Backend') }}/plugins/dropzone/min/dropzone.min.css">
-  <link rel="stylesheet" href="{{ asset('Backend') }}/dist/css/adminlte.min.css?v=3.2.0">
-
-       
-  <!-- for using tailwind -->
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-  @stack('css')
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ asset('Backend') }}/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body>
 <!-- ./wrapper -->
     @yield('app-content')
 <!-- ./wrapper end-->
 
-<!-- jQuery -->
-<script src="{{ asset('Backend') }}/plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('Backend') }}/plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('Backend') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- ChartJS -->
-<script src="{{ asset('Backend') }}/plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="{{ asset('Backend') }}/plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="{{ asset('Backend') }}/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ asset('Backend') }}/plugins/jquery-knob/jquery.knob.min.js"></script>
-<!-- daterangepicker -->
-<script src="{{ asset('Backend') }}/plugins/moment/moment.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ asset('Backend') }}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Summernote -->
-<script src="{{ asset('Backend') }}/plugins/summernote/summernote-bs4.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="{{ asset('Backend') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('Backend') }}/dist/js/adminlte.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('Backend') }}/dist/js/pages/dashboard.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('Backend') }}/dist/js/demo.js"></script>
-
 <!-- DataTables  & Plugins -->
-<script src="{{ asset('Backend') }}/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/jszip/jszip.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/pdfmake/pdfmake.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/pdfmake/vfs_fonts.js"></script>
-<script src="{{ asset('Backend') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<script src="{{ asset('Backend') }}/plugins/select2/js/select2.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
 <script>
-     $('.show_confirm').click(function(event) {
-          var form =  $(this).closest("form");
-          var name = $(this).data("name");
-          event.preventDefault();
-          swal({
-              title: `Are you sure you want to delete this record?`,
-              text: "If you delete this, it will be gone forever.",
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-              form.submit();
-            }
-          });
+    // DOM Elements
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("toggleBtn");
+    const navItems = document.querySelectorAll(".nav-item");
+
+    // Toggle sidebar
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("collapsed");
+    });
+
+    // Active navigation
+    navItems.forEach((item) => {
+      item.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // Remove active class from all items
+        navItems.forEach((nav) => nav.classList.remove("active"));
+
+        // Add active class to clicked item
+        this.classList.add("active");
+
+        // Simulate page change (in real app, load content dynamically)
+        const page = this.getAttribute("href").substring(1);
+        console.log(`Navigating to: ${page}`);
+
+        // Add smooth animation
+        this.style.transform = "scale(0.95)";
+        setTimeout(() => {
+          this.style.transform = "scale(1)";
+        }, 100);
       });
-
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $("#example2").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
-    $('#example3').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
     });
-  });
 
-    //Initialize Select2 Elements
-    $('.select2').select2()
+    // Mobile menu toggle
+    if (window.innerWidth <= 768) {
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+      });
+    }
 
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-        theme: 'bootstrap4',
-        placeholder: 'Please select',
+    // Animate stats on load
+    window.addEventListener("load", () => {
+      const statValues = document.querySelectorAll(".stat-value");
+
+      statValues.forEach((stat) => {
+        const finalValue = stat.textContent;
+        const isNumber = !finalValue.includes("$") && !finalValue.includes("%");
+
+        if (isNumber) {
+          let current = 0;
+          const target = parseInt(finalValue.replace(/,/g, ""));
+          const increment = target / 50;
+
+          const counter = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              stat.textContent = finalValue;
+              clearInterval(counter);
+            } else {
+              stat.textContent = Math.floor(current).toLocaleString();
+            }
+          }, 20);
+        }
+      });
     });
-  // Only use text area---------------------------->
 
-    // $(document).ready(function() {
-    //     $('#textArea').summernote({
-    //         placeholder: 'Enter a description for your new about section',
-    //         tabsize: 2,
-    //         height: 300,
-    //         callbacks: {
-    //             onChange: function(contents) {
-    //                 handleCharacterCount(contents, 'textArea');
-    //             }
-    //         }
-    //     });
+    // Animate progress bars
+    const progressFills = document.querySelectorAll(".progress-fill");
+    progressFills.forEach((fill) => {
+      const width = fill.style.width;
+      fill.style.width = "0%";
+      setTimeout(() => {
+        fill.style.width = width;
+      }, 500);
+    });
 
-    //     document.querySelectorAll('.char-count').forEach(element => {
-    //         element.addEventListener('input', function () {
-    //             const contents = this.value;
-    //             handleCharacterCount(contents, this.id);
-    //         });
-    //     });
+    // Notification button animation
+    const notificationBtn = document.querySelector(".notification-btn");
+    if (notificationBtn) {
+      notificationBtn.addEventListener("click", () => {
+        const badge = notificationBtn.querySelector(".badge");
+        if (badge) {
+          badge.style.animation = "ping 0.5s ease";
+          setTimeout(() => {
+            badge.style.animation = "";
+          }, 500);
+        }
+      });
+    }
 
-    //     function handleCharacterCount(contents, elementId) {
-    //         const limit = document.getElementById(elementId).getAttribute('data-limit');
-    //         const counterElement = document.getElementById(elementId + 'Counter');
-    //         const errorElement = document.getElementById(elementId + 'Error');
+    // Add ping animation
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes ping {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.5);
+          opacity: 0.5;
+        }
+      }
+    `;
+    document.head.appendChild(style);
 
-    //         const currentLength = contents.length;
-    //         counterElement.textContent = `${currentLength}/${limit}`;
+    // Dark mode toggle (placeholder)
+    const darkModeBtn = document.querySelector(
+      ".top-bar-actions .icon-btn:nth-child(3)"
+    );
+    if (darkModeBtn) {
+      darkModeBtn.addEventListener("click", () => {
+        console.log("Dark mode toggle clicked (feature to be implemented)");
+      });
+    }
 
-    //         if (currentLength > limit) {
-    //             errorElement.classList.remove('d-none');
-    //             document.getElementById(elementId).classList.add('is-invalid');
-    //         } else {
-    //             errorElement.classList.add('d-none');
-    //             document.getElementById(elementId).classList.remove('is-invalid');
-    //         }
-    //     }
-    // });
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (window.innerWidth > 768) {
+          sidebar.classList.remove("active");
+        }
+      }, 250);
+    });
 
-      // All Input field---------------------------->
+    // Smooth scroll for activity items
+    const activityItems = document.querySelectorAll(".activity-item");
+    activityItems.forEach((item, index) => {
+      item.style.opacity = "0";
+      item.style.transform = "translateY(20px)";
 
-        $(document).ready(function() {
-            $('.summernote').each(function() {
-                $(this).summernote({
-                    // placeholder: 'Enter a description',
-                    tabsize: 2,
-                    height: 350,
-                    callbacks: {
-                        onChange: function(contents) {
-                            const textContent = extractText(contents);
-                            handleCharacterCount(textContent, $(this).closest('.form-group'));
-                        },
-                        onPaste: function(e) {
-                            let bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
-                            e.preventDefault();
-                            document.execCommand('insertText', false, bufferText);
-                        }
-                    }
-                });
-            });
-
-            $('.char-count').on('input', function () {
-                const contents = $(this).val();
-                handleCharacterCount(contents, $(this).closest('.form-group'));
-            });
-
-            $('form').on('submit', function(e) {
-                let valid = true;
-                $('.char-count').each(function() {
-                    const contents = $(this).hasClass('summernote') ? extractText($(this).summernote('code')) : $(this).val();
-                    const formGroup = $(this).closest('.form-group');
-                    const limit = $(this).data('limit');
-                    if (contents.length > limit) {
-                        valid = false;
-                        formGroup.find('.error').removeClass('d-none');
-                        $(this).addClass('is-invalid');
-                    } else {
-                        formGroup.find('.error').addClass('d-none');
-                        $(this).removeClass('is-invalid');
-                    }
-                });
-                if (!valid) {
-                    e.preventDefault();
-                    alert('Please fix the errors before submitting the form.');
-                }
-            });
-
-            function handleCharacterCount(contents, formGroup) {
-                const limit = formGroup.find('.char-count').data('limit');
-                const counterElement = formGroup.find('.counter');
-                const errorElement = formGroup.find('.error');
-
-                const currentLength = contents.length;
-                counterElement.text(`${currentLength}/${limit}`);
-
-                if (currentLength > limit) {
-                    errorElement.removeClass('d-none');
-                    formGroup.find('.char-count').addClass('is-invalid');
-                } else {
-                    errorElement.addClass('d-none');
-                    formGroup.find('.char-count').removeClass('is-invalid');
-                }
-            }
-
-            function extractText(html) {
-                let doc = new DOMParser().parseFromString(html, 'text/html');
-                return doc.body.textContent || "";
-            }
-        });
+      setTimeout(() => {
+        item.style.transition = "all 0.5s ease";
+        item.style.opacity = "1";
+        item.style.transform = "translateY(0)";
+      }, index * 100);
+    });
 </script>
-@stack('script')
 </body>
 </html>
