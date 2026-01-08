@@ -333,7 +333,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/contact/show/{id}', [ContactController::class, 'show'])->name('contactShow');
     Route::delete('/contact/delete/{id}', [ContactController::class, 'destroy'])->name('contactDelete');
 
-    Route::resource('configer', ConfigerController::class);
+    Route::resource('configer', ConfigerController::class); // used
 
     // Orders
     Route::get('/order', [OrderController::class, 'getAllOrder'])->name('order.index');

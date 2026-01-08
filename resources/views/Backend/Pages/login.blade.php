@@ -1,6 +1,9 @@
 @extends('Backend.Layouts.app')
 @section('title', 'Admin | Login')
 @section('app-content')
+@php
+    $configer = App\Models\Configer::latest()->first();
+@endphp
   
 <div class="bg-gray-100 min-h-screen flex items-center justify-center font-sans text-gray-700">
 
@@ -18,7 +21,7 @@
                     <h2 class="font-bold text-[30px]">
                         <a href="{{ route('home') }}">
                             <!-- Using CSS variable for the specific green requested -->
-                            <span class="text-[var(--brand-green)]">PVA</span>AtoZ
+                            <span class="text-[var(--brand-green)]">{{$configer->name}}
                         </a>
                     </h2>
                 </div>

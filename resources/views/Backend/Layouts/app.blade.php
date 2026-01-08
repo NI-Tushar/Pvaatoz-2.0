@@ -29,27 +29,27 @@
     });
 
     // Active navigation
-    navItems.forEach((item) => {
-      item.addEventListener("click", function (e) {
-        e.preventDefault();
+    // navItems.forEach((item) => {
+    //   item.addEventListener("click", function (e) {
+    //     e.preventDefault();
 
-        // Remove active class from all items
-        navItems.forEach((nav) => nav.classList.remove("active"));
+    //     // Remove active class from all items
+    //     navItems.forEach((nav) => nav.classList.remove("active"));
 
-        // Add active class to clicked item
-        this.classList.add("active");
+    //     // Add active class to clicked item
+    //     this.classList.add("active");
 
-        // Simulate page change (in real app, load content dynamically)
-        const page = this.getAttribute("href").substring(1);
-        console.log(`Navigating to: ${page}`);
+    //     // Simulate page change (in real app, load content dynamically)
+    //     const page = this.getAttribute("href").substring(1);
+    //     console.log(`Navigating to: ${page}`);
 
-        // Add smooth animation
-        this.style.transform = "scale(0.95)";
-        setTimeout(() => {
-          this.style.transform = "scale(1)";
-        }, 100);
-      });
-    });
+    //     // Add smooth animation
+    //     this.style.transform = "scale(0.95)";
+    //     setTimeout(() => {
+    //       this.style.transform = "scale(1)";
+    //     }, 100);
+    //   });
+    // });
 
     // Mobile menu toggle
     if (window.innerWidth <= 768) {
