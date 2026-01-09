@@ -5,7 +5,8 @@ use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ClassScheduleController;
-use App\Http\Controllers\ConfigerController;
+use App\Http\Controllers\ConfigerController; // used
+use App\Http\Controllers\ProductController; // used
 use App\Http\Controllers\TermsConditionController;
 use App\Http\Controllers\ConsultantAssessmentController;
 use App\Http\Controllers\ContactController;
@@ -332,8 +333,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/contact', [ContactController::class, 'index'])->name('contactContent');
     Route::get('/contact/show/{id}', [ContactController::class, 'show'])->name('contactShow');
     Route::delete('/contact/delete/{id}', [ContactController::class, 'destroy'])->name('contactDelete');
-
+    
     Route::resource('configer', ConfigerController::class); // used
+    Route::resource('product', ProductController::class); // used
+    Route::get('product-delete/{id}', [ProductController::class, 'destroy'])->name('productDelete');
 
     // Orders
     Route::get('/order', [OrderController::class, 'getAllOrder'])->name('order.index');

@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('tag')->nullable();
-            $table->enum('popularity', ['hot', 'popular'])->nullable();
+            $table->enum('popularity', ['hot','popular','normal'])->nullable();
             $table->string('product_logo')->nullable();
             // Background gradient class for Tailwind (e.g., from-emerald-500 to-teal-600)
-            $table->string('bg_color')->nullable();
+            $table->string('bg_color_1')->nullable();
+            $table->string('bg_color_2')->nullable();
             // Product color (used for badges, price, etc.)
             $table->string('product_color')->nullable();
             $table->string('product_name');

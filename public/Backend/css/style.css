@@ -667,6 +667,29 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+ /* .mov-toggle-btn {
+  position: sticky !important;
+  top:5rem !important;
+  left:25px !important;
+  z-index: 1000 !important;
+  background: var(--bg-tertiary);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  display: none;
+}
+
+.mov-toggle-btn:hover {
+  background: var(--primary);
+  color: white;
+} */
 
 /* Responsive Design - Mobile */
 @media (max-width: 768px) {
@@ -705,5 +728,9 @@ body {
 
   .page-title {
     font-size: 24px;
+  }
+
+  .mov-toggle-btn {
+    display: flex;
   }
 }

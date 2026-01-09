@@ -15,9 +15,10 @@ class Product extends Model
     // Mass assignable fields
     protected $fillable = [
         'tag',
-        'hot_or_popular',
+        'popularity',
         'product_logo',
-        'bg_color',
+        'bg_color_1',
+        'bg_color_2',
         'product_color',
         'product_name',
         'product_desc',

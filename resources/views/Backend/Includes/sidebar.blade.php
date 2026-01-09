@@ -1,6 +1,10 @@
 @php
     $configer = App\Models\Configer::latest()->first();
 @endphp
+        <!-- <button class="mov-toggle-btn" id="toggleBtn">
+          <i class="fas fa-bars"></i>
+        </button> -->
+
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
@@ -26,7 +30,7 @@
               <i class="fas fa-users"></i>
               <span class="nav-text">Users</span>
           </a>
-          <a href="" class="nav-item">
+          <a href="{{ route('admin.product.index') }}" class="nav-item {{ request()->routeIs('admin.product.index') ? 'active' : '' }}">
               <i class="fas fa-box"></i>
               <span class="nav-text">Products</span>
           </a>
