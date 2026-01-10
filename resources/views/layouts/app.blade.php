@@ -102,16 +102,34 @@
 
     @stack('css')
 </head>
-
+@php
+    $configer = App\Models\Configer::latest()->first();
+@endphp
 <body>
     <div class="main">
         <!-- Header -->
         <header id="header" class="fixed-top d-flex align-items-center header-transparent">
             <div class="container-fluid">
+            @php
+                $name = $configer->name;
+
+                if (strpos($name, ' ') !== false) {
+                    // If there is a space, split into 2 parts
+                    $nameParts = explode(' ', $name, 2);
+                    $firstWord = $nameParts[0];
+                    $secondWord = $nameParts[1];
+                } else {
+                    // No space: split the word in half
+                    $length = strlen($name);
+                    $mid = ceil($length / 2);
+                    $firstWord = substr($name, 0, $mid);
+                    $secondWord = substr($name, $mid);
+                }
+            @endphp
 
             <div class="row justify-content-center align-items-center">
                 <div class="col-xl-11 d-flex align-items-center justify-content-start">
-                    <h1 class="logo"><a href="{{ route('home') }}"><span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400">PVA</span>AtoZ</a></h1>
+                    <h1 class="logo"><a href="{{ route('home') }}"><span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400">{{ $firstWord }}</span>{{ $secondWord }}</a></h1>
                     <div class="flex items-center justify-end md:justify-center w-full">
                         <!-- Uncomment below if you prefer to use an image logo -->
                         <!-- <a href="index.html" class="logo"><img src="Frontend/theme/assets/img/logo.png" alt="" class="img-fluid"></a> -->
@@ -228,7 +246,7 @@
                 <div class="row">
 
                 <div class="col-lg-3 col-md-6 footer-info">
-                    <h3><span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400">PVA</span>AtoZ</h3>
+                    <h3><span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400">{{ $firstWord }}</span>{{ $secondWord }}</h3>
                     <p>PVAtoZ is a trusted provider of genuine PVA accounts for businesses and marketers.
                         We deliver manually created, secure, and high-quality accounts with fast delivery
                         and reliable customer support.</p>

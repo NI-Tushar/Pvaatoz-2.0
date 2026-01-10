@@ -167,6 +167,24 @@
                                     </div>
                                 </div>
                                 <p class="text-xs text-gray-500 mt-1">These colors set the page background.</p>
+
+                                <!-- Category (Select) -->
+                                <div class="md:col-span-2 mt-3">
+                                    <label for="category" class="block text-sm font-medium text-gray-400 mb-1">Choose Category</label>
+                                    <select name="category" id="category" 
+                                        class="w-full rounded-lg border-[#ffffff28] border px-4 py-2.5 bg-transparent focus:border-[#6366f1] focus:ring-[#6366f1] focus: transition duration-200 outline-none cursor-pointer">
+                                        <option value="">Select Category</option>
+                                        <option value="social_media">Social Media Accounts</option>
+                                        <option value="email_communication">Email / Communication Accounts</option>
+                                        <option value="payment_finance">Payment / Finance Accounts</option>
+                                        <option value="marketplace_ecommerce">Marketplace / E-commerce Accounts</option>
+                                        <option value="development_tech">Development / Tech Accounts</option>
+                                        <option value="advertising_marketing">Advertising / Marketing Accounts</option>
+                                        <option value="entertainment_media">Entertainment / Media Accounts</option>
+                                    </select>
+                                </div>
+
+
                             </div>
 
                             <!-- Product Color -->
@@ -237,7 +255,7 @@
 
     <!-- product list and update start -->
     @if($products->count())
-    <div class="mt-12 space-y-6 px-5">
+    <div class="mt-5 mb-10 space-y-6 px-5">
 
         <h2 class="text-xl font-semibold text-white">
             Product Preview List
@@ -278,10 +296,24 @@
                     <!-- Tag -->
                     <input type="text" name="tag" value="{{ $product->tag }}" placeholder="Tag"
                         class="text-xs px-2 py-1 rounded bg-indigo-100 text-indigo-700 w-fit focus:outline-none">
+                    
+                    <!-- Category -->
+                    <div class="text-xs w-full">
+                        <select name="category" class="border text-black rounded px-2 py-1 w-full">
+                            <option value="">Select Category</option>
+                            <option value="social_media" @selected($product->category == 'social_media')>Social Media Accounts</option>
+                            <option value="email_communication" @selected($product->category == 'email_communication')>Email / Communication Accounts</option>
+                            <option value="payment_finance" @selected($product->category == 'payment_finance')>Payment / Finance Accounts</option>
+                            <option value="marketplace_ecommerce" @selected($product->category == 'marketplace_ecommerce')>Marketplace / E-commerce Accounts</option>
+                            <option value="development_tech" @selected($product->category == 'development_tech')>Development / Tech Accounts</option>
+                            <option value="advertising_marketing" @selected($product->category == 'advertising_marketing')>Advertising / Marketing Accounts</option>
+                            <option value="entertainment_media" @selected($product->category == 'entertainment_media')>Entertainment / Media Accounts</option>
+                        </select>
+                    </div>
 
                     <!-- Description -->
                      <br>
-                    <p class="text-black mt-4 p-0 text-[12px]">Description</p>
+                    <p class="text-black mt-0 p-0 text-[12px]">Description</p>
                     <textarea name="product_desc" rows="2"
                         class="w-full text-sm text-gray-600 bg-transparent border rounded px-2 py-1 focus:outline-none">{{ $product->product_desc }}</textarea>
 

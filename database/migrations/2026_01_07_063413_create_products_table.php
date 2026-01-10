@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('category')->nullable();
             $table->string('tag')->nullable();
             $table->enum('popularity', ['hot','popular','normal'])->nullable();
             $table->string('product_logo')->nullable();
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->string('bg_color_2')->nullable();
             // Product color (used for badges, price, etc.)
             $table->string('product_color')->nullable();
-            $table->string('product_name');
+            $table->string('product_name')->nullable();
             $table->text('product_desc')->nullable();
             $table->json('feature_list')->nullable();
             $table->enum('status', ['active', 'disabled'])->nullable();

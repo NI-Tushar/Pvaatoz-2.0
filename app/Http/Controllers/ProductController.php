@@ -22,13 +22,14 @@ class ProductController extends Controller
     {
         // 1. Validation
         $request->validate([
-            'tag'                => 'nullable|string|max:255',
+            'category'           => 'nullable|string|max:100',
+            'tag'                => 'nullable|string|max:100',
             'popularity'         => 'nullable|in:hot,popular,normal',
             'product_logo'       => 'nullable|image|mimes:png,jpg,jpeg|max:2048', // 2MB max
             'bg_color_1'         => 'nullable|string', // First gradient color
             'bg_color_2'         => 'nullable|string', // Second gradient color
             'product_color'      => 'nullable|string', 
-            'product_name'       => 'nullable|string|max:255',
+            'product_name'       => 'nullable|string|max:100',
             'feature_list'       => 'nullable|string',
             'product_desc'       => 'nullable|string',
             'status'             => 'nullable|in:active,disabled',
@@ -44,6 +45,7 @@ class ProductController extends Controller
         // 4. Create Data
         // Assuming your model is named 'Product'
         Product::create([
+            'category'       => $request->category,
             'tag'            => $request->tag,
             'popularity'     => $request->popularity,
             'product_logo'   => $logoPath,
@@ -64,13 +66,14 @@ class ProductController extends Controller
     {
         // 1. Validation
         $request->validate([
-            'tag'            => 'nullable|string|max:255',
+            'category'       => 'nullable|string|max:100',
+            'tag'            => 'nullable|string|max:100',
             'popularity'     => 'nullable|in:hot,popular,normal',
             'product_logo'   => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
             'bg_color_1'     => 'nullable|string',
             'bg_color_2'     => 'nullable|string',
             'product_color'  => 'nullable|string',
-            'product_name'   => 'nullable|string|max:255',
+            'product_name'   => 'nullable|string|max:100',
             'feature_list'   => 'nullable|string',
             'product_desc'   => 'nullable|string',
             'status'         => 'nullable|in:active,disabled',
@@ -91,6 +94,7 @@ class ProductController extends Controller
 
         // 3. Update Product Data
         $product->update([
+            'category'       => $request->category,
             'tag'            => $request->tag,
             'popularity'     => $request->popularity,
             'bg_color_1'     => $request->bg_color_1,
