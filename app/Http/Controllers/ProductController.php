@@ -12,12 +12,27 @@ use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
-    public function index()
-    {
-        $products = Product::latest()->get();
-        return view('Backend.Pages.Product.index', compact('products'));
+    public function index(Request $request){
+        $allProducts = Product::select('id','product_name')->orderBy('product_name')->get();
+
+        // Base query
+        $query = Product::orderBy('product_name');
+
+        // Filter when product_id is selected
+        if ($request->filled('product_id')) {
+            $query->where('id', $request->product_id);
+        }
+
+        // Get products (used everywhere)
+        $products = $query->get();
+
+        return view('Backend.Pages.Product.index', compact('products','allProducts'));
     }
 
+    public function search(Request $request){
+        dd($request->all());
+    }
+        
     public function store(Request $request)
     {
         // 1. Validation

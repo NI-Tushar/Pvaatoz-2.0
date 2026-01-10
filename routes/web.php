@@ -337,6 +337,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::resource('configer', ConfigerController::class); // used
     Route::resource('product', ProductController::class); // used
     Route::get('product-delete/{id}', [ProductController::class, 'destroy'])->name('productDelete');
+    Route::post('product-search', [ProductController::class, 'search'])->name('productSearch');
 
     // Orders
     Route::get('/order', [OrderController::class, 'getAllOrder'])->name('order.index');

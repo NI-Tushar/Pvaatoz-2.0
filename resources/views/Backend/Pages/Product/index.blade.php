@@ -51,7 +51,7 @@
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
-        </ul>
+        </ul>+
     </div>
     @endif
     <!-- error message end -->
@@ -257,9 +257,46 @@
     @if($products->count())
     <div class="mt-5 mb-10 space-y-6 px-5">
 
-        <h2 class="text-xl font-semibold text-white">
-            Product Preview List
-        </h2>
+<div class="flex items-center justify-between mb-4 gap-4">
+    <h2 class="text-xl font-semibold text-white">
+        Product Preview List
+    </h2>
+
+    <form method="GET" class="flex gap-2 items-center">
+        <!-- Product Select -->
+        <select
+            name="product_id"
+            id="productSelect"
+            onchange="this.form.submit()"
+            class="w-64 px-3 py-2 text-sm border rounded-md text-black">
+            <option value="">All Products</option>
+            @foreach($allProducts as $product)
+                <option value="{{ $product->id }}" @selected(request('product_id') == $product->id)>
+                    {{ $product->product_name }}
+                </option>
+            @endforeach
+        </select>
+    </form>
+</div>
+
+<script>
+    const filterInput = document.getElementById('filterInput');
+    const select = document.getElementById('productSelect');
+
+    filterInput.addEventListener('keyup', function () {
+        const keyword = this.value.toLowerCase();
+
+        Array.from(select.options).forEach(option => {
+            if (!option.value) return; // keep placeholder
+
+            option.style.display = option.text.toLowerCase().includes(keyword)
+                ? 'block'
+                : 'none';
+        });
+    });
+</script>
+
+
 
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
