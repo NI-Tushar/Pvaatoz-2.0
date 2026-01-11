@@ -101,32 +101,45 @@
     </style>
 
     @stack('css')
+    @php
+        $configer = App\Models\Configer::latest()->first();
+        $name = $configer->name;
+        $contact_num = $configer->phone;
+        $contact_email = $configer->email;
+        $address = $configer->address;
+        
+        // website name
+        if (strpos($name, ' ') !== false) {
+            // If there is a space, split into 2 parts
+            $nameParts = explode(' ', $name, 2);
+            $firstWord = $nameParts[0];
+            $secondWord = $nameParts[1];
+            $fullName = $firstWord . $secondWord;
+        } else {
+            // No space: split the word in half
+            $length = strlen($name);
+            $mid = ceil($length / 2);
+            $firstWord = substr($name, 0, $mid);
+            $secondWord = substr($name, $mid);
+            $fullName = $firstWord . $secondWord;
+        }
+        
+        // product name for navbar
+        use App\Models\Product;
+        
+        // Get active products, select id, name, category, order by name
+        $products = Product::where('status', 'active')
+        ->select('id', 'product_name', 'category')
+        ->orderBy('product_name')
+        ->get()
+        ->groupBy('category'); // group by category using Collection 
+    @endphp
 </head>
-@php
-    $configer = App\Models\Configer::latest()->first();
-@endphp
 <body>
     <div class="main">
         <!-- Header -->
         <header id="header" class="fixed-top d-flex align-items-center header-transparent">
             <div class="container-fluid">
-            @php
-                $name = $configer->name;
-
-                if (strpos($name, ' ') !== false) {
-                    // If there is a space, split into 2 parts
-                    $nameParts = explode(' ', $name, 2);
-                    $firstWord = $nameParts[0];
-                    $secondWord = $nameParts[1];
-                } else {
-                    // No space: split the word in half
-                    $length = strlen($name);
-                    $mid = ceil($length / 2);
-                    $firstWord = substr($name, 0, $mid);
-                    $secondWord = substr($name, $mid);
-                }
-            @endphp
-
             <div class="row justify-content-center align-items-center">
                 <div class="col-xl-11 d-flex align-items-center justify-content-start">
                     <h1 class="logo"><a href="{{ route('home') }}"><span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400">{{ $firstWord }}</span>{{ $secondWord }}</a></h1>
@@ -136,88 +149,42 @@
 
                         <nav id="navbar" class="navbar">
                             <ul>
-                                <li><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-                                <li><a class="nav-link" href="#">Gmail</a></li>
-                                <li><a class="nav-link" href="#">Linkedin</a></li>
-                                <li><a class="nav-link" href="#">Twitter</a></li>
-                                <li><a class="nav-link" href="#">Snapchat</a></li>
-                                <li><a class="nav-link" href="#">Wise</a></li>
+                                <li><a class="nav-link tracking-[3px]" href="{{ route('home') }}">Home</a></li>
+                                @foreach($products as $category => $items)
 
-                                <!-- Other's Social Dropdown -->
                                 <li class="dropdown">
                                     <a href="#">
-                                        <span>Other's Social</span>
+                                        <span class="font-semibold tracking-[3px]">{{ str_replace('_', ' ', $category) }}</span>
                                         <i class="bi bi-chevron-down"></i>
                                     </a>
-
-                                    <ul class="d-flex rounded" style="background-color: rgba(23, 23, 23, 0.51); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+                                    <ul class="d-flex rounded"
+                                        style="background-color: rgba(23, 23, 23, 0.51);
+                                            backdrop-filter: blur(10px);
+                                            -webkit-backdrop-filter: blur(10px);">
+                                        @foreach($items->chunk(10) as $chunk)
                                         <div>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Edu Mail</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Tinder</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Quora</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">GitHub</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Facebook</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Facebook BM Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Outlook</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Google Voice</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Discord</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Review Mail</a></li>
+                                            @foreach($chunk as $product)
+                                            <li>
+                                                <a href="#"
+                                                class="text-white hover:!text-[#00b931fe] tracking-[3px]">
+                                                    {{ $product->product_name }}
+                                                </a>
+                                            </li>
+                                            @endforeach
                                         </div>
-                                        <div>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Twitch Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Taboola Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Apple Developer</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Nextdoor Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Bereal Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Crunchyroll Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Airchat Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Supernova Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Trustpilot Reviews</a></li>
-                                        </div>
+                                        @endforeach
                                     </ul>
                                 </li>
 
-                                <!-- More Dropdown -->
-                                <li class="dropdown">
-                                    <a href="#">
-                                        <span>More</span>
-                                        <i class="bi bi-chevron-down"></i>
-                                    </a>
+                                @endforeach
 
-                                    <ul class="d-flex rounded" style="background-color: rgba(23, 23, 23, 0.51); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
-                                        <div>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Ticketmaster</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Medium Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Naver Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Binance Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">PayPal Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Payoneer Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Relay Business Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Stake Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">eBay Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Paxful Account</a></li>
-                                        </div>
-                                        <div>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Airbnb Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">AliExpress Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Google Ads Grants</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Google Play Console</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">YouTube Monetized Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">TikTok Ads Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">Shopify Aged Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">AliPay Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">WeChat Account</a></li>
-                                            <li><a href="#" class="text-white hover:!text-[#00b931fe]">WeChat Pay Enabled Account</a></li>
-                                        </div>
-                                    </ul>
+
+                                <li>
+                                    <a class="nav-link tracking-[3px]" href="{{ route('about') }}">About Us</a>
                                 </li>
 
                                 <li>
-                                    <a class="nav-link" href="{{ route('about') }}">About Us</a>
-                                </li>
-
-                                <li>
-                                    <a class="nav-link" href="#">Contact Us</a>
+                                    <a class="nav-link tracking-[3px]" href="#">Contact Us</a>
                                 </li>
 
                             </ul>
@@ -247,7 +214,7 @@
 
                 <div class="col-lg-3 col-md-6 footer-info">
                     <h3><span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400">{{ $firstWord }}</span>{{ $secondWord }}</h3>
-                    <p>PVAtoZ is a trusted provider of genuine PVA accounts for businesses and marketers.
+                    <p>{{ $fullName }} is a trusted provider of genuine PVA accounts for businesses and marketers.
                         We deliver manually created, secure, and high-quality accounts with fast delivery
                         and reliable customer support.</p>
                 </div>
@@ -266,9 +233,9 @@
                 <div class="col-lg-3 col-md-6 footer-contact">
                     <h4>Contact Us</h4>
                     <p class="mt-3">
-                        Dhaka, Bangladesh <br>
-                        <strong>Phone:</strong> +880 1XXXXXXXXX<br>
-                        <strong>Email:</strong> support@pvatoz.com<br>
+                        {{ $address }} <br>
+                        <strong>Phone:</strong> {{ $contact_num }}<br>
+                        <strong>Email:</strong> {{ $contact_email }}<br>
                     </p>
 
                     <div class="social-links mt-3">
@@ -284,7 +251,7 @@
                 <div class="col-lg-3 col-md-6 footer-newsletter">
                     <h4>Our Newsletter</h4>
                     <p class="mt-3">Subscribe to receive updates on new PVA account packages, special offers,
-                        service updates, and exclusive discounts from PVAtoZ.</p>
+                        service updates, and exclusive discounts from {{ $fullName }}.</p>
                     <form action="" method="post" class="mt-3">
                         <input type="email" name="email"><input type="submit" value="Send">
                     </form>
@@ -296,10 +263,10 @@
 
             <div class="container">
              <div class="copyright">
-                &copy; Copyright <strong>PVAtoZ</strong>. All Rights Reserved
+                &copy; Copyright <strong>{{ $fullName }}</strong>. All Rights Reserved
                 </div>
                 <div class="credits">
-                    Designed by <a href="https://pvaatoz.com/">PVAatoz</a>
+                    Designed by <a href="https://accuvault.com/">{{ $fullName }}</a>
                 </div>
             </div>
         </footer>

@@ -359,8 +359,8 @@
       <div class="container" data-aos="fade-up">
 
         <header class="section-header wow fadeInUp">
-            <h3>Why Choose PVAAtoZ</h3>
-            <p class="mt-2">We provide 100% verified PVA and aged accounts to help you achieve your digital goals. With years of experience in the industry, we ensure secure, reliable, and fast delivery for businesses and professionals. Trust PVAATOZ for high-quality accounts and exceptional service that scales with your needs.</p>
+            <h3>Why Choose {{ $configer->name}}</h3>
+            <p class="mt-2 max-w-7xl mx-auto">We provide 100% verified PVA and aged accounts to help you achieve your digital goals. With years of experience in the industry, we ensure secure, reliable, and fast delivery for businesses and professionals. Trust {{ $configer->name}} for high-quality accounts and exceptional service that scales with your needs.</p>
         </header>
 
         <div class="row justify-content-center gap-4 pl-4 pr-4">
@@ -454,13 +454,96 @@
         <div class="container" data-aos="fade-up">
             <header class="section-header">
                 <h3>Our Products</h3>
-                <p class="mt-2"> We provide a wide selection of high-quality PVA accounts built for scalability and performance. All accounts are 100% genuine, 
+                <p class="mt-2 max-w-7xl mx-auto"> We provide a wide selection of high-quality PVA accounts built for scalability and performance. All accounts are 100% genuine, 
                     manually created, and carefully tested to ensure reliability. Our products include bulk and aged account options, fast and secure delivery, 
                     multiple package choices, flexible payment methods, and a dependable replacement guarantee—giving you complete confidence from purchase to use.
                 </p>
             </header>
             <div class="container mx-auto p-2">
-                <div class="max-w-7xl mx-auto px-0 md:px-4 py-10">
+                <div class="max-w-7xl mx-auto px-0 md:px-4">
+
+                <div class="w-full mx-auto">
+
+                    <!-- ================= MOBILE VIEW (Dropdown) ================= -->
+                    <!-- Hidden on md and larger screens (Desktop) -->
+                    <div class="w-full mb-4">
+                        <p class="block text-[18px] font-medium text-black mb-2">
+                            Search, What are you looking for
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            
+                            <!-- Search Box -->
+                            <div class="relative w-full sm:flex-1">
+                                <input type="text" placeholder="Search product..." style="border: 1px solid #00000063;"
+                                    class="w-full pl-3 pr-10 py-2.5 h-[50px] text-[16px] rounded-md 
+                                        bg-gray-50 focus:outline-none focus:ring-2 text-black focus:ring-[#6366f1] focus:border-[#6366f1]">
+                                <div class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                                    <i class="fas fa-search text-sm"></i>
+                                </div>
+                            </div>
+
+                            <!-- Dropdown -->
+                            <div class="relative w-full sm:w-64">
+                                <select style="border: 1px solid #00000063;"
+                                    id="mobileActionSelect"
+                                    onchange="handleMobileAction(this)"
+                                    class="block w-full pl-3 pr-10 py-2.5 h-[50px] text-[16px] rounded-md 
+                                        bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:border-[#6366f1]">
+                                    <option value="">All Products</option>
+                                    @foreach($allProducts as $product)
+                                        <option value="{{ $product->id }}" @selected(request('product_id') == $product->id)>
+                                            {{ $product->product_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ================= DESKTOP VIEW (Parallel Buttons) ================= -->
+                    <!-- Hidden on mobile, visible on md (medium) and larger -->
+                    <div class="hidden w-full flex-wrap justify-center gap-3 
+                                bg-white border border-gray-300 shadow-sm 
+                                p-3 mb-5 rounded-lg">
+                            
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px] font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6366f1] transition-all">
+                                <i style="color: var(--brand-green);" class="fa-solid fa-layer-group mr-2"></i> All Accounts
+                            </button>
+
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px] font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6366f1] transition-all">
+                                <i style="color: var(--brand-green);" class="fa-solid fa-icons mr-2"></i> social_media
+                            </button>
+
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px]  font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6366f1] transition-all">
+                                <i style="color: var(--brand-green);" class="fa-solid fa-envelopes-bulk mr-2"></i> email_communication
+                            </button>
+
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px]  font-medium rounded-md text-gray-700 bg-white hover:bg-[#4f46e5] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6366f1] transition-all">
+                                <i style="color: var(--brand-green);" class="fa-solid fa-money-check-dollar mr-2"></i> payment_finance
+                            </button>
+
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px]  font-medium rounded-md text-gray-700 bg-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">
+                                <i style="color: var(--brand-green);" class="fa-solid fa-globe mr-2"></i> marketplace_ecommerce
+                            </button>
+
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px]  font-medium rounded-md text-gray-700 bg-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">
+                                <i style="color: var(--brand-green);" class="fa-solid fa-laptop-code mr-2"></i> development_tech
+                            </button>
+
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px]  font-medium rounded-md text-gray-700 bg-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">
+                                <i style="color: var(--brand-green);" class="fa-solid fa-bullhorn mr-2"></i> advertising_marketing
+                            </button>
+
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px]  font-medium rounded-md text-gray-700 bg-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">
+                                <i style="color: var(--brand-green);" class="fa-regular fa-circle-play mr-2"></i> entertainment_media
+                            </button>
+
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
                         <!-- Facebook -->
@@ -1904,7 +1987,7 @@
         <div class="container" data-aos="fade-up">
             <header class="section-header">
                 <h3>Our Amazing Features</h3>
-                <p class="mt-2">Our platform offers a complete range of premium PVA account services, including 100% genuine and manually created accounts, multiple package options, fast and reliable delivery, aged accounts for better performance, flexible payment methods, and a trusted replacement guarantee. Every feature is designed to ensure security, authenticity, and a smooth experience from purchase to delivery.</p>
+                <p class="mt-2 max-w-7xl mx-auto">Our platform offers a complete range of premium PVA account services, including 100% genuine and manually created accounts, multiple package options, fast and reliable delivery, aged accounts for better performance, flexible payment methods, and a trusted replacement guarantee. Every feature is designed to ensure security, authenticity, and a smooth experience from purchase to delivery.</p>
             </header>
             <div class="container mx-auto p-4">
                 <!-- Grid Layout -->
@@ -2080,7 +2163,7 @@
         <div class="container" data-aos="fade-up">
             <header class="section-header">
                 <h3>About Our Products</h3>
-                <p class="mt-2">
+                <p class="mt-2 max-w-7xl mx-auto">
                     Our products are carefully developed to meet the highest standards of quality, security, and reliability. Each PVA account is manually created, thoroughly verified, and tested before delivery to ensure long-term usability. We offer a variety of account types, including bulk and aged options, to support different marketing and business needs. With fast delivery, flexible payment methods, and a dependable replacement policy, our products are designed to provide a smooth, risk-free experience for every customer.
                 </p>
             </header>
@@ -2093,13 +2176,13 @@
                         <div class="w-14 h-14 rounded-lg border-2 border-emerald-500 bg-white flex items-center justify-center shrink-0">
                             <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/text_icon/call.png') }}" alt="">
                         </div>
-                        <h2 class="text-[20px] md:text-[25px] font-serif font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
+                        <h2 class="text-[20px] uppercase md:text-[25px]  font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
                             OUR PVA SERVICE:
                         </h2>
                     </div>
                     
                     <div class="space-y-6 text-lg leading-relaxed text-slate-600">
-                        <p class="first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-emerald-600 first-letter:float-left first-letter:mr-2">
+                        <p class="first-letter:text-5xl first-letter: first-letter:font-bold first-letter:text-emerald-600 first-letter:float-left first-letter:mr-2">
                             Elevate your online business with our selection of bulk email accounts and various social profiles. Our inventory includes verified email and social accounts complete with authentic phone numbers, allowing you to expand your online presence effortlessly. Explore our cost-effective options for purchasing phone-verified social accounts and start boosting your online business today.
                         </p>
                         <p>
@@ -2118,57 +2201,57 @@
                         <div class="w-14 h-14 rounded-lg border-2 border-emerald-500 bg-white flex items-center justify-center shrink-0">
                             <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/text_icon/question.png') }}" alt="">
                         </div>
-                        <h2 class="text-[20px] md:text-[25px] font-serif font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
-                            WHY YOU SHOULD BUY ACCOUNTS FROM pvaatoz?
+                        <h2 class="text-[20px] uppercase md:text-[25px]  font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
+                            WHY YOU SHOULD BUY ACCOUNTS FROM {{ $configer->name}}?
                         </h2>
                     </div>
                     
                     <ul class="space-y-3 pl-1 md:pl-8">
                         <!-- Item 1 -->
                         <li class="flex items-start">
-                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">01.</span>
+                            <span class=" font-bold text-emerald-600 mr-4 mt-1">01.</span>
                             <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
-                                pvaatoz is one of the foremost well-known social media account providers.
+                                {{ $configer->name}} is one of the foremost well-known social media account providers.
                             </p>
                         </li>
                         <!-- Item 2 -->
                         <li class="flex items-start">
-                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">02.</span>
+                            <span class=" font-bold text-emerald-600 mr-4 mt-1">02.</span>
                             <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0 italic">
                                 You can purchase your AOL accounts with PayPal right away; nearly 5 to 10 minutes will take to provide your wanted AOL package.
                             </p>
                         </li>
                         <!-- Item 3 -->
                         <li class="flex items-start">
-                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">03.</span>
+                            <span class=" font-bold text-emerald-600 mr-4 mt-1">03.</span>
                             <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
                                 You have a 7 days cash back ensure for any kind of problem.
                             </p>
                         </li>
                         <!-- Item 4 -->
                         <li class="flex items-start">
-                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">04.</span>
+                            <span class=" font-bold text-emerald-600 mr-4 mt-1">04.</span>
                             <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
                                 You can arrange more seasoned or fresher indeed any matured AOL PVA account.
                             </p>
                         </li>
                         <!-- Item 5 -->
                         <li class="flex items-start">
-                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">05.</span>
+                            <span class=" font-bold text-emerald-600 mr-4 mt-1">05.</span>
                             <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
                                 We continuously center on our committed client bolster so we are accessible to any kind of social media stage where you'll get moment offer assistance from us.
                             </p>
                         </li>
                         <!-- Item 6 -->
                         <li class="flex items-start">
-                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">06.</span>
+                            <span class=" font-bold text-emerald-600 mr-4 mt-1">06.</span>
                             <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
                                 We accept diverse sorts of installment strategies so you don’t ought to stress almost your installments framework to pay us.
                             </p>
                         </li>
                         <!-- Item 7 -->
                         <li class="flex items-start">
-                            <span class="font-serif font-bold text-emerald-600 mr-4 mt-1">07.</span>
+                            <span class=" font-bold text-emerald-600 mr-4 mt-1">07.</span>
                             <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
                                 All AOL accounts are phone confirmed from a secure source.
                             </p>
@@ -2183,8 +2266,8 @@
                         <div class="w-14 h-14 rounded-lg border-2 border-emerald-500 bg-white flex items-center justify-center shrink-0">
                             <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/text_icon/shopping.png') }}" alt="">
                         </div>
-                        <h2 class="text-[20px] md:text-[25px] font-serif font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
-                            HOW TO BUY ACCOUNTS FROM pvaatoz
+                        <h2 class="text-[20px] uppercase md:text-[25px] font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
+                            HOW TO BUY ACCOUNTS FROM {{ $configer->name}}
                         </h2>
                     </div>
                     
@@ -2197,7 +2280,7 @@
                         </p>
                         <p class="border-t border-gray-100 pt-6">
                             <strong class="text-slate-900 uppercase tracking-widest text-sm mb-2 block">Step 1: Browse & Select</strong>
-                            To purchase ancient AOL accounts from pvaatoz you've got to browse the landing page to begin with. At that point you've got to go to the benefit segment once you will see the AOL account administrations recorded.
+                            To purchase ancient AOL accounts from {{ $configer->name}} you've got to browse the landing page to begin with. At that point you've got to go to the benefit segment once you will see the AOL account administrations recorded.
                         </p>
                         <p>
                             <strong class="text-slate-900 uppercase tracking-widest text-sm mb-2 block">Step 2: Choose Package</strong>
@@ -2205,11 +2288,11 @@
                         </p>
                         <p>
                             <strong class="text-slate-900 uppercase tracking-widest text-sm mb-2 block">Step 3: Payment</strong>
-                            pvaatoz basically acknowledges all sorts of installment alternatives such as PayPal, MasterCard installment, culminate cash and Bitcoin. In some cases pvaatoz offer a few rebates for particular bulk AOL accounts bundles which is astonishing. You'll be able to snatch our rebate offer by paying with a particular installment alternative.
+                            {{ $configer->name}} basically acknowledges all sorts of installment alternatives such as PayPal, MasterCard installment, culminate cash and Bitcoin. In some cases {{ $configer->name}} offer a few rebates for particular bulk AOL accounts bundles which is astonishing. You'll be able to snatch our rebate offer by paying with a particular installment alternative.
                         </p>
                         <p>
                             <strong class="text-slate-900 uppercase tracking-widest text-sm mb-2 block">Step 4: Delivery</strong>
-                            After installment you have got to wait for a minute and you may be informed before long to provide your accounts by email. pvaatoz mainly conveys accounts in a spreadsheet which may be exceptionally helpful highlight that will assist you to oversee the accounts effectively.
+                            After installment you have got to wait for a minute and you may be informed before long to provide your accounts by email. {{ $configer->name}} mainly conveys accounts in a spreadsheet which may be exceptionally helpful highlight that will assist you to oversee the accounts effectively.
                         </p>
                     </div>
                 </section>
@@ -2221,7 +2304,7 @@
                         <div class="w-14 h-14 rounded-lg border-2 border-emerald-500 bg-white flex items-center justify-center shrink-0">
                             <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/text_icon/tag.png') }}" alt="">
                         </div>
-                        <h2 class="text-[20px] md:text-[25px] font-serif font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
+                        <h2 class="text-[20px] uppercase md:text-[25px]  font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
                             WHY WOULD YOU BUY OLD ACCOUNT AT REASONABLE PRICE
                         </h2>
                     </div>
@@ -2231,7 +2314,7 @@
                             You'll have a part of websites which give AOL mail for your marketing. Regular we need to spend a part of cash to induce appropriate administrations. But the thing is that most of the websites on the web don’t give quality benefit particularly they by and large take the cash from the client but in return they give exceptionally poor services.
                         </p>
                         <p>
-                            So to buy AOL channel, pvaatoz can be a trusted source since it is solid and it has a dedicated team bolster. You are doing not ought to stress almost the quality of any sorts of accounts. Pvanet some of the time offers astounding rebates and you'll snatch it from there on the off chance that you're a customary client otherwise you can contact us for a special offer by subscribing to our bulletin. We'll inform you through e-mail on the off chance that any offer is running.
+                            So to buy AOL channel, {{ $configer->name}} can be a trusted source since it is solid and it has a dedicated team bolster. You are doing not ought to stress almost the quality of any sorts of accounts. Pvanet some of the time offers astounding rebates and you'll snatch it from there on the off chance that you're a customary client otherwise you can contact us for a special offer by subscribing to our bulletin. We'll inform you through e-mail on the off chance that any offer is running.
                         </p>
                     </div>
                 </section>
