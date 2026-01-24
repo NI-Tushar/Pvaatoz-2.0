@@ -7,6 +7,7 @@ use App\Http\Requests\StorehomeRequest;
 use App\Http\Requests\UpdatehomeRequest;
 use App\Models\Product;
 use App\Models\Configer;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class HomePageController extends Controller
@@ -18,7 +19,7 @@ class HomePageController extends Controller
         $data = [];
         $data['configer'] = Configer::latest()->first();
         $data['categories'] = Product::select('category')->get(); // geting category name
-        $data['allProducts'] = Product::select('id','product_name')->orderBy('product_name')->get();
+        $data['allProducts'] = Product::latest()->take(12)->get();
         $data['products'] = Product::where('status', 'active')
         ->select('id', 'product_name', 'category')
         ->orderBy('product_name')

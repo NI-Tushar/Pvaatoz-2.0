@@ -1,12 +1,14 @@
 
 <!doctype html>
 <html class="no-js" lang="zxx">
-
+@php
+    $configer = App\Models\Configer::latest()->first();
+@endphp
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Pvaatoz | @yield('title', 'Default')</title>
+    <title>@yield('title', 'Default') | {{$configer->name}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="/small-logo.png">

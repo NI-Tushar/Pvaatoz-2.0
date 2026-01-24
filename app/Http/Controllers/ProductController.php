@@ -12,22 +12,30 @@ use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
-    public function index(Request $request){
-        $allProducts = Product::select('id','product_name')->orderBy('product_name')->get();
+    public function index(Request $request)
+    {
+        $allProducts = Product::select('id', 'product_name')
+            ->orderBy('product_name')
+            ->get();
 
         // Base query
         $query = Product::orderBy('product_name');
 
-        // Filter when product_id is selected
+        // Filter by product dropdown
         if ($request->filled('product_id')) {
             $query->where('id', $request->product_id);
         }
 
-        // Get products (used everywhere)
+        // Search by product name
+        if ($request->filled('search')) {
+            $query->where('product_name', 'like', '%' . $request->search . '%');
+        }
+
         $products = $query->get();
 
-        return view('Backend.Pages.Product.index', compact('products','allProducts'));
+        return view('Backend.Pages.Product.index', compact('products', 'allProducts'));
     }
+
 
     public function search(Request $request){
         dd($request->all());

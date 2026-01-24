@@ -257,26 +257,35 @@
     @if($products->count())
     <div class="mt-5 mb-10 space-y-6 px-5">
 
-        <div class="flex items-center justify-between mb-4 gap-4">
-            <h2 class="text-xl font-semibold text-white">
+        <div class="md:flex items-center justify-between mb-4 gap-4">
+            <h2 class="text-xl font-semibold text-white w-1/2">
                 Product Preview List
             </h2>
 
-            <form method="GET" class="flex gap-2 items-center">
-                <!-- Product Select -->
-                <select
-                    name="product_id"
-                    id="productSelect"
-                    onchange="this.form.submit()"
-                    class="w-64 px-3 py-2 text-sm border rounded-md text-black">
-                    <option value="">All Products</option>
-                    @foreach($allProducts as $product)
-                        <option value="{{ $product->id }}" @selected(request('product_id') == $product->id)>
-                            {{ $product->product_name }}
-                        </option>
-                    @endforeach
-                </select>
-            </form>
+            <div class="w-full md:w-1/2 md:flex gap-3">
+                <form method="GET" class="flex gap-2 items-end w-full md:w-2/3">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search product..."
+                        class="w-full px-3 py-2 text-sm border rounded-md text-black">
+                        <a href="{{ route('admin.product.index') }}" class="border border-white h-full flex w-[40px] rounded bg-white"><i class="m-auto text-black fa-solid fa-arrow-rotate-right"></i></a>
+                    <input type="hidden" name="product_id" value="{{ request('product_id') }}">
+                </form>
+
+                <form method="GET" class="flex gap-2 mt-2 md:mt-0 items-center w-full md:w-1/3">
+                    <!-- Product Select -->
+                    <select
+                        name="product_id"
+                        id="productSelect"
+                        onchange="this.form.submit()"
+                        class="w-full px-3 py-2 text-sm border rounded-md text-black">
+                        <option value="">All Products</option>
+                        @foreach($allProducts as $product)
+                            <option value="{{ $product->id }}" @selected(request('product_id') == $product->id)>
+                                {{ $product->product_name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
+            </div>
         </div>
 
         <script>
