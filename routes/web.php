@@ -100,7 +100,7 @@ Route::get('otp-resend', [SmsController::class, 'resend'])->name('otp.resend');
 Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
 // _____________________ for changing language (Page Translation)
 
-Route::get('/', [HomePageController::class, 'index'])->name('home');
+Route::get('/', [HomePageController::class, 'index'])->name('home'); // used
 Route::get('about', [AboutPageController::class, 'index'])->name('about');
 Route::get('contact', [ContactPageController::class, 'index'])->name('contact');
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contactUs');

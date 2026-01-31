@@ -472,150 +472,131 @@
                             Search, What are you looking for
                         </p>
 
-                        <div class="flex flex-col sm:flex-row gap-3">
+                        <div class="flex flex-col sm:flex-row gap-2">
                             
                             <!-- Search Box -->
-                            <div class="relative w-full sm:flex-1">
-                                <input type="text" placeholder="Search product..." style="border: 1px solid #00000063;"
-                                    class="w-full pl-3 pr-10 py-2.5 h-[50px] text-[16px] rounded-md 
-                                        bg-gray-50 focus:outline-none focus:ring-2 text-black focus:ring-[#6366f1] focus:border-[#6366f1]">
-                                <div class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
-                                    <i class="fas fa-search text-sm"></i>
+                            <form method="GET" action="{{ route('home') }}#about" class="w-full sm:flex-1 ">
+                                <div class="relative">
+                                    <input
+                                        type="text"
+                                        name="search"
+                                        value="{{ request('search') }}"
+                                        placeholder="Search product..."
+                                        style="border: 1px solid #00000063;"
+                                        class="w-full pl-3 pr-10 py-2.5 h-[50px] text-[16px] rounded-md 
+                                            bg-gray-50 focus:outline-none focus:ring-2 text-black 
+                                            focus:ring-[#6366f1] focus:border-[#6366f1]">
+
+                                    <!-- Preserve category -->
+                                    <input type="hidden" name="category" value="{{ request('category') }}">
+
+                                    <button type="submit" class="absolute inset-y-0 right-0 cursor-pointer hover:bg-[#019546] rounded-r hover:text-[white] flex items-center px-3 text-gray-400">
+                                        <i class="fas fa-search text-sm"></i>
+                                    </button>
                                 </div>
-                            </div>
+                            </form>
+                            <a href="{{ route('home') }}#about" style="border: 1px solid #00000063;" 
+                                class="rounded text-center flex w-[50px] h-[50px] hover:bg-[#019546] hover:text-[white]">
+                                <span class="m-auto">All</span>
+                            </a>
 
                             <!-- Dropdown -->
-                            <div class="relative w-full sm:w-64">
-                                <select style="border: 1px solid #00000063;"
-                                    id="mobileActionSelect"
-                                    onchange="handleMobileAction(this)"
-                                    class="block w-full pl-3 pr-10 py-2.5 h-[50px] text-[16px] rounded-md 
-                                        bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:border-[#6366f1]">
+                            <form method="GET" action="{{ route('home') }}#about">
+                                <select
+                                    name="category"
+                                    onchange="this.form.submit()"
+                                    style="border: 1px solid #00000063;"
+                                    class="block w-full sm:w-64 pl-3 pr-10 py-2.5 h-[50px] text-[16px] rounded-md 
+                                        bg-gray-50 focus:outline-none focus:ring-2 
+                                        focus:ring-[#6366f1] focus:border-[#6366f1]">
+
                                     <option value="">All Products</option>
-                                    @foreach($products as $category => $items)
-                                        <option value="{{ $category }}" 
-                                            @selected(request('category') == $category)>
-                                            {{ ucfirst(str_replace('_', ' ', $category)) }}
+                                    @foreach($categories as $item)
+                                        <option value="{{ $item->category }}"
+                                            @selected(request('category') == $item->category)>
+                                            {{ ucfirst(str_replace('_', ' ', $item->category)) }}
                                         </option>
                                     @endforeach
                                 </select>
 
-                            </div>
+                                <!-- Preserve search -->
+                                <input type="hidden" name="search" value="{{ request('search') }}">
+                            </form>
 
-                        </div>
-                    </div>
-
-                    <!-- ================= DESKTOP VIEW (Parallel Buttons) ================= -->
-                    <!-- Hidden on mobile, visible on md (medium) and larger -->
-                    <div class="hidden w-full flex-wrap justify-center gap-3 
-                                bg-white border border-gray-300 shadow-sm 
-                                p-3 mb-5 rounded-lg">
-                            
-                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px] font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6366f1] transition-all">
-                                <i style="color: var(--brand-green);" class="fa-solid fa-layer-group mr-2"></i> All Accounts
-                            </button>
-
-                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px] font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6366f1] transition-all">
-                                <i style="color: var(--brand-green);" class="fa-solid fa-icons mr-2"></i> social_media
-                            </button>
-
-                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px]  font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6366f1] transition-all">
-                                <i style="color: var(--brand-green);" class="fa-solid fa-envelopes-bulk mr-2"></i> email_communication
-                            </button>
-
-                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px]  font-medium rounded-md text-gray-700 bg-white hover:bg-[#4f46e5] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#6366f1] transition-all">
-                                <i style="color: var(--brand-green);" class="fa-solid fa-money-check-dollar mr-2"></i> payment_finance
-                            </button>
-
-                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px]  font-medium rounded-md text-gray-700 bg-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">
-                                <i style="color: var(--brand-green);" class="fa-solid fa-globe mr-2"></i> marketplace_ecommerce
-                            </button>
-
-                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px]  font-medium rounded-md text-gray-700 bg-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">
-                                <i style="color: var(--brand-green);" class="fa-solid fa-laptop-code mr-2"></i> development_tech
-                            </button>
-
-                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px]  font-medium rounded-md text-gray-700 bg-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">
-                                <i style="color: var(--brand-green);" class="fa-solid fa-bullhorn mr-2"></i> advertising_marketing
-                            </button>
-
-                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-[17px]  font-medium rounded-md text-gray-700 bg-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">
-                                <i style="color: var(--brand-green);" class="fa-regular fa-circle-play mr-2"></i> entertainment_media
-                            </button>
 
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">                        
 
-                    @foreach($allProducts as $product)
-                        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
-                            <!-- Badges -->
-                            <div class="absolute top-3 left-3 z-10">
-                                <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                                    {{ $product->tag }}
-                                </span>
-                            </div>
-
-                            @if($product->popularity !='normal')
-                                <div class="absolute top-0 right-0 z-20 bg-transparent overflow-hidden w-20 h-20">
-                                    <span
-                                        class="absolute top-3 right-[-28px] rotate-45 
-                                            bg-gradient-to-r from-red-600 via-red-500 to-rose-500
-                                            text-white text-xs font-bold text-center
-                                            w-32 py-1 shadow-lg pl-3">
-                                        {{ $product->popularity }}
+                        @foreach($allProducts as $product)
+                            <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                                <!-- Badges -->
+                                <div class="absolute top-3 left-3 z-10">
+                                    <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                        {{ $product->tag }}
                                     </span>
                                 </div>
-                            @endif
 
-                            <!-- Image -->
-                            <div style="background: linear-gradient(135deg, {{ $product->bg_color_1 }}, {{ $product->bg_color_2 }});"
-                                class="h-44 flex items-center justify-center">
-                                <img src="{{ $product->product_logo ? asset('storage/' . $product->product_logo) : asset('no_image.jpg') }}"
-                                    class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
-                                    alt="Facebook PVA Accounts">
-                            </div>
+                                @if($product->popularity !='normal')
+                                    <div class="absolute top-0 right-0 z-20 bg-transparent overflow-hidden w-20 h-20">
+                                        <span
+                                            class="absolute top-3 right-[-28px] rotate-45 
+                                                bg-gradient-to-r from-red-600 via-red-500 to-rose-500
+                                                text-white text-xs font-bold text-center
+                                                w-32 py-1 shadow-lg pl-3">
+                                            {{ $product->popularity }}
+                                        </span>
+                                    </div>
+                                @endif
 
-                            <!-- Content -->
-                            <div class="p-3 text-center ">
-                                <h3 class="text-lg font-bold text-gray-900 mb-2 ">
-                                    {{ $product->product_name }}
-                                </h3>
-                                <p class="text-sm text-gray-600 mb-3">
-                                    {{ $product->product_desc }}
-                                </p>
-
-                                <!-- Feature List (Left Aligned) -->
-                                <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
-                                    <li class="flex items-center gap-2">
-                                        <span class="text-emerald-600 font-bold">✓</span> Phone Verified (PVA)
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="text-emerald-600 font-bold">✓</span> Manually Created
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="text-emerald-600 font-bold">✓</span> Instant Delivery
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <span class="text-emerald-600 font-bold">✓</span> Replacement Guarantee
-                                    </li>
-                                </ul>
-
-                                <!-- Price -->
-                                <div class="mb-4">
-                                    <span class="text-2xl font-extrabold text-emerald-600">$0.35</span>
-                                    <span class="text-sm text-gray-500">/ account</span>
+                                <!-- Image -->
+                                <div style="background: linear-gradient(135deg, {{ $product->bg_color_1 }}, {{ $product->bg_color_2 }});"
+                                    class="h-44 flex items-center justify-center">
+                                    <img src="{{ $product->product_logo ? asset('storage/' . $product->product_logo) : asset('no_image.jpg') }}"
+                                        class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
+                                        alt="Facebook PVA Accounts">
                                 </div>
 
-                                <!-- CTA -->
-                                <a href="#" style="background-color:{{ $product->product_color }};"
-                                    class="inline-block w-full rounded-lg hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
-                                    Buy Now
-                                </a>
+                                <!-- Content -->
+                                <div class="p-3 text-center ">
+                                    <h3 class="text-lg font-bold text-gray-900 mb-2 ">
+                                        {{ $product->product_name }}
+                                    </h3>
+                                    <p class="text-sm text-gray-600 mb-3">
+                                        {{ $product->product_desc }}
+                                    </p>
+
+                                    <!-- Feature List (Left Aligned) -->
+                                    <ul class="text-sm text-gray-700 space-y-1 mb-4 text-left pl-2">
+                                        <li class="flex items-center gap-2">
+                                            <span class="text-emerald-600 font-bold">✓</span> Phone Verified (PVA)
+                                        </li>
+                                        <li class="flex items-center gap-2">
+                                            <span class="text-emerald-600 font-bold">✓</span> Manually Created
+                                        </li>
+                                        <li class="flex items-center gap-2">
+                                            <span class="text-emerald-600 font-bold">✓</span> Instant Delivery
+                                        </li>
+                                        <li class="flex items-center gap-2">
+                                            <span class="text-emerald-600 font-bold">✓</span> Replacement Guarantee
+                                        </li>
+                                    </ul>
+
+                                    <!-- Price -->
+                                    <div class="mb-4">
+                                        <span class="text-2xl font-extrabold text-emerald-600">$0.35</span>
+                                        <span class="text-sm text-gray-500">/ account</span>
+                                    </div>
+
+                                    <!-- CTA -->
+                                    <a href="#" style="background-color:{{ $product->product_color }};"
+                                        class="inline-block w-full rounded-lg hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
+                                        Buy Now
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
 
                     </div>
                 </div>
