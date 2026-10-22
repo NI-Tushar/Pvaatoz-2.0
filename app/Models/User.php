@@ -113,6 +113,10 @@ class User extends Authenticatable
     // Profile completion percentage
     public function getProfileCompletionAttribute()
     {
+        if (!in_array($this->user_type, ['Consultant', 'Student'])) {
+            return 100;
+        }
+
         $requiredFields = $this->getRequiredFields();
         $filledCount = $this->countFilledFields($requiredFields);
         $totalFields = count($requiredFields);
@@ -206,8 +210,12 @@ class User extends Authenticatable
                 $count++;
             }
         }
-
         return $count;
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(\App\Models\Order::class, 'user_id');
     }
 }
 

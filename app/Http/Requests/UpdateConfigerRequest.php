@@ -22,18 +22,18 @@ class UpdateConfigerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string'],
-            'logo' => ['mimes:png,jpg,jpeg'],
-            'logo_two' => ['mimes:png,jpg,jpeg'],
-            'phone' => ['numeric'],
-            'email' => ['string', 'email'],
-            'address' => ['string'],
-            'facebook' => ['string'],
-            'twitter' => ['string'],
-            'youtube' => ['string'],
-            'instagram' => ['string'],
-            'companydetail' => ['string'],
-            'video' => ['string'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg,webp,svg', 'max:4096'],
+            'logo_two' => ['nullable', 'file', 'mimes:png,jpg,jpeg,webp,svg,ico', 'max:4096'],
+            'phone' => ['nullable', 'string', 'max:50'],
+            'email' => ['nullable', 'string', 'email', 'max:255'],
+            'address' => ['nullable', 'string'],
+            'facebook' => ['nullable', 'string'],
+            'twitter' => ['nullable', 'string'],
+            'youtube' => ['nullable', 'string'],
+            'instagram' => ['nullable', 'string'],
+            'companydetail' => ['nullable', 'string'],
+            'video' => ['nullable', 'string'],
         ];
     }
 }

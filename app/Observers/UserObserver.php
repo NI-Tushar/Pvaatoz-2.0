@@ -21,10 +21,18 @@ class UserObserver
 
     protected function updateVerificationStatus(User $user)
     {
-        // Force a fresh calculation of completion percentage
-        $percentage = $user->profile_completion; // This will update the database column
+        // For customer accounts in AccueVault, ensure verified status without recalculating legacy fields
+        if (!in_array($user->user_type, ['Consultant', 'Student'])) {
+            if (empty($user->is_verified)) {
+                $user->updateQuietly(['is_verified' => 'Verified']);
+            }
+            return;
+        }
 
-        $newStatus = ($percentage === 100) ? 'Non-verified' : 'Non-verified';
+        // Force a calculation of completion percentage for legacy types
+        $percentage = $user->profile_completion;
+
+        $newStatus = ($percentage === 100) ? 'Verified' : 'Non-verified';
 
         if ($user->is_verified !== $newStatus) {
             $user->updateQuietly(['is_verified' => $newStatus]);

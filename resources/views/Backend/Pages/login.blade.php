@@ -18,12 +18,21 @@
                 
                 <!-- Logo Area -->
                 <div style="width: 100%; margin: auto; text-align: center; margin-bottom: 20px;">
-                    <h2 class="font-bold text-[30px]">
-                        <a href="{{ route('home') }}">
+                    @php
+                        $loginLogo = $configer?->logo 
+                            ? (str_starts_with($configer->logo, 'http') || str_starts_with($configer->logo, 'storage/') ? asset($configer->logo) : asset('storage/' . $configer->logo))
+                            : null;
+                    @endphp
+                    <a href="{{ route('home') }}" class="inline-flex flex-col items-center justify-center">
+                        @if($loginLogo)
+                            <img src="{{ $loginLogo }}" alt="{{ $configer?->name ?? 'Logo' }}" class="max-h-14 w-auto object-contain mb-2 mx-auto" onerror="this.style.display='none';">
+                        @else
+                        <h2 class="font-bold text-[28px]">
                             <!-- Using CSS variable for the specific green requested -->
-                            <span class="text-[var(--brand-green)]">{{$configer->name}}
-                        </a>
-                    </h2>
+                            <span class="text-[var(--brand-green)]">{{ $configer?->name ?? config('app.name', 'AccueVault') }}</span>
+                        </h2>
+                        @endif
+                    </a>
                 </div>
 
                 <!-- Login Form -->
@@ -72,7 +81,7 @@
                     <div class="flex items-center justify-between mb-6">
                         <!-- Remember Me -->
                         <div class="flex items-center">
-                            <input type="checkbox" id="remember" name="remember" 
+                            <input type="checkbox" id="remember" name="remember" checked 
                                 class="h-4 w-4 text-[var(--brand-green)] focus:ring-[var(--brand-green)] border-gray-300 rounded cursor-pointer">
                             <label for="remember" class="ml-2 block text-sm text-gray-700 cursor-pointer select-none">
                                 Remember Me
@@ -99,7 +108,7 @@
             <!-- Footer -->
             <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 text-center">
                 <p class="text-xs text-gray-500">
-                    &copy; 2023 <span class="font-semibold text-gray-700">PVAAtoZ</span>. All rights reserved.
+                    &copy; {{ date('Y') }} <span class="font-semibold text-gray-700">{{ $configer?->name ?? config('app.name', 'AccueVault') }}</span>. All rights reserved.
                 </p>
             </div>
         </div>

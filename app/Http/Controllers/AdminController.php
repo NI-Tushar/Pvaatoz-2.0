@@ -4,158 +4,313 @@ namespace App\Http\Controllers;
 
 use App\Action\File;
 use App\Models\Admin;
-use App\Http\Requests\StoreAdminRequest;
-use App\Http\Requests\UpdateAdminRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of Users (Customers) and Staff (Admins).
+     */
+    public function index(Request $request)
     {
-        $admins = Admin::latest()->get();
-        return view('Backend.Pages.Admin.index', compact('admins'));
+        $tab = $request->get('tab', 'customers');
+        $search = trim($request->get('search', ''));
+
+        // Query Customers (Website Registered Users)
+        $customersQuery = User::withCount('orders')->latest();
+        if ($search !== '') {
+            $customersQuery->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('phone', 'like', "%{$search}%");
+            });
+        }
+        $customers = $customersQuery->paginate(15, ['*'], 'customers_page')->withQueryString();
+
+        // Query Staff / Admins
+        $adminsQuery = Admin::latest();
+        if ($search !== '') {
+            $adminsQuery->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('phone', 'like', "%{$search}%")
+                  ->orWhere('role', 'like', "%{$search}%");
+            });
+        }
+        $admins = $adminsQuery->get();
+
+        // Metrics & KPI counts
+        $totalCustomers = User::count();
+        $verifiedCustomers = User::where('is_verified', 'Verified')->count();
+        $totalAdmins = Admin::count();
+        $newThisMonth = User::where('created_at', '>=', now()->startOfMonth())->count();
+
+        return view('Backend.Pages.Admin.index', compact(
+            'customers',
+            'admins',
+            'tab',
+            'search',
+            'totalCustomers',
+            'verifiedCustomers',
+            'totalAdmins',
+            'newThisMonth'
+        ));
     }
 
+    /**
+     * Show the form for creating a new user or staff member.
+     */
     public function create()
     {
-        if (! Gate::any(['isAdmin'], Auth::guard('admin')->user())) {
-            abort(403);
+        $admin = Auth::guard('admin')->user();
+        if (! $admin || strtolower($admin->role) !== 'admin') {
+            abort(403, 'Unauthorized action.');
         }
-        $admins = Admin::latest()->get();
-        return view('Backend.Pages.Admin.create', compact('admins'));
+
+        return view('Backend.Pages.Admin.create');
     }
 
+    /**
+     * Store a newly created user or staff admin in storage.
+     */
     public function store(Request $request)
     {
-        if (! Gate::any(['isAdmin'], Auth::guard('admin')->user())) {
-            abort(403);
+        $admin = Auth::guard('admin')->user();
+        if (! $admin || strtolower($admin->role) !== 'admin') {
+            abort(403, 'Unauthorized action.');
         }
-        $request->validate([
-            'name' => ['required', 'string'],
-            'email' => ['required', 'unique:users,email'],
-            'phone' => ['nullable', 'numeric'],
+
+        $accountType = $request->input('account_type', 'customer');
+        $role = $request->input('role', ($accountType === 'staff' ? 'Admin' : 'Customer'));
+        $isStaff = ($accountType === 'staff') || in_array(strtolower($role), ['admin', 'editor', 'moderator']);
+
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', $isStaff ? 'unique:admins,email' : 'unique:users,email'],
+            'phone' => ['nullable', 'string', 'max:50'],
             'role' => ['required', 'string'],
-            'password' => ['required', 'string'],
-            'repassword' => ['required', 'string'],
-            'image' => ['nullable','mimes:png,jpg, jpeg']
-        ]);
+            'password' => ['required', 'string', 'min:6'],
+            'repassword' => ['required', 'same:password'],
+            'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:2048'],
+        ];
 
-        $file = $request->file('image');
+        $messages = [
+            'repassword.same' => 'The password confirmation does not match.',
+            'email.unique' => 'This email address is already registered in the system.',
+        ];
 
-        if($request->password === $request->repassword) {
-            if($request->hasFile('image')){
-                $user = Admin::create([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-                    'password' => Hash::make($request->password),
-                    'role' =>  $request->role,
-                    'image' => File::upload($file, 'Admins')
-                ]);
-            }else{
-                $user = Admin::create([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-                    'password' => Hash::make($request->password),
-                    'role' =>  $request->role
-                ]);
-            }
+        $request->validate($rules, $messages);
 
-            $this->notificationMessage('New User Added Successfully!');
-            return redirect()->route('admin.user.index');
-        } else {
-            $this->notificationMessage('Passwords do not match', 'danger');
-            return back();
-        }
-    }
-
-    public function edit(Admin $user)
-    {
-        $admin = $user;
-
-        if (! Gate::any(['isAdmin'], Auth::guard('admin')->user())) {
-            abort(403);
-        }
-        return view('Backend.Pages.Admin.edit', compact('admin'));
-    }
-
-    public function update(Admin $user, Request $request)
-    {
-        if (! Gate::any(['isAdmin'], Auth::guard('admin')->user())) {
-            abort(403);
-        }
-        $request->validate([
-            'name' => ['required', 'string'],
-            'email' => ['required', "unique:users,email, $user->id"],
-            'phone' => ['nullable', 'numeric'],
-            'role' => ['required', 'string'],
-            'password' => ['nullable', 'string'],
-            'repassword' => ['nullable', 'string'],
-            'image' => ['nullable','mimes:png,jpg, jpeg']
-        ]);
-
-
-
+        // Upload Profile Image if provided
+        $imagePath = null;
         if ($request->hasFile('image')) {
-
-            $old_image = $user->image;
-            File::deleteFile($old_image);
-
-            $imagePath = File::upload($request->file('image'), 'Admins');
-            $user->image = $imagePath;
-            $user->save();
+            $imagePath = File::upload($request->file('image'), $isStaff ? 'Admins' : 'Users');
         }
 
-        if($request->password){
-            if($request->password === $request->repassword){
-                $user->password = $request->password;
-                $user->name = $request->name;
-                $user->email = $request->email;
-                $user->phone = $request->phone;
-                $user->role = $request->role;
-                $user->save();
+        if ($isStaff) {
+            Admin::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'role' => ucfirst($role),
+                'password' => Hash::make($request->password),
+                'image' => $imagePath,
+            ]);
 
-                $this->notificationMessage('User Update Successfully!');
-                return redirect()->route('admin.user.index');
+            $this->notificationMessage("New staff member '{$request->name}' added as {$role}!");
+            return redirect()->route('admin.user.index', ['tab' => 'admins'])->with('success', "Staff member '{$request->name}' added successfully!");
+        } else {
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'user_type' => 'customer',
+                'is_verified' => $request->boolean('is_verified') ? 'Verified' : 'Pending',
+                'password' => Hash::make($request->password),
+                'image' => $imagePath,
+            ]);
 
-            }else{
-                $this->notificationMessage('Passwords does not match', 'danger');
-                return redirect()->route('admin.user.index');
-            }
-        }else{
+            $this->notificationMessage("Customer user '{$request->name}' created successfully!");
+            return redirect()->route('admin.user.index', ['tab' => 'customers'])->with('success', "Customer '{$request->name}' created successfully!");
+        }
+    }
+
+    /**
+     * Show the form for editing the specified user or admin.
+     */
+    public function edit(Request $request, $id)
+    {
+        $admin = Auth::guard('admin')->user();
+        if (! $admin || strtolower($admin->role) !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $type = $request->get('type');
+        if ($type === 'customer' || (!Admin::where('id', $id)->exists() && User::where('id', $id)->exists())) {
+            $user = User::findOrFail($id);
+            $accountType = 'customer';
+        } else {
+            $user = Admin::findOrFail($id);
+            $accountType = 'staff';
+        }
+
+        return view('Backend.Pages.Admin.edit', compact('user', 'accountType'));
+    }
+
+    /**
+     * Update the specified user or admin in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $admin = Auth::guard('admin')->user();
+        if (! $admin || strtolower($admin->role) !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $accountType = $request->input('account_type');
+        $isCustomer = ($accountType === 'customer') || User::where('id', $id)->exists();
+
+        if ($isCustomer) {
+            $user = User::findOrFail($id);
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', "unique:users,email,{$user->id}"],
+                'phone' => ['nullable', 'string', 'max:50'],
+                'password' => ['nullable', 'string', 'min:6'],
+                'repassword' => ['nullable', 'same:password'],
+                'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:2048'],
+            ]);
+
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone = $request->phone;
-            $user->role = $request->role;
-            $user->save();
-
-            $this->notificationMessage('User Update Successfully!');
-            return redirect()->route('admin.user.index');
-        }
-
-
-    }
-
-    public function destroy(Admin $user)
-    {
-        if (! Gate::any(['isAdmin'], Auth::guard('admin')->user())) {
-            abort(403);
-        }
-        $FirstUser = Admin::first();
-        if($user->id !== $FirstUser->id){
-            $deleteUser = $user->delete();
-            if($deleteUser){
-                $this->notificationMessage('User Deleted Successfully!');
-                return redirect()->route('admin.user.index');
+            if ($request->has('is_verified')) {
+                $user->is_verified = $request->boolean('is_verified') ? 'Verified' : 'Pending';
             }
 
-        }else{
-            $this->notificationMessage('Create a new user then you will able to delete that', 'warning');
-            return redirect()->route('admin.user.index');
+            if ($request->hasFile('image')) {
+                if ($user->image) {
+                    File::deleteFile($user->image);
+                }
+                $user->image = File::upload($request->file('image'), 'Users');
+            }
+
+            if ($request->filled('password')) {
+                $user->password = Hash::make($request->password);
+            }
+
+            $user->save();
+
+            $this->notificationMessage("Customer '{$user->name}' updated successfully!");
+            return redirect()->route('admin.user.index', ['tab' => 'customers'])->with('success', "Customer updated successfully!");
+        } else {
+            $admin = Admin::findOrFail($id);
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', "unique:admins,email,{$admin->id}"],
+                'phone' => ['nullable', 'string', 'max:50'],
+                'role' => ['required', 'string'],
+                'password' => ['nullable', 'string', 'min:6'],
+                'repassword' => ['nullable', 'same:password'],
+                'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:2048'],
+            ]);
+
+            $admin->name = $request->name;
+            $admin->email = $request->email;
+            $admin->phone = $request->phone;
+            $admin->role = ucfirst($request->role);
+
+            if ($request->hasFile('image')) {
+                if ($admin->image) {
+                    File::deleteFile($admin->image);
+                }
+                $admin->image = File::upload($request->file('image'), 'Admins');
+            }
+
+            if ($request->filled('password')) {
+                $admin->password = Hash::make($request->password);
+            }
+
+            $admin->save();
+
+            $this->notificationMessage("Staff member '{$admin->name}' updated successfully!");
+            return redirect()->route('admin.user.index', ['tab' => 'admins'])->with('success', "Staff member updated successfully!");
         }
+    }
+
+    /**
+     * Remove the specified user or admin.
+     */
+    public function destroy(Request $request, $id)
+    {
+        $admin = Auth::guard('admin')->user();
+        if (! $admin || strtolower($admin->role) !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $type = $request->input('type');
+
+        if ($type === 'customer' || (!Admin::where('id', $id)->exists() && User::where('id', $id)->exists())) {
+            $user = User::findOrFail($id);
+            $userName = $user->name;
+            if ($user->image) {
+                File::deleteFile($user->image);
+            }
+            $user->delete();
+
+            $this->notificationMessage("Customer '{$userName}' has been deleted.");
+            return redirect()->route('admin.user.index', ['tab' => 'customers'])->with('success', "Customer deleted successfully.");
+        } else {
+            $admin = Admin::findOrFail($id);
+
+            if ($admin->id === Auth::guard('admin')->id()) {
+                $this->notificationMessage('You cannot delete your own logged-in admin account!', 'danger');
+                return redirect()->back()->with('error', 'You cannot delete your own account.');
+            }
+
+            $firstAdmin = Admin::first();
+            if ($admin->id === $firstAdmin?->id) {
+                $this->notificationMessage('Root primary administrator cannot be deleted!', 'warning');
+                return redirect()->back()->with('error', 'Cannot delete root primary administrator.');
+            }
+
+            $adminName = $admin->name;
+            if ($admin->image) {
+                File::deleteFile($admin->image);
+            }
+            $admin->delete();
+
+            $this->notificationMessage("Staff member '{$adminName}' has been deleted.");
+            return redirect()->route('admin.user.index', ['tab' => 'admins'])->with('success', "Staff member deleted successfully.");
+        }
+    }
+
+    /**
+     * Quick toggle customer email/account verification.
+     */
+    public function toggleVerify(Request $request, $id)
+    {
+        $admin = Auth::guard('admin')->user();
+        if (! $admin || strtolower($admin->role) !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $user = User::findOrFail($id);
+        $user->is_verified = ($user->is_verified === 'Verified') ? 'Pending' : 'Verified';
+        $user->save();
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'status' => $user->is_verified,
+                'message' => "Verification updated to {$user->is_verified}.",
+            ]);
+        }
+
+        return redirect()->back()->with('success', "User '{$user->name}' verification is now {$user->is_verified}.");
     }
 }

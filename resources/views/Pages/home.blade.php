@@ -35,7 +35,7 @@
         <!-- Hero Section Container -->
         <header class="relative z-10 w-full py-20 lg:py-32">
             
-            <div class="container mx-auto px-4">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
                 <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
                     
                     <!-- Left Side: Content -->
@@ -360,11 +360,12 @@
       <div class="container" data-aos="fade-up">
 
         <header class="section-header wow fadeInUp">
-            <h3>Why Choose {{ $configer->name}}</h3>
-            <p class="mt-2 max-w-7xl mx-auto">We provide 100% verified PVA and aged accounts to help you achieve your digital goals. With years of experience in the industry, we ensure secure, reliable, and fast delivery for businesses and professionals. Trust {{ $configer->name}} for high-quality accounts and exceptional service that scales with your needs.</p>
+            <h3>Why Choose {{ $configer?->name ?? config('app.name', 'AccueVault') }}</h3>
+            <p class="mt-2 max-w-7xl mx-auto">We provide 100% verified PVA and aged accounts to help you achieve your digital goals. With years of experience in the industry, we ensure secure, reliable, and fast delivery for businesses and professionals. Trust {{ $configer?->name ?? config('app.name', 'AccueVault') }} for high-quality accounts and exceptional service that scales with your needs.</p>
         </header>
 
-        <div class="row justify-content-center gap-4 pl-4 pr-4">
+        <div class="container mx-auto p-4">
+            <div class="row justify-content-center gap-4">
 
             <!-- Our Payment Method -->
             <div 
@@ -445,8 +446,8 @@
                 </div>
             </div>
 
+            </div>
         </div>
-
       </div>
     </section><!-- End Services Section -->
 
@@ -460,9 +461,7 @@
                     multiple package choices, flexible payment methods, and a dependable replacement guarantee—giving you complete confidence from purchase to use.
                 </p>
             </header>
-            <div class="container mx-auto p-2">
-                <div class="max-w-7xl mx-auto px-0 md:px-4">
-
+            <div class="container mx-auto p-4">
                 <div class="w-full mx-auto">
 
                     <!-- ================= MOBILE VIEW (Dropdown) ================= -->
@@ -530,16 +529,17 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">                        
 
                         @foreach($allProducts as $product)
-                            <div class="group relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border">
+                            <div onclick="window.location.href='{{ route('product.detail', $product->id) }}'"
+                                class="group relative bg-white rounded-xl shadow-md hover:shadow-xl hover:border-emerald-500/50 transition-all duration-300 overflow-hidden border flex flex-col h-full cursor-pointer">
                                 <!-- Badges -->
-                                <div class="absolute top-3 left-3 z-10">
-                                    <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                                <div class="absolute top-3 left-3 z-10 pointer-events-none">
+                                    <span class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
                                         {{ $product->tag }}
                                     </span>
                                 </div>
 
                                 @if($product->popularity !='normal')
-                                    <div class="absolute top-0 right-0 z-20 bg-transparent overflow-hidden w-20 h-20">
+                                    <div class="absolute top-0 right-0 z-20 bg-transparent overflow-hidden w-20 h-20 pointer-events-none">
                                         <span
                                             class="absolute top-3 right-[-28px] rotate-45 
                                                 bg-gradient-to-r from-red-600 via-red-500 to-rose-500
@@ -551,19 +551,22 @@
                                 @endif
 
                                 <!-- Image -->
-                                <div style="background: linear-gradient(135deg, {{ $product->bg_color_1 }}, {{ $product->bg_color_2 }});"
-                                    class="h-44 flex items-center justify-center">
+                                <div
+                                   style="background: linear-gradient(135deg, {{ $product->bg_color_1 ?? '#064e3b' }}, {{ $product->bg_color_2 ?? '#022c22' }});"
+                                   class="h-44 flex items-center justify-center overflow-hidden shrink-0">
                                     <img src="{{ $product->product_logo ? asset('storage/' . $product->product_logo) : asset('no_image.jpg') }}"
-                                        class="h-20 w-auto group-hover:scale-110 transition-transform duration-300"
-                                        alt="Facebook PVA Accounts">
+                                        class="h-20 w-auto group-hover:scale-110 transition-transform duration-300 object-contain"
+                                        alt="{{ $product->product_name }}">
                                 </div>
 
-                                <!-- Content -->
-                                <div class="p-3 text-center ">
-                                    <h3 class="text-lg font-bold text-gray-900 mb-2 ">
-                                        {{ $product->product_name }}
+                                <!-- Content (flex-1 flex flex-col to allow mt-auto on bottom CTA) -->
+                                <div class="p-4 text-center flex flex-col flex-1">
+                                    <h3 class="text-lg font-bold text-gray-900 mb-2 truncate">
+                                        <span class="group-hover:text-emerald-600 transition-colors">
+                                            {{ $product->product_name }}
+                                        </span>
                                     </h3>
-                                    <p class="text-sm text-gray-600 mb-3">
+                                    <p class="text-sm text-gray-600 mb-3 line-clamp-2">
                                         {{ $product->product_desc }}
                                     </p>
 
@@ -583,17 +586,45 @@
                                         </li>
                                     </ul>
 
-                                    <!-- Price -->
-                                    <div class="mb-4">
-                                        <span class="text-2xl font-extrabold text-emerald-600">$0.35</span>
-                                        <span class="text-sm text-gray-500">/ account</span>
-                                    </div>
+                                    <!-- Bottom Container: Pinned to bottom of the card -->
+                                    <div class="mt-auto pt-3">
+                                        <!-- Price -->
+                                        <div class="mb-3">
+                                            <span class="text-2xl font-extrabold text-emerald-600">$0.35</span>
+                                            <span class="text-sm text-gray-500">/ account</span>
+                                        </div>
 
-                                    <!-- CTA -->
-                                    <a href="#" style="background-color:{{ $product->product_color }};"
-                                        class="inline-block w-full rounded-lg hover:bg-emerald-700 text-white py-2.5 font-semibold transition">
-                                        Buy Now
-                                    </a>
+                                        <!-- Actions: Add to Cart & Buy Now -->
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <!-- Add to Cart Button -->
+                                            <button type="button" 
+                                                    onclick="window.AccueCart && window.AccueCart.add({
+                                                        id: {{ $product->id }},
+                                                        product_name: '{{ addslashes($product->product_name) }}',
+                                                        category: '{{ addslashes($product->category) }}',
+                                                        tag: '{{ addslashes($product->tag ?? '100% PVA') }}',
+                                                        product_logo: '{{ $product->product_logo ? asset('storage/' . $product->product_logo) : asset('no_image.jpg') }}',
+                                                        bg_color_1: '{{ $product->bg_color_1 ?? '#064e3b' }}',
+                                                        bg_color_2: '{{ $product->bg_color_2 ?? '#022c22' }}',
+                                                        product_color: '{{ $product->product_color ?? '#10b981' }}',
+                                                        unit_price: 0.85
+                                                    }, 10, event)"
+                                                    class="inline-flex items-center justify-center gap-1.5 w-full rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 py-2.5 font-semibold text-xs transition shadow-sm cursor-pointer"
+                                                    title="Add to Shopping Cart">
+                                                <i class="fa-solid fa-cart-plus text-xs text-emerald-600"></i>
+                                                <span>Add to Cart</span>
+                                            </button>
+
+                                            <!-- Buy Now Button: Redirects to Checkout page, stops card click event -->
+                                            <a href="{{ route('checkout', $product->id) }}" 
+                                                onclick="event.stopPropagation();"
+                                                style="background-color:{{ $product->product_color ?? '#10b981' }};"
+                                                class="inline-flex items-center justify-center gap-1.5 w-full rounded-lg hover:opacity-90 text-white py-2.5 font-semibold text-xs transition shadow cursor-pointer">
+                                                <i class="fa-solid fa-bolt text-xs"></i>
+                                                <span>Buy Now</span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
@@ -864,7 +895,7 @@
                             <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/text_icon/question.png') }}" alt="">
                         </div>
                         <h2 class="text-[20px] uppercase md:text-[25px]  font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
-                            WHY YOU SHOULD BUY ACCOUNTS FROM {{ $configer->name}}?
+                            WHY YOU SHOULD BUY ACCOUNTS FROM {{ $configer?->name ?? config('app.name', 'AccueVault') }}?
                         </h2>
                     </div>
                     
@@ -873,7 +904,7 @@
                         <li class="flex items-start">
                             <span class=" font-bold text-emerald-600 mr-4 mt-1">01.</span>
                             <p class="text-slate-600 leading-relaxed  border-gray-200 p-0 m-0italic">
-                                {{ $configer->name}} is one of the foremost well-known social media account providers.
+                                {{ $configer?->name ?? config('app.name', 'AccueVault') }} is one of the foremost well-known social media account providers.
                             </p>
                         </li>
                         <!-- Item 2 -->
@@ -929,7 +960,7 @@
                             <img class="h-[35px] w-auto" src="{{ asset('Frontend/icons/text_icon/shopping.png') }}" alt="">
                         </div>
                         <h2 class="text-[20px] uppercase md:text-[25px] font-bold text-slate-900 border-b-2 border-emerald-500 pb-2 inline-block leading-tight">
-                            HOW TO BUY ACCOUNTS FROM {{ $configer->name}}
+                            HOW TO BUY ACCOUNTS FROM {{ $configer?->name ?? config('app.name', 'AccueVault') }}
                         </h2>
                     </div>
                     
@@ -942,7 +973,7 @@
                         </p>
                         <p class="border-t border-gray-100 pt-6">
                             <strong class="text-slate-900 uppercase tracking-widest text-sm mb-2 block">Step 1: Browse & Select</strong>
-                            To purchase ancient AOL accounts from {{ $configer->name}} you've got to browse the landing page to begin with. At that point you've got to go to the benefit segment once you will see the AOL account administrations recorded.
+                            To purchase ancient AOL accounts from {{ $configer?->name ?? config('app.name', 'AccueVault') }} you've got to browse the landing page to begin with. At that point you've got to go to the benefit segment once you will see the AOL account administrations recorded.
                         </p>
                         <p>
                             <strong class="text-slate-900 uppercase tracking-widest text-sm mb-2 block">Step 2: Choose Package</strong>
@@ -950,11 +981,11 @@
                         </p>
                         <p>
                             <strong class="text-slate-900 uppercase tracking-widest text-sm mb-2 block">Step 3: Payment</strong>
-                            {{ $configer->name}} basically acknowledges all sorts of installment alternatives such as PayPal, MasterCard installment, culminate cash and Bitcoin. In some cases {{ $configer->name}} offer a few rebates for particular bulk AOL accounts bundles which is astonishing. You'll be able to snatch our rebate offer by paying with a particular installment alternative.
+                            {{ $configer?->name ?? config('app.name', 'AccueVault') }} basically acknowledges all sorts of installment alternatives such as PayPal, MasterCard installment, culminate cash and Bitcoin. In some cases {{ $configer?->name ?? config('app.name', 'AccueVault') }} offer a few rebates for particular bulk AOL accounts bundles which is astonishing. You'll be able to snatch our rebate offer by paying with a particular installment alternative.
                         </p>
                         <p>
                             <strong class="text-slate-900 uppercase tracking-widest text-sm mb-2 block">Step 4: Delivery</strong>
-                            After installment you have got to wait for a minute and you may be informed before long to provide your accounts by email. {{ $configer->name}} mainly conveys accounts in a spreadsheet which may be exceptionally helpful highlight that will assist you to oversee the accounts effectively.
+                            After installment you have got to wait for a minute and you may be informed before long to provide your accounts by email. {{ $configer?->name ?? config('app.name', 'AccueVault') }} mainly conveys accounts in a spreadsheet which may be exceptionally helpful highlight that will assist you to oversee the accounts effectively.
                         </p>
                     </div>
                 </section>
@@ -976,7 +1007,7 @@
                             You'll have a part of websites which give AOL mail for your marketing. Regular we need to spend a part of cash to induce appropriate administrations. But the thing is that most of the websites on the web don’t give quality benefit particularly they by and large take the cash from the client but in return they give exceptionally poor services.
                         </p>
                         <p>
-                            So to buy AOL channel, {{ $configer->name}} can be a trusted source since it is solid and it has a dedicated team bolster. You are doing not ought to stress almost the quality of any sorts of accounts. Pvanet some of the time offers astounding rebates and you'll snatch it from there on the off chance that you're a customary client otherwise you can contact us for a special offer by subscribing to our bulletin. We'll inform you through e-mail on the off chance that any offer is running.
+                            So to buy AOL channel, {{ $configer?->name ?? config('app.name', 'AccueVault') }} can be a trusted source since it is solid and it has a dedicated team bolster. You are doing not ought to stress almost the quality of any sorts of accounts. Pvanet some of the time offers astounding rebates and you'll snatch it from there on the off chance that you're a customary client otherwise you can contact us for a special offer by subscribing to our bulletin. We'll inform you through e-mail on the off chance that any offer is running.
                         </p>
                     </div>
                 </section>

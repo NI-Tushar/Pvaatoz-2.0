@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> {{ $configer->name }} | @yield('title', 'Default')</title>
+    <title> {{ $configer?->name ?? config('app.name', 'AccueVault') }} | @yield('title', 'Default')</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="/small-logo.png">

@@ -16,12 +16,12 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view("Frontend.Pages.register");
+        return view("Pages.register");
     }
 
     public function consultantCreate(): View
     {
-        return view("Frontend.Pages.consultant_register");
+        return view("Pages.register");
     }
 
     /**
@@ -32,20 +32,22 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'user_type' => ['required'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'phone' => ['required', 'digits:11'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone' => ['nullable', 'string', 'max:40'],
+            'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
         ]);
 
-        // Store validated data in session
-        session(['registration_data' => $validated]);
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'] ?? null,
+            'password' => \Illuminate\Support\Facades\Hash::make($validated['password']),
+            'user_type' => 'customer',
+        ]);
 
-        // Redirect to OTP sending route via Email
-        return redirect()->route('send.emailOTP', ['email' => $validated['email']]);
+        \Illuminate\Support\Facades\Auth::login($user);
 
-        // Redirect to OTP sending route via phone number
-        // return redirect()->route('send.otp', ['phone' => $validated['phone']]);
+        return redirect(\App\Providers\RouteServiceProvider::HOME);
     }
 }

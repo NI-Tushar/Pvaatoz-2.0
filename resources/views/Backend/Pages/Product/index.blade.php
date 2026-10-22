@@ -51,7 +51,7 @@
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
-        </ul>+
+        </ul>
     </div>
     @endif
     <!-- error message end -->
@@ -430,90 +430,70 @@
     const productPicker = document.getElementById('product_color');
     const productText = document.getElementById('product_color_text');
 
-    // Target the BODY to change the background
-    const bodyElement = document.body;
+    // --- Background Gradient Handlers ---
+    if (bgPicker1 && bgText1 && bgPicker2 && bgText2) {
+        bgPicker1.addEventListener('input', (e) => {
+            bgText1.value = e.target.value.toUpperCase();
+        });
+        bgText1.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if (/^#[0-9A-F]{6}$/i.test(val)) {
+                bgPicker1.value = val;
+            }
+        });
 
-    // Function to update background gradient
-    function updateBodyGradient() {
-        const color1 = bgText1.value;
-        const color2 = bgText2.value;
-        bodyElement.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+        bgPicker2.addEventListener('input', (e) => {
+            bgText2.value = e.target.value.toUpperCase();
+        });
+        bgText2.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if (/^#[0-9A-F]{6}$/i.test(val)) {
+                bgPicker2.value = val;
+            }
+        });
     }
 
-    // --- Background Gradient Handlers ---
-    
-    // Picker 1 -> Text 1
-    bgPicker1.addEventListener('input', (e) => {
-        bgText1.value = e.target.value.toUpperCase();
-        updateBodyGradient();
-    });
-    // Text 1 -> Picker 1 (Manual Input)
-    bgText1.addEventListener('input', (e) => {
-        const val = e.target.value;
-        if (/^#[0-9A-F]{6}$/i.test(val)) {
-            bgPicker1.value = val;
-            updateBodyGradient();
-        }
-    });
-
-    // Picker 2 -> Text 2
-    bgPicker2.addEventListener('input', (e) => {
-        bgText2.value = e.target.value.toUpperCase();
-        updateBodyGradient();
-    });
-    // Text 2 -> Picker 2 (Manual Input)
-    bgText2.addEventListener('input', (e) => {
-        const val = e.target.value;
-        if (/^#[0-9A-F]{6}$/i.test(val)) {
-            bgPicker2.value = val;
-            updateBodyGradient();
-        }
-    });
-
     // --- Product Color Handlers ---
-
-    // Picker -> Text
-    productPicker.addEventListener('input', (e) => {
-        productText.value = e.target.value.toUpperCase();
-    });
-    // Text -> Picker
-    productText.addEventListener('input', (e) => {
-        const val = e.target.value;
-        if (/^#[0-9A-F]{6}$/i.test(val)) {
-            productPicker.value = val;
-        }
-    });
-
-    // Initialize
-    updateBodyGradient();
-
+    if (productPicker && productText) {
+        productPicker.addEventListener('input', (e) => {
+            productText.value = e.target.value.toUpperCase();
+        });
+        productText.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if (/^#[0-9A-F]{6}$/i.test(val)) {
+                productPicker.value = val;
+            }
+        });
+    }
 
     // for product logo/image selection
-    const input = document.getElementById('product_logo')
-    const preview = document.getElementById('logo-preview')
-    const placeholder = document.getElementById('upload-placeholder')
+    const input = document.getElementById('product_logo');
+    const preview = document.getElementById('logo-preview');
+    const placeholder = document.getElementById('upload-placeholder');
 
-    input.addEventListener('change', function () {
-        const file = this.files[0]
+    if (input && preview && placeholder) {
+        input.addEventListener('change', function () {
+            const file = this.files[0];
 
-        if (!file) return
+            if (!file) return;
 
-        if (!file.type.startsWith('image/')) {
-            alert('Please select an image file')
-            this.value = ''
-            return
-        }
+            if (!file.type.startsWith('image/')) {
+                alert('Please select an image file');
+                this.value = '';
+                return;
+            }
 
-        const reader = new FileReader()
+            const reader = new FileReader();
 
-        reader.onload = function (e) {
-            preview.src = e.target.result
-            preview.classList.remove('hidden')
-            placeholder.classList.add('hidden')
-        }
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            };
 
-        reader.readAsDataURL(file)
-    })
+            reader.readAsDataURL(file);
+        });
+    }
 </script>
 @endsection
 

@@ -46,19 +46,17 @@ class ConfigerController extends Controller
 
         /* Upload Logo */
         if ($request->hasFile('logo')) {
-            $data['logo'] = File::upload(
+            $data['logo'] = File::fleUpload(
                 $request->file('logo'),
-                'Configuration',
-                [1000, 400]
+                'Configuration'
             );
         }
 
-        /* Upload Logo Two */
+        /* Upload Logo Two / Favicon */
         if ($request->hasFile('logo_two')) {
-            $data['logo_two'] = File::upload(
+            $data['logo_two'] = File::fleUpload(
                 $request->file('logo_two'),
-                'Configuration',
-                [1000, 400]
+                'Configuration'
             );
         }
 
@@ -74,55 +72,38 @@ class ConfigerController extends Controller
         if (! Gate::any(['isAdmin'], Auth::guard('admin')->user())) {
             abort(403);
         }
-        if($request->hasFile('logo')){
-            $old_image = $configer->logo;
-            File::deleteFile($old_image);
 
-            $configer->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'address' => $request->address,
-                'companydetail' => $request->companydetail,
-                'facebook' => $request->facebook,
-                'twitter' => $request->twitter,
-                'youtube' => $request->youtube,
-                'instagram' => $request->instagram,
-                'video' => $request->video,
-                'logo' => File::upload($request->file('logo'), 'Configuration', [1000, 400]),
-            ]);
+        $data = [
+            'name'          => $request->name,
+            'phone'         => $request->phone,
+            'email'         => $request->email,
+            'address'       => $request->address,
+            'companydetail' => $request->companydetail,
+            'facebook'      => $request->facebook,
+            'twitter'       => $request->twitter,
+            'youtube'       => $request->youtube,
+            'instagram'     => $request->instagram,
+            'video'         => $request->video,
+        ];
 
-            }elseif($request->hasFile('logo_two')){
-                $old_image = $configer->logo_two;
-                File::deleteFile($old_image);
-
-                $configer->update([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'address' => $request->address,
-                    'companydetail' => $request->companydetail,
-                    'facebook' => $request->facebook,
-                    'twitter' => $request->twitter,
-                    'youtube' => $request->youtube,
-                    'instagram' => $request->instagram,
-                    'video' => $request->video,
-                    'logo_two' => File::upload($request->file('logo_two'), 'Configuration', [1000, 400]),
-                ]);
-
-            }else{
-                $configer->update([
-                    'name' => $request->name,
-                    'phone' => $request->phone,
-                    'email' => $request->email,
-                    'address' => $request->address,
-                    'companydetail' => $request->companydetail,
-                    'facebook' => $request->facebook,
-                    'twitter' => $request->twitter,
-                    'youtube' => $request->youtube,
-                    'instagram' => $request->instagram,
-                    'video' => $request->video,
-                ]);
-
+        /* Update Logo */
+        if ($request->hasFile('logo')) {
+            if ($configer->logo) {
+                File::deleteFile($configer->logo);
+            }
+            $data['logo'] = File::fleUpload($request->file('logo'), 'Configuration');
         }
+
+        /* Update Logo Two / Favicon */
+        if ($request->hasFile('logo_two')) {
+            if ($configer->logo_two) {
+                File::deleteFile($configer->logo_two);
+            }
+            $data['logo_two'] = File::fleUpload($request->file('logo_two'), 'Configuration');
+        }
+
+        $configer->update($data);
+
         $this->notificationMessage('Website Configuration Update Successfully!');
         return redirect()->route('admin.configer.index');
     }

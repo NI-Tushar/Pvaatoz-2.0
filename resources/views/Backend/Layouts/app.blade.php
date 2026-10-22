@@ -9,6 +9,19 @@
   <link rel="stylesheet" href="{{ asset('Backend') }}/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    [x-cloak] { display: none !important; }
+  </style>
+  @php
+    $appConfiger = App\Models\Configer::latest()->first();
+    $adminFavicon = $appConfiger?->logo_two 
+        ? (str_starts_with($appConfiger->logo_two, 'http') || str_starts_with($appConfiger->logo_two, 'storage/') ? asset($appConfiger->logo_two) : asset('storage/' . $appConfiger->logo_two))
+        : asset('small-logo.png');
+  @endphp
+  <link rel="icon" type="image/x-icon" href="{{ $adminFavicon }}">
+  <link rel="shortcut icon" href="{{ $adminFavicon }}">
+  @stack('css')
 </head>
 <body>
 <!-- ./wrapper -->
@@ -24,38 +37,17 @@
     const navItems = document.querySelectorAll(".nav-item");
 
     // Toggle sidebar
-    toggleBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("collapsed");
-    });
-
-    // Active navigation
-    // navItems.forEach((item) => {
-    //   item.addEventListener("click", function (e) {
-    //     e.preventDefault();
-
-    //     // Remove active class from all items
-    //     navItems.forEach((nav) => nav.classList.remove("active"));
-
-    //     // Add active class to clicked item
-    //     this.classList.add("active");
-
-    //     // Simulate page change (in real app, load content dynamically)
-    //     const page = this.getAttribute("href").substring(1);
-    //     console.log(`Navigating to: ${page}`);
-
-    //     // Add smooth animation
-    //     this.style.transform = "scale(0.95)";
-    //     setTimeout(() => {
-    //       this.style.transform = "scale(1)";
-    //     }, 100);
-    //   });
-    // });
-
-    // Mobile menu toggle
-    if (window.innerWidth <= 768) {
+    if (toggleBtn && sidebar) {
       toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("active");
+        sidebar.classList.toggle("collapsed");
       });
+
+      // Mobile menu toggle
+      if (window.innerWidth <= 768) {
+        toggleBtn.addEventListener("click", () => {
+          sidebar.classList.toggle("active");
+        });
+      }
     }
 
     // Animate stats on load
@@ -158,5 +150,8 @@
       }, index * 100);
     });
 </script>
+@stack('script')
+@stack('scripts')
+@stack('js')
 </body>
 </html>

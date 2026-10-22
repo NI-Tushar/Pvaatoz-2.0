@@ -46,8 +46,18 @@ class File
 
     public static function deleteFile($file)
     {
-        if (file_exists($file)) {
-            unlink($file);
+        if (empty($file)) {
+            return;
+        }
+
+        $fullPath = public_path($file);
+        if (file_exists($fullPath) && is_file($fullPath)) {
+            @unlink($fullPath);
+        }
+
+        $storageRel = str_replace('storage/', 'public/', $file);
+        if (Storage::exists($storageRel)) {
+            Storage::delete($storageRel);
         }
     }
 }

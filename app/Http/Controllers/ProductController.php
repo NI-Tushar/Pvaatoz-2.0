@@ -102,21 +102,7 @@ class ProductController extends Controller
             'status'         => 'nullable|in:active,disabled',
         ]);
 
-        // 2. Handle Logo Update (Only if new file uploaded)
-        if ($request->hasFile('product_logo')) {
-
-            // Delete old logo if exists
-            if ($product->product_logo && \Storage::disk('public')->exists($product->product_logo)) {
-                \Storage::disk('public')->delete($product->product_logo);
-            }
-
-            $product->product_logo = $request
-                ->file('product_logo')
-                ->store('products', 'public');
-        }
-
-        // 3. Update Product Data
-        $product->update([
+        $updateData = [
             'category'       => $request->category,
             'tag'            => $request->tag,
             'popularity'     => $request->popularity,
@@ -127,7 +113,22 @@ class ProductController extends Controller
             'feature_list'   => $request->feature_list,
             'product_desc'   => $request->product_desc,
             'status'         => $request->status,
-        ]);
+        ];
+
+        // 2. Handle Logo Update (Only if new file uploaded)
+        if ($request->hasFile('product_logo')) {
+            // Delete old logo if exists
+            if ($product->product_logo && Storage::disk('public')->exists($product->product_logo)) {
+                Storage::disk('public')->delete($product->product_logo);
+            }
+
+            $updateData['product_logo'] = $request
+                ->file('product_logo')
+                ->store('products', 'public');
+        }
+
+        // 3. Update Product Data
+        $product->update($updateData);
 
         // 4. Redirect back
         return redirect()->back()->with('success', 'Product updated successfully.');

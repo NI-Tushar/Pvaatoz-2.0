@@ -147,8 +147,7 @@ h6 {
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   letter-spacing: 3px;
-  padding-left: 10px;
-  border-left: 4px solid var(--brand-green);
+  border-left: none;
 }
 
 #header .logo a {
@@ -233,12 +232,15 @@ h6 {
 
 .navbar .dropdown ul li {
   min-width: 200px;
+  text-align: left;
 }
 
 .navbar .dropdown ul a {
   padding: 10px 20px;
   text-transform: none;
   color: #666666;
+  text-align: left;
+  justify-content: flex-start;
 }
 
 .navbar .dropdown ul a i {
