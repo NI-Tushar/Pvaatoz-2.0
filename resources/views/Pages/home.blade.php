@@ -588,10 +588,35 @@
 
                                     <!-- Bottom Container: Pinned to bottom of the card -->
                                     <div class="mt-auto pt-3">
+                                        @php
+                                            $hasActivePkgs = $product->activePackages && $product->activePackages->count() > 0;
+                                            $firstPkg = $hasActivePkgs ? ($product->activePackages->firstWhere('is_highlight', true) ?? $product->activePackages->first()) : null;
+                                            $minPrice = $hasActivePkgs ? $product->activePackages->min('price') : 0.85;
+                                            $cardPrice = $hasActivePkgs && $firstPkg ? (float) $firstPkg->price : 0.85;
+                                            $cardName = $hasActivePkgs && $firstPkg 
+                                                ? ($product->product_name . ' (' . $firstPkg->package_name . ')') 
+                                                : ($product->product_name ?: (ucwords(str_replace('_', ' ', $product->category)) . ' PVA Account'));
+                                            $cardTag = $hasActivePkgs && $firstPkg ? $firstPkg->package_name : ($product->tag ?? '100% PVA');
+                                            $cardQty = $hasActivePkgs ? 1 : 10;
+                                            $checkoutUrl = $hasActivePkgs && $firstPkg 
+                                                ? (route('checkout', $product->id) . '?package_id=' . $firstPkg->id)
+                                                : route('checkout', $product->id);
+                                        @endphp
+
                                         <!-- Price -->
                                         <div class="mb-3">
-                                            <span class="text-2xl font-extrabold text-emerald-600">$0.35</span>
-                                            <span class="text-sm text-gray-500">/ account</span>
+                                            @if($hasActivePkgs)
+                                                <div class="flex items-baseline justify-center gap-1.5 flex-wrap">
+                                                    <span class="text-xs text-slate-400 font-medium">From</span>
+                                                    <span class="text-2xl font-extrabold text-emerald-600">${{ number_format($minPrice, 2) }}</span>
+                                                    <span class="text-[10px] text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">
+                                                        {{ $product->activePackages->count() }} Packages
+                                                    </span>
+                                                </div>
+                                            @else
+                                                <span class="text-2xl font-extrabold text-emerald-600">$0.85</span>
+                                                <span class="text-sm text-gray-500">/ account</span>
+                                            @endif
                                         </div>
 
                                         <!-- Actions: Add to Cart & Buy Now -->
@@ -600,15 +625,15 @@
                                             <button type="button" 
                                                     onclick="window.AccueCart && window.AccueCart.add({
                                                         id: {{ $product->id }},
-                                                        product_name: '{{ addslashes($product->product_name) }}',
+                                                        product_name: '{{ addslashes($cardName) }}',
                                                         category: '{{ addslashes($product->category) }}',
-                                                        tag: '{{ addslashes($product->tag ?? '100% PVA') }}',
+                                                        tag: '{{ addslashes($cardTag) }}',
                                                         product_logo: '{{ $product->product_logo ? asset('storage/' . $product->product_logo) : asset('no_image.jpg') }}',
                                                         bg_color_1: '{{ $product->bg_color_1 ?? '#064e3b' }}',
                                                         bg_color_2: '{{ $product->bg_color_2 ?? '#022c22' }}',
                                                         product_color: '{{ $product->product_color ?? '#10b981' }}',
-                                                        unit_price: 0.85
-                                                    }, 10, event)"
+                                                        unit_price: {{ $cardPrice }}
+                                                    }, {{ $cardQty }}, event)"
                                                     class="inline-flex items-center justify-center gap-1.5 w-full rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 py-2.5 font-semibold text-xs transition shadow-sm cursor-pointer"
                                                     title="Add to Shopping Cart">
                                                 <i class="fa-solid fa-cart-plus text-xs text-emerald-600"></i>
@@ -616,7 +641,7 @@
                                             </button>
 
                                             <!-- Buy Now Button: Redirects to Checkout page, stops card click event -->
-                                            <a href="{{ route('checkout', $product->id) }}" 
+                                            <a href="{{ $checkoutUrl }}" 
                                                 onclick="event.stopPropagation();"
                                                 style="background-color:{{ $product->product_color ?? '#10b981' }};"
                                                 class="inline-flex items-center justify-center gap-1.5 w-full rounded-lg hover:opacity-90 text-white py-2.5 font-semibold text-xs transition shadow cursor-pointer">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Str;
 use App\Action\File;
+use App\Models\Package;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,8 +19,8 @@ class ProductController extends Controller
             ->orderBy('product_name')
             ->get();
 
-        // Base query
-        $query = Product::orderBy('product_name');
+        // Base query with eager-loaded packages
+        $query = Product::with('packages')->orderBy('product_name');
 
         // Filter by product dropdown
         if ($request->filled('product_id')) {
@@ -56,6 +57,10 @@ class ProductController extends Controller
             'feature_list'       => 'nullable|string',
             'product_desc'       => 'nullable|string',
             'status'             => 'nullable|in:active,disabled',
+            'package_name'       => 'nullable|string|max:150',
+            'package_heading'    => 'nullable|string|max:255',
+            'package_price'      => 'nullable|numeric|min:0',
+            'package_features'   => 'nullable|string',
         ]);
 
         // 2. Handle File Upload (Logo)
@@ -65,9 +70,8 @@ class ProductController extends Controller
             $logoPath = $request->file('product_logo')->store('products', 'public');
         }
 
-        // 4. Create Data
-        // Assuming your model is named 'Product'
-        Product::create([
+        // 3. Create Data
+        $product = Product::create([
             'category'       => $request->category,
             'tag'            => $request->tag,
             'popularity'     => $request->popularity,
@@ -80,6 +84,31 @@ class ProductController extends Controller
             'product_desc'   => $request->product_desc,
             'status'         => $request->status,
         ]);
+
+        // 4. Optionally create initial package if provided
+        if ($request->filled('package_name') && $request->filled('package_price')) {
+            $features = [];
+            if ($request->filled('package_features')) {
+                $lines = preg_split('/[\r\n]+/', (string) $request->package_features);
+                foreach ($lines as $line) {
+                    $clean = trim(preg_replace('/^[-*•\x{2022}]\s*/u', '', trim($line)));
+                    if (!empty($clean)) {
+                        $features[] = $clean;
+                    }
+                }
+            }
+
+            Package::create([
+                'product_id'      => $product->id,
+                'package_name'    => $request->package_name,
+                'package_heading' => $request->package_heading,
+                'features'        => $features,
+                'price'           => $request->package_price,
+                'is_highlight'    => $request->boolean('package_is_highlight'),
+                'is_enabled'      => $request->has('package_is_enabled') ? $request->boolean('package_is_enabled') : true,
+                'sort_order'      => 0,
+            ]);
+        }
 
         // 5. Redirect with success message
         return redirect()->back()->with('success', 'Product created successfully.');
@@ -130,7 +159,58 @@ class ProductController extends Controller
         // 3. Update Product Data
         $product->update($updateData);
 
-        // 4. Redirect back
+        // 4. Handle optional new package creation during product update
+        if ($request->filled('new_package_name') && $request->filled('new_package_price')) {
+            $features = [];
+            if ($request->filled('new_package_features')) {
+                $lines = preg_split('/[\r\n]+/', (string) $request->new_package_features);
+                foreach ($lines as $line) {
+                    $clean = trim(preg_replace('/^[-*•\x{2022}]\s*/u', '', trim($line)));
+                    if (!empty($clean)) {
+                        $features[] = $clean;
+                    }
+                }
+            }
+            Package::create([
+                'product_id'      => $product->id,
+                'package_name'    => $request->new_package_name,
+                'package_heading' => $request->new_package_heading,
+                'features'        => $features,
+                'price'           => $request->new_package_price,
+                'is_highlight'    => $request->boolean('new_package_is_highlight'),
+                'is_enabled'      => $request->has('new_package_is_enabled') ? $request->boolean('new_package_is_enabled') : true,
+                'sort_order'      => 0,
+            ]);
+        }
+
+        // 5. Handle bulk updating existing packages if submitted with product
+        if ($request->has('packages') && is_array($request->packages)) {
+            foreach ($request->packages as $pkgId => $pkgData) {
+                $package = Package::where('product_id', $product->id)->find($pkgId);
+                if ($package) {
+                    $pkgFeatures = [];
+                    if (!empty($pkgData['features'])) {
+                        $lines = is_array($pkgData['features']) ? $pkgData['features'] : preg_split('/[\r\n]+/', (string) $pkgData['features']);
+                        foreach ($lines as $line) {
+                            $clean = trim(preg_replace('/^[-*•\x{2022}]\s*/u', '', trim($line)));
+                            if (!empty($clean)) {
+                                $pkgFeatures[] = $clean;
+                            }
+                        }
+                    }
+                    $package->update([
+                        'package_name'    => $pkgData['package_name'] ?? $package->package_name,
+                        'package_heading' => $pkgData['package_heading'] ?? null,
+                        'price'           => $pkgData['price'] ?? $package->price,
+                        'features'        => $pkgFeatures,
+                        'is_highlight'    => !empty($pkgData['is_highlight']),
+                        'is_enabled'      => !empty($pkgData['is_enabled']),
+                    ]);
+                }
+            }
+        }
+
+        // 6. Redirect back
         return redirect()->back()->with('success', 'Product updated successfully.');
     }
 

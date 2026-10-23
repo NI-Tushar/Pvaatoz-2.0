@@ -234,6 +234,55 @@
                                 </select>
                             </div>
 
+                            <!-- Initial Product Package (Optional) -->
+                            <div class="md:col-span-2 border border-indigo-500/30 rounded-xl p-4 bg-indigo-950/20">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-box-open text-indigo-400 text-lg"></i>
+                                        <h3 class="text-sm font-bold text-white uppercase tracking-wider">Initial Package (Optional)</h3>
+                                    </div>
+                                    <span class="text-xs text-indigo-300">You can also add or edit packages anytime later</span>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-300 mb-1">Package Name</label>
+                                        <input type="text" name="package_name" placeholder="e.g. Starter Pack (10 Accounts)" 
+                                            class="w-full bg-transparent rounded-lg border-[#ffffff28] border px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500">
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-300 mb-1">Price ($ USD)</label>
+                                        <input type="number" step="0.01" min="0" name="package_price" placeholder="e.g. 8.50" 
+                                            class="w-full bg-transparent rounded-lg border-[#ffffff28] border px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500">
+                                    </div>
+
+                                    <div class="md:col-span-2">
+                                        <label class="block text-xs font-medium text-gray-300 mb-1">Package Heading / Subtitle</label>
+                                        <input type="text" name="package_heading" placeholder="e.g. 10 Verified Accounts with Recovery Email Included" 
+                                            class="w-full bg-transparent rounded-lg border-[#ffffff28] border px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500">
+                                    </div>
+
+                                    <div class="md:col-span-2">
+                                        <label class="block text-xs font-medium text-gray-300 mb-1">Package Features (One per line)</label>
+                                        <textarea name="package_features" rows="3" placeholder="100% Phone Verified Real SIMs&#10;Clean Residential IPs&#10;Full Credentials & Recovery Email&#10;48-Hour Replacement Guarantee" 
+                                            class="w-full bg-transparent rounded-lg border-[#ffffff28] border px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 resize-y"></textarea>
+                                    </div>
+
+                                    <div class="flex items-center gap-6 md:col-span-2 pt-1">
+                                        <label class="flex items-center gap-2 cursor-pointer text-xs text-gray-300">
+                                            <input type="checkbox" name="package_is_highlight" value="1" class="rounded border-gray-600 text-indigo-600 focus:ring-indigo-500">
+                                            <span>⭐ Highlight / Featured Badge (Best Value)</span>
+                                        </label>
+
+                                        <label class="flex items-center gap-2 cursor-pointer text-xs text-gray-300">
+                                            <input type="checkbox" name="package_is_enabled" value="1" checked class="rounded border-gray-600 text-emerald-600 focus:ring-emerald-500">
+                                            <span>🟢 Enable Immediately (Visible on website)</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -308,108 +357,393 @@
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
             @foreach($products as $product)
-            <!-- {{ $product->product_name }} -->
-            <form
-                action="{{ route('admin.product.update', $product->id) }}"
-                method="POST"
-                enctype="multipart/form-data"
-                class="rounded-xl border shadow hover:shadow-lg transition overflow-hidden bg-white">
-                @csrf
-                @method('PUT')
+            <div x-data="{ openPkgModal: false, showAddPkg: false, editingPkgId: null }" class="flex flex-col">
+                <!-- {{ $product->product_name }} Form -->
+                <form
+                    action="{{ route('admin.product.update', $product->id) }}"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    class="rounded-xl border shadow hover:shadow-lg transition overflow-hidden bg-white flex flex-col h-full">
+                    @csrf
+                    @method('PUT')
 
-
-                <!-- Gradient Preview -->
-                <div class="h-36 flex items-center justify-center relative group"
-                    style="background: linear-gradient(135deg, {{ $product->bg_color_1 }}, {{ $product->bg_color_2 }});">
-                    @if($product->product_logo)
-                        <img src="{{ $product->product_logo ? asset('storage/' . $product->product_logo) : asset('no_image.jpg') }}"
-                            class="h-16 w-auto rounded shadow">
-                    @endif
-                    <!-- Logo Upload -->
-                    <input type="file" name="product_logo" class="absolute inset-0 opacity-0 cursor-pointer">
-                </div>
-
-                <!-- Content -->
-                <div class="p-4 space-y-3">
-
-                    <!-- Name -->
-                    <input type="text" name="product_name" value="{{ $product->product_name }}"
-                        class="w-full text-lg font-bold bg-transparent border-b focus:outline-none"
-                        style="color: {{ $product->product_color }}">
-
-                    <!-- Tag -->
-                    <input type="text" name="tag" value="{{ $product->tag }}" placeholder="Tag"
-                        class="text-xs px-2 py-1 rounded bg-indigo-100 text-indigo-700 w-fit focus:outline-none">
-                    
-                    <!-- Category -->
-                    <div class="text-xs w-full">
-                        <select name="category" class="border text-black rounded px-2 py-1 w-full">
-                            <option value="">Select Category</option>
-                            <option value="social_media" @selected($product->category == 'social_media')>Social Media Accounts</option>
-                            <option value="email_communication" @selected($product->category == 'email_communication')>Email / Communication Accounts</option>
-                            <option value="payment_finance" @selected($product->category == 'payment_finance')>Payment / Finance Accounts</option>
-                            <option value="marketplace_ecommerce" @selected($product->category == 'marketplace_ecommerce')>Marketplace / E-commerce Accounts</option>
-                            <option value="development_tech" @selected($product->category == 'development_tech')>Development / Tech Accounts</option>
-                            <option value="advertising_marketing" @selected($product->category == 'advertising_marketing')>Advertising / Marketing Accounts</option>
-                            <option value="entertainment_media" @selected($product->category == 'entertainment_media')>Entertainment / Media Accounts</option>
-                        </select>
+                    <!-- Gradient Preview -->
+                    <div class="h-36 flex items-center justify-center relative group"
+                        style="background: linear-gradient(135deg, {{ $product->bg_color_1 }}, {{ $product->bg_color_2 }});">
+                        @if($product->product_logo)
+                            <img src="{{ $product->product_logo ? asset('storage/' . $product->product_logo) : asset('no_image.jpg') }}"
+                                class="h-16 w-auto rounded shadow">
+                        @endif
+                        <!-- Logo Upload -->
+                        <input type="file" name="product_logo" class="absolute inset-0 opacity-0 cursor-pointer">
                     </div>
 
-                    <!-- Description -->
-                     <br>
-                    <p class="text-black mt-0 p-0 text-[12px]">Description</p>
-                    <textarea name="product_desc" rows="2"
-                        class="w-full text-sm text-gray-600 bg-transparent border rounded px-2 py-1 focus:outline-none">{{ $product->product_desc }}</textarea>
+                    <!-- Content -->
+                    <div class="p-4 space-y-3 flex-1 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <!-- Name -->
+                            <input type="text" name="product_name" value="{{ $product->product_name }}"
+                                class="w-full text-lg font-bold bg-transparent border-b focus:outline-none"
+                                style="color: {{ $product->product_color }}">
 
-                    <!-- Features -->
-                    <p class="text-black m-0 p-0 text-[12px]">Features</p>
-                    <textarea name="feature_list" rows="4" 
-                    class="w-full text-sm text-gray-700 mt-0 bg-transparent border rounded px-2 focus:outline-none" placeholder="Comma separated features">{{ $product->feature_list }}</textarea>
+                            <!-- Tag -->
+                            <input type="text" name="tag" value="{{ $product->tag }}" placeholder="Tag"
+                                class="text-xs px-2 py-1 rounded bg-indigo-100 text-indigo-700 w-fit focus:outline-none">
+                            
+                            <!-- Category -->
+                            <div class="text-xs w-full">
+                                <select name="category" class="border text-black rounded px-2 py-1 w-full">
+                                    <option value="">Select Category</option>
+                                    <option value="social_media" @selected($product->category == 'social_media')>Social Media Accounts</option>
+                                    <option value="email_communication" @selected($product->category == 'email_communication')>Email / Communication Accounts</option>
+                                    <option value="payment_finance" @selected($product->category == 'payment_finance')>Payment / Finance Accounts</option>
+                                    <option value="marketplace_ecommerce" @selected($product->category == 'marketplace_ecommerce')>Marketplace / E-commerce Accounts</option>
+                                    <option value="development_tech" @selected($product->category == 'development_tech')>Development / Tech Accounts</option>
+                                    <option value="advertising_marketing" @selected($product->category == 'advertising_marketing')>Advertising / Marketing Accounts</option>
+                                    <option value="entertainment_media" @selected($product->category == 'entertainment_media')>Entertainment / Media Accounts</option>
+                                </select>
+                            </div>
 
-                    <!-- Colors -->
-                    <div class="flex items-center gap-2 text-xs">
-                        <label class="flex items-center text-black gap-1">
-                            BG 1
-                            <input type="color" name="bg_color_1" value="{{ $product->bg_color_1 }}">
-                        </label>
+                            <!-- Description -->
+                            <div>
+                                <p class="text-black mt-0 p-0 text-[12px] font-semibold">Description</p>
+                                <textarea name="product_desc" rows="2"
+                                    class="w-full text-sm text-gray-600 bg-transparent border rounded px-2 py-1 focus:outline-none">{{ $product->product_desc }}</textarea>
+                            </div>
 
-                        <label class="flex items-center text-black gap-1">
-                            BG 2
-                            <input type="color" name="bg_color_2" value="{{ $product->bg_color_2 }}">
-                        </label>
+                            <!-- Features -->
+                            <div>
+                                <p class="text-black m-0 p-0 text-[12px] font-semibold">Features</p>
+                                <textarea name="feature_list" rows="3" 
+                                    class="w-full text-sm text-gray-700 mt-0 bg-transparent border rounded px-2 focus:outline-none" placeholder="Comma separated features">{{ $product->feature_list }}</textarea>
+                            </div>
 
-                        <label class="flex text-black items-center gap-1">
-                            Text
-                            <input type="color" name="product_color" value="{{ $product->product_color }}">
-                        </label>
+                            <!-- Colors -->
+                            <div class="flex items-center gap-2 text-xs">
+                                <label class="flex items-center text-black gap-1">
+                                    BG 1
+                                    <input type="color" name="bg_color_1" value="{{ $product->bg_color_1 }}">
+                                </label>
+
+                                <label class="flex items-center text-black gap-1">
+                                    BG 2
+                                    <input type="color" name="bg_color_2" value="{{ $product->bg_color_2 }}">
+                                </label>
+
+                                <label class="flex text-black items-center gap-1">
+                                    Text
+                                    <input type="color" name="product_color" value="{{ $product->product_color }}">
+                                </label>
+                            </div>
+
+                            <!-- Status & Popularity -->
+                            <div class="flex gap-2 text-xs w-full">
+                                <select name="popularity" class="border text-black rounded px-2 py-1 w-full">
+                                    <option value="normal" @selected($product->popularity=='normal')>Normal</option>
+                                    <option value="hot" @selected($product->popularity=='hot')>Hot</option>
+                                    <option value="popular" @selected($product->popularity=='popular')>Popular</option>
+                                </select>
+
+                                <select name="status" class="border text-black rounded px-2 py-1 w-full">
+                                    <option value="active" @selected($product->status=='active')>Active</option>
+                                    <option value="disabled" @selected($product->status=='disabled')>Disabled</option>
+                                </select>
+                            </div>
+
+                            <!-- Packages Summary Bar -->
+                            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                                <div class="flex items-center gap-1.5 font-semibold text-slate-700">
+                                    <i class="fas fa-cubes text-indigo-600"></i>
+                                    <span>{{ $product->packages->count() }} Packages</span>
+                                    @if($product->packages->where('is_enabled', true)->count() > 0)
+                                        <span class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold">
+                                            {{ $product->packages->where('is_enabled', true)->count() }} Active
+                                        </span>
+                                    @else
+                                        <span class="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-medium">
+                                            0 Active
+                                        </span>
+                                    @endif
+                                </div>
+                                <button type="button" 
+                                        @click="openPkgModal = true" 
+                                        class="px-2.5 py-1 rounded bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold border border-indigo-200 transition flex items-center gap-1 shadow-2xs cursor-pointer">
+                                    <i class="fas fa-layer-group text-[11px]"></i> Manage
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex gap-2 mt-4 pt-2 border-t border-slate-100">
+                            <button type="submit" class="flex-1 px-3 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700 transition font-bold text-xs">
+                                Update
+                            </button>
+                            <button type="button" 
+                                    @click="openPkgModal = true"
+                                    class="px-3 py-2 rounded bg-emerald-600 text-white hover:bg-emerald-700 transition font-bold text-xs flex items-center gap-1 cursor-pointer">
+                                <i class="fas fa-boxes-stacked"></i> Packages
+                            </button>
+                            <a href="{{ route('admin.productDelete', $product->id) }}" onclick="return confirm('Are you sure you want to delete this product?')" class="px-3 py-2 rounded bg-red-600 text-white hover:bg-red-700 transition font-bold text-xs">
+                                Delete
+                            </a>
+                        </div>
+
                     </div>
+                </form>
 
-                    <!-- Status & Popularity -->
-                    <div class="flex gap-2 text-xs w-full">
-                        <select name="popularity" class="border text-black rounded px-2 py-1 w-full">
-                            <option value="normal" @selected($product->popularity=='normal')>Normal</option>
-                            <option value="hot" @selected($product->popularity=='hot')>Hot</option>
-                            <option value="popular" @selected($product->popularity=='popular')>Popular</option>
-                        </select>
+                <!-- Dedicated Package Management Modal (Rendered outside card via x-teleport) -->
+                <template x-teleport="body">
+                    <div x-show="openPkgModal" 
+                         x-transition.opacity
+                         class="fixed inset-0 z-[9999] overflow-y-auto bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+                        
+                        <div @click.outside="openPkgModal = false" 
+                             class="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl text-slate-100 overflow-hidden">
+                            
+                            <!-- Modal Header -->
+                            <div class="px-6 py-4 bg-slate-800/90 border-b border-slate-700/80 flex items-center justify-between shrink-0">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow overflow-hidden"
+                                         style="background: linear-gradient(135deg, {{ $product->bg_color_1 ?? '#0f172a' }}, {{ $product->bg_color_2 ?? '#1e293b' }});">
+                                        @if($product->product_logo)
+                                            <img src="{{ asset('storage/' . $product->product_logo) }}" class="h-6 w-auto object-contain">
+                                        @else
+                                            <i class="fas fa-box text-emerald-400"></i>
+                                        @endif
+                                    </div>
+                                    <div>
+                                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                            <span>{{ $product->product_name }}</span>
+                                            <span class="text-xs px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-semibold border border-indigo-500/30">
+                                                {{ $product->packages->count() }} Packages
+                                            </span>
+                                        </h3>
+                                        <p class="text-xs text-slate-400">Manage, create, or edit pricing packages and feature tiers for this product</p>
+                                    </div>
+                                </div>
 
-                        <select name="status" class="border text-black rounded px-2 py-1 w-full">
-                            <option value="active" @selected($product->status=='active')>Active</option>
-                            <option value="disabled" @selected($product->status=='disabled')>Disabled</option>
-                        </select>
+                                <div class="flex items-center gap-2">
+                                    <button type="button" 
+                                            @click="showAddPkg = !showAddPkg" 
+                                            class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow">
+                                        <i class="fas" :class="showAddPkg ? 'fa-minus' : 'fa-plus'"></i>
+                                        <span x-text="showAddPkg ? 'Close Add Form' : 'Add New Package'"></span>
+                                    </button>
+                                    <button type="button" 
+                                            @click="openPkgModal = false" 
+                                            class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">
+                                        <i class="fas fa-times text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Modal Scrollable Body -->
+                            <div class="p-6 overflow-y-auto space-y-6 flex-1">
+                                
+                                <!-- Add New Package Form (Collapsible) -->
+                                <div x-show="showAddPkg" x-collapse class="bg-slate-800/70 border border-emerald-500/40 rounded-xl p-5 shadow-lg">
+                                    <h4 class="text-sm font-bold text-emerald-400 mb-3 flex items-center gap-2">
+                                        <i class="fas fa-plus-circle"></i> Create New Package for {{ $product->product_name }}
+                                    </h4>
+                                    <form action="{{ route('admin.packages.store', $product->id) }}" method="POST" class="space-y-4">
+                                        @csrf
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label class="block text-xs font-semibold text-slate-300 mb-1">Package Name *</label>
+                                                <input type="text" name="package_name" required placeholder="e.g. Starter Pack (10 Accounts)" 
+                                                    class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-semibold text-slate-300 mb-1">Price ($ USD) *</label>
+                                                <input type="number" step="0.01" min="0" name="price" required placeholder="e.g. 8.50" 
+                                                    class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                                            </div>
+                                            <div class="md:col-span-2">
+                                                <label class="block text-xs font-semibold text-slate-300 mb-1">Package Heading / Subtitle</label>
+                                                <input type="text" name="package_heading" placeholder="e.g. 10 Verified Accounts with Recovery Email Included" 
+                                                    class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                                            </div>
+                                            <div class="md:col-span-2">
+                                                <label class="block text-xs font-semibold text-slate-300 mb-1">Features List (One feature per line)</label>
+                                                <textarea name="features" rows="3" placeholder="100% Phone Verified Real SIMs&#10;Clean Residential IPs&#10;Full Credentials & Recovery Email&#10;48-Hour Replacement Guarantee" 
+                                                    class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"></textarea>
+                                            </div>
+                                            <div class="flex items-center gap-6 md:col-span-2">
+                                                <label class="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                                                    <input type="checkbox" name="is_highlight" value="1" class="rounded border-slate-700 text-indigo-600 focus:ring-indigo-500">
+                                                    <span>⭐ Highlight / Featured Badge (Best Value)</span>
+                                                </label>
+                                                <label class="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                                                    <input type="checkbox" name="is_enabled" value="1" checked class="rounded border-slate-700 text-emerald-600 focus:ring-emerald-500">
+                                                    <span>🟢 Enable Package (Visible on website)</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-end gap-2 pt-2">
+                                            <button type="button" @click="showAddPkg = false" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-xs font-medium text-slate-200">
+                                                Cancel
+                                            </button>
+                                            <button type="submit" class="px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow">
+                                                <i class="fas fa-save mr-1"></i> Save Package
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- Existing Packages List -->
+                                @if($product->packages->count() > 0)
+                                    <div class="space-y-4">
+                                        @foreach($product->packages as $pkg)
+                                            <div class="bg-slate-800/80 border {{ $pkg->is_highlight ? 'border-amber-500/50 shadow-amber-500/10' : 'border-slate-700/80' }} rounded-xl p-4 transition-all">
+                                                
+                                                <!-- Normal Package View (when not editing) -->
+                                                <div x-show="editingPkgId !== {{ $pkg->id }}">
+                                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-700/60">
+                                                        <div class="flex items-center gap-2 flex-wrap">
+                                                            <h4 class="text-base font-bold text-white">{{ $pkg->package_name }}</h4>
+                                                            
+                                                            @if($pkg->is_highlight)
+                                                                <span class="inline-flex items-center gap-1 text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                                                                    <i class="fas fa-star text-[10px]"></i> Highlighted
+                                                                </span>
+                                                            @endif
+
+                                                            @if($pkg->is_enabled)
+                                                                <span class="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                                                    <i class="fas fa-check-circle text-[10px]"></i> Enabled
+                                                                </span>
+                                                            @else
+                                                                <span class="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/30">
+                                                                    <i class="fas fa-times-circle text-[10px]"></i> Disabled
+                                                                </span>
+                                                            @endif
+                                                        </div>
+
+                                                        <div class="flex items-center gap-3">
+                                                            <span class="text-lg font-black text-emerald-400">
+                                                                ${{ number_format($pkg->price, 2) }}
+                                                            </span>
+
+                                                            <!-- Toggle Status Button -->
+                                                            <form action="{{ route('admin.packages.toggle', $pkg->id) }}" method="POST" class="inline">
+                                                                @csrf
+                                                                <button type="submit" 
+                                                                        title="{{ $pkg->is_enabled ? 'Disable this package' : 'Enable this package' }}"
+                                                                        class="px-2.5 py-1 text-xs font-semibold rounded-lg border transition {{ $pkg->is_enabled ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 hover:bg-amber-500/30' : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/30' }}">
+                                                                    {{ $pkg->is_enabled ? 'Disable' : 'Enable' }}
+                                                                </button>
+                                                            </form>
+
+                                                            <!-- Edit Button -->
+                                                            <button type="button" 
+                                                                    @click="editingPkgId = {{ $pkg->id }}" 
+                                                                    class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition flex items-center gap-1">
+                                                                <i class="fas fa-edit text-[11px]"></i> Edit
+                                                            </button>
+
+                                                            <!-- Delete Button -->
+                                                            <form action="{{ route('admin.packages.destroy', $pkg->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete package \'{{ addslashes($pkg->package_name) }}\'?')" class="inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="p-1.5 text-xs text-red-400 hover:text-red-300 hover:bg-red-500/20 rounded-lg transition" title="Delete Package">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                                    @if($pkg->package_heading)
+                                                        <p class="text-xs text-slate-300 mt-2 font-medium">{{ $pkg->package_heading }}</p>
+                                                    @endif
+
+                                                    <!-- Features Pills -->
+                                                    @if(!empty($pkg->features_array))
+                                                        <div class="mt-2.5 flex flex-wrap gap-1.5">
+                                                            @foreach($pkg->features_array as $feat)
+                                                                <span class="inline-flex items-center gap-1 text-[11px] bg-slate-900/80 text-slate-300 border border-slate-700 px-2 py-0.5 rounded-md">
+                                                                    <i class="fas fa-check text-[9px] text-emerald-400"></i>
+                                                                    {{ $feat }}
+                                                                </span>
+                                                            @endforeach
+                                                        </div>
+                                                    @endif
+                                                </div>
+
+                                                <!-- Inline Edit Form for this Package -->
+                                                <div x-show="editingPkgId === {{ $pkg->id }}" x-cloak class="pt-2">
+                                                    <form action="{{ route('admin.packages.update', $pkg->id) }}" method="POST" class="space-y-4">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                            <div>
+                                                                <label class="block text-xs font-semibold text-slate-300 mb-1">Package Name *</label>
+                                                                <input type="text" name="package_name" value="{{ $pkg->package_name }}" required 
+                                                                    class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500">
+                                                            </div>
+                                                            <div>
+                                                                <label class="block text-xs font-semibold text-slate-300 mb-1">Price ($ USD) *</label>
+                                                                <input type="number" step="0.01" min="0" name="price" value="{{ $pkg->price }}" required 
+                                                                    class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500">
+                                                            </div>
+                                                            <div class="md:col-span-2">
+                                                                <label class="block text-xs font-semibold text-slate-300 mb-1">Package Heading / Subtitle</label>
+                                                                <input type="text" name="package_heading" value="{{ $pkg->package_heading }}" 
+                                                                    class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500">
+                                                            </div>
+                                                            <div class="md:col-span-2">
+                                                                <label class="block text-xs font-semibold text-slate-300 mb-1">Features (One per line)</label>
+                                                                <textarea name="features" rows="4" 
+                                                                    class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">{{ $pkg->features_text }}</textarea>
+                                                            </div>
+                                                            <div class="flex items-center gap-6 md:col-span-2">
+                                                                <label class="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                                                                    <input type="checkbox" name="is_highlight" value="1" @checked($pkg->is_highlight) class="rounded border-slate-700 text-indigo-600 focus:ring-indigo-500">
+                                                                    <span>⭐ Highlight / Featured Badge</span>
+                                                                </label>
+                                                                <label class="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+                                                                    <input type="checkbox" name="is_enabled" value="1" @checked($pkg->is_enabled) class="rounded border-slate-700 text-emerald-600 focus:ring-emerald-500">
+                                                                    <span>🟢 Enabled (Visible on website)</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex justify-end gap-2 pt-2 border-t border-slate-700/60">
+                                                            <button type="button" @click="editingPkgId = null" class="px-4 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-xs font-medium text-slate-200">
+                                                                Cancel
+                                                            </button>
+                                                            <button type="submit" class="px-5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow">
+                                                                Update Package
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <div class="text-center py-10 px-4 bg-slate-800/40 rounded-xl border border-dashed border-slate-700">
+                                        <i class="fas fa-box-open text-4xl text-slate-600 mb-3"></i>
+                                        <h4 class="text-sm font-bold text-white mb-1">No Packages Created Yet</h4>
+                                        <p class="text-xs text-slate-400 mb-4 max-w-md mx-auto">Create packages so customers can select tiered offerings with specific features and pricing on the website.</p>
+                                        <button type="button" @click="showAddPkg = true" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow inline-flex items-center gap-1.5">
+                                            <i class="fas fa-plus"></i> Add First Package
+                                        </button>
+                                    </div>
+                                @endif
+
+                            </div>
+
+                            <!-- Modal Footer -->
+                            <div class="px-6 py-3 bg-slate-800/60 border-t border-slate-700/80 flex justify-end shrink-0">
+                                <button type="button" @click="openPkgModal = false" class="px-5 py-2 bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold rounded-lg transition">
+                                    Done
+                                </button>
+                            </div>
+
+                        </div>
                     </div>
-
-                    <!-- Actions -->
-                    <div class="flex gap-2 mt-4">
-                        <button type="submit" class="flex-1 px-3 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700 transition">
-                            Update
-                        </button>
-                        <a href="{{ route('admin.productDelete', $product->id) }}" type="submit" class="px-3 py-2 rounded bg-red-600 text-white hover:bg-red-700 transition">
-                            Delete
-                        </a>
-                    </div>
-
-                </div>
-            </form>
+                </template>
+            </div>
             @endforeach
 
         </div>

@@ -29,8 +29,9 @@ class HomePageController extends Controller
             ->orderBy('category')
             ->get();
 
-        // Base query (NO select here)
-        $query = Product::where('status', 'active')
+        // Base query with active packages eager-loaded
+        $query = Product::with('activePackages')
+            ->where('status', 'active')
             ->orderBy('product_name');
 
         $hasFilter = false;
@@ -56,7 +57,8 @@ class HomePageController extends Controller
         if ($hasFilter) {
             $data['allProducts'] = $filteredProducts;
         } else {
-            $data['allProducts'] = Product::where('status', 'active')
+            $data['allProducts'] = Product::with('activePackages')
+                ->where('status', 'active')
                 ->latest()
                 ->take(12)
                 ->get();
@@ -70,7 +72,7 @@ class HomePageController extends Controller
      */
     public function productDetail($id)
     {
-        $product = Product::where('status', 'active')->findOrFail($id);
+        $product = Product::with('activePackages')->where('status', 'active')->findOrFail($id);
 
         // Fetch related products in the same category, or fallback to any active products
         $relatedProducts = Product::where('status', 'active')
@@ -105,8 +107,8 @@ class HomePageController extends Controller
 
         $totalActiveCount = Product::where('status', 'active')->count();
 
-        // Base query
-        $query = Product::where('status', 'active');
+        // Base query with activePackages eager-loaded
+        $query = Product::with('activePackages')->where('status', 'active');
 
         // Backend Search filter (searches product_name, category, tag, description)
         if ($request->filled('search')) {
@@ -248,7 +250,15 @@ class HomePageController extends Controller
             ->orderBy('sort_order', 'asc')
             ->get();
 
-        return view('Pages.checkout', compact('product', 'configer', 'allProducts', 'dbCartItems', 'paymentMethods'));
+        // Optional selected package for this product
+        $selectedPackage = null;
+        if ($request->has('package_id')) {
+            $selectedPackage = \App\Models\Package::where('product_id', $product->id)
+                ->where('is_enabled', true)
+                ->find($request->query('package_id'));
+        }
+
+        return view('Pages.checkout', compact('product', 'configer', 'allProducts', 'dbCartItems', 'paymentMethods', 'selectedPackage'));
     }
 
     /**

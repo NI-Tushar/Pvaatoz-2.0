@@ -107,6 +107,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('product-delete/{id}', [ProductController::class, 'destroy'])->name('productDelete');
     Route::post('product-search', [ProductController::class, 'search'])->name('productSearch');
 
+    // Product Packages Management
+    Route::post('products/{product}/packages', [\App\Http\Controllers\Admin\PackageController::class, 'store'])->name('packages.store');
+    Route::put('packages/{package}', [\App\Http\Controllers\Admin\PackageController::class, 'update'])->name('packages.update');
+    Route::delete('packages/{package}', [\App\Http\Controllers\Admin\PackageController::class, 'destroy'])->name('packages.destroy');
+    Route::post('packages/{package}/toggle', [\App\Http\Controllers\Admin\PackageController::class, 'toggle'])->name('packages.toggle');
+
     // Payment Methods Management
     Route::get('payment-methods', [PaymentMethodController::class, 'index'])->name('payment-methods.index');
     Route::post('payment-methods/{id}', [PaymentMethodController::class, 'update'])->name('payment-methods.update');

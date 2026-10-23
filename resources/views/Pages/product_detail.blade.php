@@ -226,15 +226,242 @@
                 <i class="fa-solid fa-arrow-left text-[11px]"></i>
                 <span>Back to Catalog</span>
             </a>
-        </div>
+        </div>        @php
+            $hasPackages = $product->activePackages && $product->activePackages->count() > 0;
+            $pkgCount = $hasPackages ? $product->activePackages->count() : 0;
+            $packages = $hasPackages 
+                ? $product->activePackages->sortBy([
+                    ['is_highlight', 'desc'],
+                    ['sort_order', 'asc'],
+                    ['price', 'asc'],
+                ])->values()
+                : collect();
+        @endphp
 
-        <!-- Main Product Section: Two Column Content Layout (No Redundant Image Box) -->
+        @if($hasPackages)
+        <!-- Full-Width Available Product Packages Section (inside max-w-7xl) -->
+        <section class="mb-14 sm:mb-16">
+            <!-- Section Title & Subtitle -->
+            <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/90 text-emerald-800 text-xs font-black uppercase tracking-wider mb-3 shadow-2xs">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Ready Stock • Automated Instant Dispatch</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
+                    Available Product Packages
+                </h2>
+                <p class="text-sm sm:text-base text-slate-500 mt-2.5 max-w-2xl mx-auto leading-relaxed">
+                    Select the ideal package for your operational scale. All accounts are pre-checked, registered on genuine residential IPs, and covered by our 48-hour warranty.
+                </p>
+            </div>
+
+            <!-- Package Cards Grid -->
+            <div class="grid grid-cols-1 {{ $pkgCount === 1 ? 'max-w-md mx-auto' : ($pkgCount === 2 ? 'md:grid-cols-2 max-w-4xl mx-auto' : 'md:grid-cols-2 lg:grid-cols-3') }} gap-6 lg:gap-8 items-stretch">
+                @foreach($packages as $pkg)
+                    <div class="relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 {{ $pkg->is_highlight ? 'bg-gradient-to-b from-emerald-50/80 via-white to-teal-50/30 border-2 border-emerald-500 shadow-xl shadow-emerald-500/15 md:-translate-y-2 lg:-translate-y-3 z-10' : 'bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-1' }}">
+                        
+                        @if($pkg->is_highlight)
+                            <!-- Floating Most Popular Badge -->
+                            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                                <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 text-white font-black text-[11px] uppercase tracking-wider px-4 py-1.5 rounded-full shadow-md shadow-emerald-600/30 whitespace-nowrap">
+                                    <i class="fa-solid fa-fire text-amber-300 text-xs"></i>
+                                    <span>Most Popular Choice</span>
+                                </span>
+                            </div>
+                        @endif
+
+                        <div>
+                            <!-- Header Row: Tier Badge & Tag -->
+                            <div class="flex items-center justify-between gap-3 mb-4">
+                                <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider {{ $pkg->is_highlight ? 'text-emerald-800 bg-emerald-100/80 border border-emerald-200' : 'text-slate-600 bg-slate-100 border border-slate-200/80' }} px-3 py-1 rounded-full">
+                                    <i class="fa-solid {{ $pkg->is_highlight ? 'fa-gem text-emerald-600' : 'fa-box-open text-slate-500' }}"></i>
+                                    <span>Package Tier</span>
+                                </span>
+                                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                                    Instant Dispatch
+                                </span>
+                            </div>
+
+                            <!-- Package Name -->
+                            <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                                {{ $pkg->package_name }}
+                            </h3>
+
+                            <!-- Package Subtitle / Description -->
+                            <p class="text-xs sm:text-sm text-slate-500 mt-1.5 leading-relaxed min-h-[38px]">
+                                {{ $pkg->package_heading ?: 'Authentic verified PVA credentials with residential IP backing.' }}
+                            </p>
+
+                            <!-- Price Block -->
+                            <div class="mt-5 pt-4 border-t border-slate-100">
+                                <div class="flex items-baseline gap-2">
+                                    <span class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
+                                        ${{ number_format($pkg->price, 2) }}
+                                    </span>
+                                    <span class="text-xs sm:text-sm font-semibold text-slate-400">/ package</span>
+                                </div>
+
+                                <!-- Trust & Delivery Micro Badges -->
+                                <div class="mt-2.5 flex flex-wrap items-center gap-2">
+                                    <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 rounded-full">
+                                        <i class="fa-solid fa-bolt text-emerald-500 text-[10px]"></i>
+                                        <span>Instant Delivery</span>
+                                    </span>
+                                    <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 bg-slate-50 border border-slate-200/60 px-2.5 py-0.5 rounded-full">
+                                        <i class="fa-solid fa-shield-halved text-emerald-600 text-[10px]"></i>
+                                        <span>48h Warranty</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Features Included Checklist -->
+                            <div class="mt-6 pt-5 border-t border-slate-100">
+                                <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 block mb-3.5">
+                                    Included in this package:
+                                </span>
+
+                                @if(!empty($pkg->features_array))
+                                    <ul class="space-y-2.5 text-xs sm:text-sm">
+                                        @foreach($pkg->features_array as $feat)
+                                            <li class="flex items-start gap-2.5">
+                                                <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold">
+                                                    <i class="fa-solid fa-check"></i>
+                                                </span>
+                                                <span class="leading-snug font-medium text-slate-700">{{ $feat }}</span>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <ul class="space-y-2.5 text-xs sm:text-sm">
+                                        <li class="flex items-start gap-2.5">
+                                            <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold"><i class="fa-solid fa-check"></i></span>
+                                            <span class="leading-snug font-medium text-slate-700">100% Phone Verified Accounts</span>
+                                        </li>
+                                        <li class="flex items-start gap-2.5">
+                                            <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold"><i class="fa-solid fa-check"></i></span>
+                                            <span class="leading-snug font-medium text-slate-700">Recovery Email Credentials Included</span>
+                                        </li>
+                                        <li class="flex items-start gap-2.5">
+                                            <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold"><i class="fa-solid fa-check"></i></span>
+                                            <span class="leading-snug font-medium text-slate-700">Residential Dedicated IP Origins</span>
+                                        </li>
+                                        <li class="flex items-start gap-2.5">
+                                            <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold"><i class="fa-solid fa-check"></i></span>
+                                            <span class="leading-snug font-medium text-slate-700">Instant Automated Delivery (1-5 mins)</span>
+                                        </li>
+                                    </ul>
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Card Action Buttons -->
+                        <div class="mt-8 pt-5 border-t border-slate-100 space-y-2.5">
+                            <!-- Direct Checkout Button -->
+                            <a href="{{ route('checkout', $product->id) }}?package_id={{ $pkg->id }}"
+                               class="w-full flex items-center justify-center gap-2 {{ $pkg->is_highlight ? 'bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg shadow-emerald-600/30 hover:shadow-emerald-600/40' : 'bg-slate-900 hover:bg-emerald-600 text-white shadow-sm hover:shadow-md' }} font-black py-3.5 px-5 rounded-2xl transition-all duration-200 text-sm transform hover:-translate-y-0.5 active:translate-y-0 text-center">
+                                <span>Buy Package Now</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </a>
+
+                            <!-- Add to Cart Button -->
+                            <button type="button"
+                                    @click="window.AccueCart && window.AccueCart.add({
+                                        id: {{ $product->id }},
+                                        product_name: '{{ addslashes($product->product_name) }} ({{ addslashes($pkg->package_name) }})',
+                                        category: '{{ addslashes($product->category) }}',
+                                        tag: '{{ addslashes($pkg->package_name) }}',
+                                        product_logo: '{{ $product->product_logo ? asset('storage/' . $product->product_logo) : asset('no_image.jpg') }}',
+                                        bg_color_1: '{{ $product->bg_color_1 ?? '#064e3b' }}',
+                                        bg_color_2: '{{ $product->bg_color_2 ?? '#022c22' }}',
+                                        product_color: '{{ $product->product_color ?? '#10b981' }}',
+                                        unit_price: {{ (float)$pkg->price }}
+                                    }, 1, $event)"
+                                    class="w-full flex items-center justify-center gap-2 bg-white hover:bg-emerald-50/60 text-slate-700 hover:text-emerald-700 border border-slate-200 hover:border-emerald-300 font-bold py-3 px-5 rounded-2xl transition-all duration-200 text-xs sm:text-sm shadow-2xs hover:shadow-xs">
+                                <i class="fa-solid fa-cart-plus text-emerald-600"></i>
+                                <span>Add to Cart</span>
+                            </button>
+
+                            <p class="text-[11px] text-center text-slate-400 font-medium pt-1">
+                                <i class="fa-solid fa-lock text-[10px] text-slate-400 mr-1"></i>
+                                SSL Encrypted • Instant Credentials Delivery
+                            </p>
+                        </div>
+
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- Full-Width Trust & Payment Bar Below Cards -->
+            <div class="mt-12 p-6 sm:p-8 rounded-3xl bg-slate-50 border border-slate-200/80 shadow-xs flex flex-col lg:flex-row items-center justify-between gap-6">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 w-full lg:w-auto">
+                    <div class="flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-bolt text-lg"></i>
+                        </span>
+                        <div>
+                            <span class="block text-slate-900 font-black text-xs sm:text-sm">Instant Delivery</span>
+                            <span class="text-[11px] text-slate-400 block font-medium">1 - 5 min dispatch</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-2xl bg-teal-100 text-teal-600 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-shield-halved text-lg"></i>
+                        </span>
+                        <div>
+                            <span class="block text-slate-900 font-black text-xs sm:text-sm">48h Warranty</span>
+                            <span class="text-[11px] text-slate-400 block font-medium">Free replacement</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-sim-card text-lg"></i>
+                        </span>
+                        <div>
+                            <span class="block text-slate-900 font-black text-xs sm:text-sm">Physical SIMs</span>
+                            <span class="text-[11px] text-slate-400 block font-medium">Real SMS verified</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-2xl bg-cyan-100 text-cyan-600 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-file-csv text-lg"></i>
+                        </span>
+                        <div>
+                            <span class="block text-slate-900 font-black text-xs sm:text-sm">Clean Format</span>
+                            <span class="text-[11px] text-slate-400 block font-medium">Excel / CSV export</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Badges & Direct Order channels -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-end gap-3 w-full lg:w-auto pt-4 lg:pt-0 border-t lg:border-t-0 border-slate-200">
+                    <span class="text-xs text-slate-500 font-semibold">Accepted Payments:</span>
+                    <div class="flex items-center gap-2">
+                        <span class="flex items-center gap-1 text-[11px] text-slate-700 font-bold bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-2xs">
+                            <i class="fa-brands fa-bitcoin text-amber-500"></i> Crypto
+                        </span>
+                        <span class="flex items-center gap-1 text-[11px] text-slate-700 font-bold bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-2xs">
+                            <i class="fa-brands fa-paypal text-blue-600"></i> PayPal
+                        </span>
+                        <span class="flex items-center gap-1 text-[11px] text-slate-700 font-bold bg-white px-2.5 py-1 rounded-lg border border-slate-200 shadow-2xs">
+                            <i class="fa-regular fa-credit-card text-emerald-600"></i> Visa/MC
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @endif
+
+        <!-- Main Product Section: Two Column Content Layout (Specifications & Quality Standards) -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 mb-16 items-start">
             
-            <!-- MAIN CONTENT AREA (Left 8 Cols): Order Configuration + Account Description & Features -->
+            <!-- MAIN CONTENT AREA (Left 8 Cols): Specifications & Inclusions -->
             <div class="lg:col-span-8 space-y-8">
                 
-                <!-- Card 1: Interactive Order & Pricing Configuration (Alpine.js) -->
+                @if(!$hasPackages)
+                <!-- Fallback Quantity Tier System (when no custom packages configured) -->
                 <div x-data="{ 
                         qty: 10,
                         baseUnitPrice: 0.85,
@@ -436,6 +663,7 @@
                     </div>
 
                 </div>
+                @endif
 
                 <!-- Card 2: Full Product Overview & Features Included -->
                 <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6 border border-slate-200/90 shadow-sm">

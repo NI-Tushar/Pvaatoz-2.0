@@ -45,22 +45,32 @@
             ];
         }
     }
+    $selectedPkgName = isset($selectedPackage) && $selectedPackage 
+        ? ($product->product_name . ' (' . $selectedPackage->package_name . ')') 
+        : $product->product_name;
+    $selectedPkgPrice = isset($selectedPackage) && $selectedPackage 
+        ? (float) $selectedPackage->price 
+        : 0.85;
+    $selectedPkgTag = isset($selectedPackage) && $selectedPackage 
+        ? $selectedPackage->package_name 
+        : ($product->tag ?? '100% PVA');
+    $selectedPkgQty = isset($selectedPackage) && $selectedPackage ? 1 : 10;
 @endphp
 
 <div class="bg-slate-50 text-slate-800 antialiased min-h-screen pt-28 pb-20 font-['Inter',sans-serif]"
      x-data="{
-        mode: '{{ count($initialDbItems) > 0 ? 'cart' : 'single' }}',
+        mode: '{{ (isset($selectedPackage) && $selectedPackage) ? 'single' : (count($initialDbItems) > 0 ? 'cart' : 'single') }}',
         cartItems: {{ json_encode($initialDbItems) }},
         singleProduct: {
             id: {{ $product->id }},
-            product_name: '{{ addslashes($product->product_name) }}',
+            product_name: '{{ addslashes($selectedPkgName) }}',
             category: '{{ addslashes($product->category) }}',
-            tag: '{{ addslashes($product->tag ?? '100% PVA') }}',
+            tag: '{{ addslashes($selectedPkgTag) }}',
             product_logo: '{{ $product->product_logo ? asset('storage/' . $product->product_logo) : asset('no_image.jpg') }}',
             bg_color_1: '{{ $product->bg_color_1 ?? '#064e3b' }}',
             bg_color_2: '{{ $product->bg_color_2 ?? '#022c22' }}',
             product_color: '{{ $product->product_color ?? '#10b981' }}',
-            unit_price: 0.85
+            unit_price: {{ $selectedPkgPrice }}
         },
 @php
     $enabledPaymentMethods = $paymentMethods ?? \App\Models\PaymentMethod::where('is_enabled', true)->orderBy('sort_order', 'asc')->get();
@@ -75,8 +85,8 @@
     $defaultPhone = old('phone', $authUser?->phone ?? '');
 @endphp
 
-        qty: 10,
-        unitPrice: 0.85,
+        qty: {{ $selectedPkgQty }},
+        unitPrice: {{ $selectedPkgPrice }},
         paymentMethod: '{{ $defaultPaymentSlug }}',
         copiedWallet: false,
         copyAddress(addr) {

@@ -31,4 +31,24 @@ class Product extends Model
     protected $casts = [
         'feature_list' => 'array',
     ];
+
+    /**
+     * All packages associated with this product.
+     */
+    public function packages()
+    {
+        return $this->hasMany(Package::class, 'product_id')->orderBy('sort_order', 'asc')->orderBy('price', 'asc');
+    }
+
+    /**
+     * Active / enabled packages shown on website panel.
+     */
+    public function activePackages()
+    {
+        return $this->hasMany(Package::class, 'product_id')
+            ->where('is_enabled', true)
+            ->orderByDesc('is_highlight')
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('price', 'asc');
+    }
 }
