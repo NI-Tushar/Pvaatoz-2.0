@@ -256,15 +256,15 @@
             </div>
 
             <!-- Package Cards Grid -->
-            <div class="grid grid-cols-1 {{ $pkgCount === 1 ? 'max-w-md mx-auto' : ($pkgCount === 2 ? 'md:grid-cols-2 max-w-4xl mx-auto' : 'md:grid-cols-2 lg:grid-cols-3') }} gap-6 lg:gap-8 items-stretch">
+            <div class="grid grid-cols-1 {{ $pkgCount === 1 ? 'max-w-md mx-auto' : ($pkgCount === 2 ? 'md:grid-cols-2 max-w-4xl mx-auto' : 'md:grid-cols-2 lg:grid-cols-3') }} gap-4 sm:gap-5 lg:gap-6 items-stretch">
                 @foreach($packages as $pkg)
-                    <div class="relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 {{ $pkg->is_highlight ? 'bg-gradient-to-b from-emerald-50/80 via-white to-teal-50/30 border-2 border-emerald-500 shadow-xl shadow-emerald-500/15 md:-translate-y-2 lg:-translate-y-3 z-10' : 'bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-slate-300 hover:-translate-y-1' }}">
+                    <div class="relative rounded-2xl p-4 sm:p-5 flex flex-col justify-between transition-all duration-300 {{ $pkg->is_highlight ? 'bg-gradient-to-b from-emerald-50/80 via-white to-teal-50/30 border-2 border-emerald-500 shadow-lg shadow-emerald-500/10 md:-translate-y-1 z-10' : 'bg-white border border-slate-200/90 shadow-2xs hover:shadow-lg hover:border-slate-300 hover:-translate-y-0.5' }}">
                         
                         @if($pkg->is_highlight)
                             <!-- Floating Most Popular Badge -->
-                            <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                                <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 text-white font-black text-[11px] uppercase tracking-wider px-4 py-1.5 rounded-full shadow-md shadow-emerald-600/30 whitespace-nowrap">
-                                    <i class="fa-solid fa-fire text-amber-300 text-xs"></i>
+                            <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                                <span class="inline-flex items-center gap-1 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 text-white font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-full shadow-md shadow-emerald-600/30 whitespace-nowrap">
+                                    <i class="fa-solid fa-fire text-amber-300 text-[10px]"></i>
                                     <span>Most Popular Choice</span>
                                 </span>
                             </div>
@@ -272,82 +272,82 @@
 
                         <div>
                             <!-- Header Row: Tier Badge & Tag -->
-                            <div class="flex items-center justify-between gap-3 mb-4">
-                                <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider {{ $pkg->is_highlight ? 'text-emerald-800 bg-emerald-100/80 border border-emerald-200' : 'text-slate-600 bg-slate-100 border border-slate-200/80' }} px-3 py-1 rounded-full">
-                                    <i class="fa-solid {{ $pkg->is_highlight ? 'fa-gem text-emerald-600' : 'fa-box-open text-slate-500' }}"></i>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="inline-flex items-center gap-1 text-[11px] font-extrabold uppercase tracking-wider {{ $pkg->is_highlight ? 'text-emerald-800 bg-emerald-100/80 border border-emerald-200' : 'text-slate-600 bg-slate-100 border border-slate-200/80' }} px-2.5 py-0.5 rounded-full">
+                                    <i class="fa-solid {{ $pkg->is_highlight ? 'fa-gem text-emerald-600 text-[10px]' : 'fa-box-open text-slate-500 text-[10px]' }}"></i>
                                     <span>Package Tier</span>
                                 </span>
-                                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                     Instant Dispatch
                                 </span>
                             </div>
 
                             <!-- Package Name -->
-                            <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                            <h3 class="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-snug">
                                 {{ $pkg->package_name }}
                             </h3>
 
                             <!-- Package Subtitle / Description -->
-                            <p class="text-xs sm:text-sm text-slate-500 mt-1.5 leading-relaxed min-h-[38px]">
+                            <p class="text-xs text-slate-500 mt-1 leading-normal line-clamp-2">
                                 {{ $pkg->package_heading ?: 'Authentic verified PVA credentials with residential IP backing.' }}
                             </p>
 
                             <!-- Price Block -->
-                            <div class="mt-5 pt-4 border-t border-slate-100">
-                                <div class="flex items-baseline gap-2">
-                                    <span class="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
+                            <div class="mt-3 pt-2.5 border-t border-slate-100">
+                                <div class="flex items-baseline gap-1.5">
+                                    <span class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                                         ${{ number_format($pkg->price, 2) }}
                                     </span>
-                                    <span class="text-xs sm:text-sm font-semibold text-slate-400">/ package</span>
+                                    <span class="text-xs font-semibold text-slate-400">/ package</span>
                                 </div>
 
                                 <!-- Trust & Delivery Micro Badges -->
-                                <div class="mt-2.5 flex flex-wrap items-center gap-2">
-                                    <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 rounded-full">
-                                        <i class="fa-solid fa-bolt text-emerald-500 text-[10px]"></i>
+                                <div class="mt-1.5 flex flex-wrap items-center gap-1.5">
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full">
+                                        <i class="fa-solid fa-bolt text-emerald-500 text-[9px]"></i>
                                         <span>Instant Delivery</span>
                                     </span>
-                                    <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 bg-slate-50 border border-slate-200/60 px-2.5 py-0.5 rounded-full">
-                                        <i class="fa-solid fa-shield-halved text-emerald-600 text-[10px]"></i>
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-600 bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-full">
+                                        <i class="fa-solid fa-shield-halved text-emerald-600 text-[9px]"></i>
                                         <span>48h Warranty</span>
                                     </span>
                                 </div>
                             </div>
 
                             <!-- Features Included Checklist -->
-                            <div class="mt-6 pt-5 border-t border-slate-100">
-                                <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 block mb-3.5">
+                            <div class="mt-3.5 pt-2.5 border-t border-slate-100">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block mb-2">
                                     Included in this package:
                                 </span>
 
                                 @if(!empty($pkg->features_array))
-                                    <ul class="space-y-2.5 text-xs sm:text-sm">
+                                    <ul class="space-y-1.5 text-xs">
                                         @foreach($pkg->features_array as $feat)
-                                            <li class="flex items-start gap-2.5">
-                                                <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold">
+                                            <li class="flex items-start gap-2">
+                                                <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[9px] font-bold">
                                                     <i class="fa-solid fa-check"></i>
                                                 </span>
-                                                <span class="leading-snug font-medium text-slate-700">{{ $feat }}</span>
+                                                <span class="leading-tight font-medium text-slate-700">{{ $feat }}</span>
                                             </li>
                                         @endforeach
                                     </ul>
                                 @else
-                                    <ul class="space-y-2.5 text-xs sm:text-sm">
-                                        <li class="flex items-start gap-2.5">
-                                            <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold"><i class="fa-solid fa-check"></i></span>
-                                            <span class="leading-snug font-medium text-slate-700">100% Phone Verified Accounts</span>
+                                    <ul class="space-y-1.5 text-xs">
+                                        <li class="flex items-start gap-2">
+                                            <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[9px] font-bold"><i class="fa-solid fa-check"></i></span>
+                                            <span class="leading-tight font-medium text-slate-700">100% Phone Verified Accounts</span>
                                         </li>
-                                        <li class="flex items-start gap-2.5">
-                                            <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold"><i class="fa-solid fa-check"></i></span>
-                                            <span class="leading-snug font-medium text-slate-700">Recovery Email Credentials Included</span>
+                                        <li class="flex items-start gap-2">
+                                            <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[9px] font-bold"><i class="fa-solid fa-check"></i></span>
+                                            <span class="leading-tight font-medium text-slate-700">Recovery Email Credentials Included</span>
                                         </li>
-                                        <li class="flex items-start gap-2.5">
-                                            <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold"><i class="fa-solid fa-check"></i></span>
-                                            <span class="leading-snug font-medium text-slate-700">Residential Dedicated IP Origins</span>
+                                        <li class="flex items-start gap-2">
+                                            <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[9px] font-bold"><i class="fa-solid fa-check"></i></span>
+                                            <span class="leading-tight font-medium text-slate-700">Residential Dedicated IP Origins</span>
                                         </li>
-                                        <li class="flex items-start gap-2.5">
-                                            <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold"><i class="fa-solid fa-check"></i></span>
-                                            <span class="leading-snug font-medium text-slate-700">Instant Automated Delivery (1-5 mins)</span>
+                                        <li class="flex items-start gap-2">
+                                            <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-[9px] font-bold"><i class="fa-solid fa-check"></i></span>
+                                            <span class="leading-tight font-medium text-slate-700">Instant Automated Delivery (1-5 mins)</span>
                                         </li>
                                     </ul>
                                 @endif
@@ -355,12 +355,12 @@
                         </div>
 
                         <!-- Card Action Buttons -->
-                        <div class="mt-8 pt-5 border-t border-slate-100 space-y-2.5">
+                        <div class="mt-4 pt-3 border-t border-slate-100 space-y-2">
                             <!-- Direct Checkout Button -->
                             <a href="{{ route('checkout', $product->id) }}?package_id={{ $pkg->id }}"
-                               class="w-full flex items-center justify-center gap-2 {{ $pkg->is_highlight ? 'bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg shadow-emerald-600/30 hover:shadow-emerald-600/40' : 'bg-slate-900 hover:bg-emerald-600 text-white shadow-sm hover:shadow-md' }} font-black py-3.5 px-5 rounded-2xl transition-all duration-200 text-sm transform hover:-translate-y-0.5 active:translate-y-0 text-center">
+                               class="w-full flex items-center justify-center gap-1.5 {{ $pkg->is_highlight ? 'bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-md shadow-emerald-600/25' : 'bg-slate-900 hover:bg-emerald-600 text-white shadow-2xs' }} font-bold py-2.5 px-4 rounded-xl transition-all duration-200 text-xs sm:text-sm transform hover:-translate-y-0.5 active:translate-y-0 text-center">
                                 <span>Buy Package Now</span>
-                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                                <i class="fa-solid fa-arrow-right text-[11px]"></i>
                             </a>
 
                             <!-- Add to Cart Button -->
@@ -368,7 +368,7 @@
                                     @click="window.AccueCart && window.AccueCart.add({
                                         id: {{ $product->id }},
                                         product_name: '{{ addslashes($product->product_name) }} ({{ addslashes($pkg->package_name) }})',
-                                        category: '{{ addslashes($product->category) }}',
+                                        category: '{{ addslashes((string)($product->category ?? '')) }}',
                                         tag: '{{ addslashes($pkg->package_name) }}',
                                         product_logo: '{{ $product->product_logo ? asset('storage/' . $product->product_logo) : asset('no_image.jpg') }}',
                                         bg_color_1: '{{ $product->bg_color_1 ?? '#064e3b' }}',
@@ -376,13 +376,13 @@
                                         product_color: '{{ $product->product_color ?? '#10b981' }}',
                                         unit_price: {{ (float)$pkg->price }}
                                     }, 1, $event)"
-                                    class="w-full flex items-center justify-center gap-2 bg-white hover:bg-emerald-50/60 text-slate-700 hover:text-emerald-700 border border-slate-200 hover:border-emerald-300 font-bold py-3 px-5 rounded-2xl transition-all duration-200 text-xs sm:text-sm shadow-2xs hover:shadow-xs">
-                                <i class="fa-solid fa-cart-plus text-emerald-600"></i>
+                                    class="w-full flex items-center justify-center gap-1.5 bg-white hover:bg-emerald-50/60 text-slate-700 hover:text-emerald-700 border border-slate-200 hover:border-emerald-300 font-bold py-2 px-4 rounded-xl transition-all duration-200 text-xs shadow-2xs hover:shadow-xs">
+                                <i class="fa-solid fa-cart-plus text-emerald-600 text-[11px]"></i>
                                 <span>Add to Cart</span>
                             </button>
 
-                            <p class="text-[11px] text-center text-slate-400 font-medium pt-1">
-                                <i class="fa-solid fa-lock text-[10px] text-slate-400 mr-1"></i>
+                            <p class="text-[10px] text-center text-slate-400 font-medium pt-0.5">
+                                <i class="fa-solid fa-lock text-[9px] text-slate-400 mr-1"></i>
                                 SSL Encrypted • Instant Credentials Delivery
                             </p>
                         </div>
@@ -1153,7 +1153,7 @@
                                         @click="window.AccueCart && window.AccueCart.add({
                                             id: {{ $related->id }},
                                             product_name: '{{ addslashes($related->product_name) }}',
-                                            category: '{{ addslashes($related->category) }}',
+                                            category: '{{ addslashes((string)($related->category ?? '')) }}',
                                             tag: '{{ addslashes($related->tag ?? '100% PVA') }}',
                                             product_logo: '{{ $related->product_logo ? asset('storage/' . $related->product_logo) : asset('no_image.jpg') }}',
                                             bg_color_1: '{{ $related->bg_color_1 ?? '#064e3b' }}',

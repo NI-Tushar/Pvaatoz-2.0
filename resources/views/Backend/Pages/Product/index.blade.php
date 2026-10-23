@@ -415,7 +415,7 @@
                             <div>
                                 <p class="text-black m-0 p-0 text-[12px] font-semibold">Features</p>
                                 <textarea name="feature_list" rows="3" 
-                                    class="w-full text-sm text-gray-700 mt-0 bg-transparent border rounded px-2 focus:outline-none" placeholder="Comma separated features">{{ $product->feature_list }}</textarea>
+                                    class="w-full text-sm text-gray-700 mt-0 bg-transparent border rounded px-2 focus:outline-none" placeholder="Comma separated features">{{ is_array($product->feature_list) ? implode("\n", $product->feature_list) : $product->feature_list }}</textarea>
                             </div>
 
                             <!-- Colors -->

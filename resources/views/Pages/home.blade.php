@@ -67,7 +67,7 @@
                             class="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-lg shadow-lg shadow-emerald-500/30 transition-all transform hover:-translate-y-1 text-center">
                                 Get Start
                             </a>
-                            <a href="#api" style="border: 1px solid #34d39980;" 
+                            <a href="{{ route('contact') }}" style="border: 1px solid #34d39980;" 
                             class="w-full sm:w-auto px-8 py-3 bg-emerald-950/50 hover:bg-emerald-900 text-white font-bold rounded-lg hover:border-emerald-400 backdrop-blur-sm transition-all text-center">
                                 Contact Us
                             </a>

@@ -371,62 +371,83 @@
                                 <li><a class="nav-link tracking-[3px] {{ Route::is('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a></li>
                                 <li><a class="nav-link tracking-[3px] {{ Route::is('products') ? 'active' : '' }}" href="{{ route('products') }}">All Products</a></li>
                                 @foreach($products as $category => $items)
+                                @php
+                                    $catName = trim((string)$category);
+                                    $hasCategory = !empty($catName) && strtolower($catName) !== 'others' && strtolower($catName) !== 'other';
+                                    $displayCat = $hasCategory ? ucwords(str_replace('_', ' ', $catName)) : "Other's";
+                                    $limitedItems = $items->take(6);
+                                @endphp
 
-                                <li class="dropdown">
-                                    <a href="#">
-                                        <span class="font-semibold tracking-[2px]">{{ ucwords(str_replace('_', ' ', $category)) }}</span>
-                                        <i class="bi bi-chevron-down"></i>
-                                    </a>
-                                    <ul class="d-flex rounded shadow-2xl p-2 gap-2 text-start text-left"
-                                        style="background-color: rgba(6, 30, 23, 0.96);
-                                            backdrop-filter: blur(14px);
-                                            -webkit-backdrop-filter: blur(14px);
-                                            border: 1px solid rgba(16, 185, 129, 0.25);
-                                            min-width: 280px;
-                                            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-                                            text-align: left;">
-                                        @foreach($items->chunk(10) as $chunk)
-                                        <div class="d-flex flex-column gap-1 text-start text-left" style="text-align: left;">
-                                            @foreach($chunk as $product)
-                                            <li style="min-width: 250px; text-align: left;" class="text-start text-left">
-                                                <a href="{{ route('product.detail', $product->id) }}"
-                                                   class="d-flex align-items-center justify-content-start gap-3 text-white hover:!text-[#34d399] tracking-[1px] py-2 px-3 rounded-md transition-all group hover:bg-emerald-950/40 text-start text-left"
-                                                   style="text-transform: none; text-align: left; justify-content: flex-start;">
-                                                    
-                                                    <!-- Left Side Product Image -->
-                                                    <div class="d-flex align-items-center justify-content-center rounded overflow-hidden flex-shrink-0 transition-transform group-hover:scale-110"
-                                                         style="width: 32px; height: 32px; background: linear-gradient(135deg, {{ $product->bg_color_1 ?? '#064e3b' }}, {{ $product->bg_color_2 ?? '#022c22' }}); border: 1px solid rgba(255,255,255,0.15);">
-                                                        @if($product->product_logo)
-                                                            <img src="{{ asset('storage/' . $product->product_logo) }}" 
-                                                                 alt="{{ $product->product_name }}" 
-                                                                 class="w-full h-full object-contain p-1"
-                                                                 onerror="this.onerror=null; this.src='{{ asset('no_image.jpg') }}';">
-                                                        @else
-                                                            <img src="{{ asset('no_image.jpg') }}" 
-                                                                 alt="{{ $product->product_name }}" 
-                                                                 class="w-full h-full object-contain p-1 opacity-80">
-                                                        @endif
-                                                    </div>
+                                @if(!$hasCategory)
+                                    <li>
+                                        <a class="nav-link tracking-[3px] {{ request('category') == 'others' ? 'active' : '' }}" href="{{ route('products') }}">
+                                            {{ $displayCat }}
+                                        </a>
+                                    </li>
+                                @else
+                                    <li class="dropdown">
+                                        <a href="#">
+                                            <span class="font-semibold tracking-[2px]">{{ $displayCat }}</span>
+                                            <i class="bi bi-chevron-down"></i>
+                                        </a>
+                                        <ul class="d-flex flex-column rounded shadow-2xl p-2 gap-1 text-start text-left"
+                                            style="background-color: rgba(6, 30, 23, 0.96);
+                                                backdrop-filter: blur(14px);
+                                                -webkit-backdrop-filter: blur(14px);
+                                                border: 1px solid rgba(16, 185, 129, 0.25);
+                                                min-width: 280px;
+                                                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+                                                text-align: left;">
+                                            <div class="d-flex flex-column gap-1 text-start text-left" style="text-align: left;">
+                                                @foreach($limitedItems as $product)
+                                                <li style="min-width: 250px; text-align: left;" class="text-start text-left">
+                                                    <a href="{{ route('product.detail', $product->id) }}"
+                                                       class="d-flex align-items-center justify-content-start gap-3 text-white hover:!text-[#34d399] tracking-[1px] py-2 px-3 rounded-md transition-all group hover:bg-emerald-950/40 text-start text-left"
+                                                       style="text-transform: none; text-align: left; justify-content: flex-start;">
+                                                        
+                                                        <!-- Left Side Product Image -->
+                                                        <div class="d-flex align-items-center justify-content-center rounded overflow-hidden flex-shrink-0 transition-transform group-hover:scale-110"
+                                                             style="width: 32px; height: 32px; background: linear-gradient(135deg, {{ $product->bg_color_1 ?? '#064e3b' }}, {{ $product->bg_color_2 ?? '#022c22' }}); border: 1px solid rgba(255,255,255,0.15);">
+                                                            @if($product->product_logo)
+                                                                <img src="{{ asset('storage/' . $product->product_logo) }}" 
+                                                                     alt="{{ $product->product_name }}" 
+                                                                     class="w-full h-full object-contain p-1"
+                                                                     onerror="this.onerror=null; this.src='{{ asset('no_image.jpg') }}';">
+                                                            @else
+                                                                <img src="{{ asset('no_image.jpg') }}" 
+                                                                     alt="{{ $product->product_name }}" 
+                                                                     class="w-full h-full object-contain p-1 opacity-80">
+                                                            @endif
+                                                        </div>
 
-                                                    <!-- Product Name & Tag -->
-                                                    <div class="d-flex flex-column text-start text-left leading-tight overflow-hidden" style="text-align: left;">
-                                                        <span class="font-medium text-slate-100 group-hover:text-emerald-400 text-sm truncate text-start text-left" style="text-align: left;">
-                                                            {{ $product->product_name }}
-                                                        </span>
-                                                        @if($product->tag)
-                                                            <span class="text-[10px] text-emerald-400 font-semibold tracking-wider uppercase mt-0.5 text-start text-left" style="text-align: left;">
-                                                                {{ $product->tag }}
+                                                        <!-- Product Name & Tag -->
+                                                        <div class="d-flex flex-column text-start text-left leading-tight overflow-hidden" style="text-align: left;">
+                                                            <span class="font-medium text-slate-100 group-hover:text-emerald-400 text-sm truncate text-start text-left" style="text-align: left;">
+                                                                {{ $product->product_name }}
                                                             </span>
-                                                        @endif
-                                                    </div>
+                                                            @if($product->tag)
+                                                                <span class="text-[10px] text-emerald-400 font-semibold tracking-wider uppercase mt-0.5 text-start text-left" style="text-align: left;">
+                                                                    {{ $product->tag }}
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                @endforeach
+                                            </div>
+
+                                            <!-- Other's All Products Button -->
+                                            <li class="pt-2 mt-1 border-t border-emerald-500/20" style="text-align: center;">
+                                                <a href="{{ route('products', ['category' => $category]) }}" 
+                                                   class="d-flex align-items-center justify-content-center gap-2 text-xs font-bold text-emerald-300 hover:text-white bg-emerald-900/60 hover:bg-emerald-600/80 py-2 px-3 rounded-md transition-all text-center tracking-wider uppercase shadow-xs"
+                                                   style="text-transform: uppercase;">
+                                                    <span>Other's All Products</span>
+                                                    <i class="fa-solid fa-arrow-right text-[11px]"></i>
                                                 </a>
                                             </li>
-                                            @endforeach
-                                        </div>
-                                        @endforeach
-                                    </ul>
-                                </li>
-
+                                        </ul>
+                                    </li>
+                                @endif
                                 @endforeach
 
 
