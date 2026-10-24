@@ -34,6 +34,7 @@ class ConfigerController extends Controller
         $data = [
             'name'          => $request->name,
             'phone'         => $request->phone,
+            'whatsapp'      => $request->whatsapp,
             'email'         => $request->email,
             'address'       => $request->address,
             'companydetail' => $request->companydetail,
@@ -41,6 +42,7 @@ class ConfigerController extends Controller
             'twitter'       => $request->twitter,
             'youtube'       => $request->youtube,
             'instagram'     => $request->instagram,
+            'telegram'      => $request->telegram,
             'video'         => $request->video,
         ];
 
@@ -76,6 +78,7 @@ class ConfigerController extends Controller
         $data = [
             'name'          => $request->name,
             'phone'         => $request->phone,
+            'whatsapp'      => $request->whatsapp,
             'email'         => $request->email,
             'address'       => $request->address,
             'companydetail' => $request->companydetail,
@@ -83,6 +86,7 @@ class ConfigerController extends Controller
             'twitter'       => $request->twitter,
             'youtube'       => $request->youtube,
             'instagram'     => $request->instagram,
+            'telegram'      => $request->telegram,
             'video'         => $request->video,
         ];
 

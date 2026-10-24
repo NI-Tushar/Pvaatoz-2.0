@@ -661,12 +661,37 @@
                         <strong>Email:</strong> {{ $contact_email }}<br>
                     </p>
 
-                    <div class="social-links mt-3">
-                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                    <div class="social-links mt-3 flex items-center flex-wrap gap-2">
+                        @if(!empty($configer?->facebook) && $configer->facebook !== '#')
+                            <a href="{{ $configer->facebook }}" target="_blank" rel="noopener noreferrer" class="facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
+                        @endif
+                        @if(!empty($configer?->twitter) && $configer->twitter !== '#')
+                            <a href="{{ $configer->twitter }}" target="_blank" rel="noopener noreferrer" class="twitter" title="Twitter / X"><i class="bi bi-twitter-x"></i></a>
+                        @endif
+                        @if(!empty($configer?->instagram) && $configer->instagram !== '#')
+                            <a href="{{ $configer->instagram }}" target="_blank" rel="noopener noreferrer" class="instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        @endif
+                        @if(!empty($configer?->youtube) && $configer->youtube !== '#')
+                            <a href="{{ $configer->youtube }}" target="_blank" rel="noopener noreferrer" class="youtube" title="YouTube"><i class="bi bi-youtube"></i></a>
+                        @endif
+                        @if(!empty($configer?->telegram) && $configer->telegram !== '#')
+                            <a href="{{ str_starts_with($configer->telegram, 'http') ? $configer->telegram : 'https://t.me/' . ltrim($configer->telegram, '@') }}" target="_blank" rel="noopener noreferrer" class="telegram" title="Telegram"><i class="bi bi-telegram"></i></a>
+                        @endif
+                        @php
+                            $ftWaNumber = !empty($configer?->whatsapp) ? trim($configer->whatsapp) : (!empty($configer?->phone) ? trim($configer->phone) : null);
+                            $ftWaUrl = null;
+                            if ($ftWaNumber && $ftWaNumber !== '#') {
+                                if (str_starts_with($ftWaNumber, 'http://') || str_starts_with($ftWaNumber, 'https://')) {
+                                    $ftWaUrl = $ftWaNumber;
+                                } else {
+                                    $digits = preg_replace('/[^0-9]/', '', $ftWaNumber);
+                                    $ftWaUrl = !empty($digits) ? 'https://wa.me/' . $digits . '?text=' . rawurlencode('Hello ' . ($configer?->name ?? 'AccueVault') . ', I would like to inquire about your PVA accounts & services.') : null;
+                                }
+                            }
+                        @endphp
+                        @if($ftWaUrl)
+                            <a href="{{ $ftWaUrl }}" target="_blank" rel="noopener noreferrer" class="whatsapp" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                        @endif
                     </div>
 
                 </div>
@@ -699,6 +724,9 @@
 
     <!-- Global Cart Drawer Component -->
     @include('layouts.cart-drawer')
+
+    <!-- Sticky Social Icons & Smooth Scroll-To-Top Button -->
+    @include('layouts.sticky-widgets')
 </body>
 
 

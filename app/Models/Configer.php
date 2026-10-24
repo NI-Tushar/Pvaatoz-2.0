@@ -9,5 +9,5 @@ class Configer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','logo', 'logo_two', 'video', 'companydetail', 'phone', 'email', 'address', 'facebook', 'twitter', 'youtube', 'instagram'];
+    protected $fillable = ['name','logo', 'logo_two', 'video', 'companydetail', 'phone', 'whatsapp', 'email', 'address', 'facebook', 'twitter', 'youtube', 'instagram', 'telegram'];
 }

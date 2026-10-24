@@ -395,6 +395,37 @@
                             @enderror
                         </div>
 
+                        <!-- WhatsApp -->
+                        <div>
+                            <label for="whatsapp" class="admin-label flex items-center gap-1.5">
+                                <i class="fa-brands fa-whatsapp text-emerald-400"></i> WhatsApp Number or Link
+                            </label>
+                            <input type="text" name="whatsapp" id="whatsapp" 
+                                   value="{{ old('whatsapp', $configer?->whatsapp) }}" 
+                                   placeholder="+15550192834 or https://wa.me/15550192834"
+                                   class="admin-input">
+                            <span class="text-[11px] text-slate-500 mt-1 block">
+                                Phone number with country code (e.g. <code>+15550192834</code>) or direct wa.me link.
+                            </span>
+                            @error('whatsapp')
+                                <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Telegram -->
+                        <div>
+                            <label for="telegram" class="admin-label flex items-center gap-1.5">
+                                <i class="fa-brands fa-telegram text-sky-400"></i> Telegram Username or Link
+                            </label>
+                            <input type="text" name="telegram" id="telegram" 
+                                   value="{{ old('telegram', $configer?->telegram) }}" 
+                                   placeholder="https://t.me/yourusername"
+                                   class="admin-input">
+                            @error('telegram')
+                                <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <!-- YouTube -->
                         <div>
                             <label for="youtube" class="admin-label flex items-center gap-1.5">
