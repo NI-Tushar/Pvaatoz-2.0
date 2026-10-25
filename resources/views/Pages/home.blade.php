@@ -115,214 +115,44 @@
                                 </div>
                             </div>
 
-                            <!-- Grid of  -->
+                            <!-- Grid of Products -->
                             <div class="p-3 lg:p-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
-                                
-                                <!-- Item 1: Facebook -->
-                                <div style="border: 1px solid #10b98130;" 
-                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80 shadow hover:border-emerald-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-emerald-900/20">
-                                    <div class="flex items-start justify-between mb-3">
-                                        <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-blue-600/30">
-                                            <i class="fa-brands fa-facebook-f text-lg"></i>
+                                @php
+                                    $dashboardProducts = $heroProducts ?? (\App\Models\Product::where('status', 'active')->where('show_in_hero', true)->orderBy('id', 'asc')->get());
+                                @endphp
+
+                                @foreach($dashboardProducts as $product)
+                                    <a href="{{ route('product.detail', $product->id) }}" 
+                                        style="border: 1px solid #10b98130; text-decoration: none;" 
+                                        class="group block bg-emerald-950/40 hover:bg-emerald-900/80 shadow hover:border-emerald-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-emerald-900/20">
+                                        <div class="flex items-start justify-between mb-3">
+                                            <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg overflow-hidden shrink-0"
+                                                style="background: linear-gradient(135deg, {{ $product->bg_color_1 ?? ($product->product_color ?? '#064e3b') }}, {{ $product->bg_color_2 ?? ($product->product_color ?? '#022c22') }}); border: 1px solid rgba(255,255,255,0.15);">
+                                                @if($product->product_logo)
+                                                    <img src="{{ asset('storage/' . $product->product_logo) }}" 
+                                                        alt="{{ $product->product_name }}" 
+                                                        class="w-full h-full object-contain p-1.5"
+                                                        onerror="this.onerror=null; this.src='{{ asset('no_image.jpg') }}';">
+                                                @else
+                                                    <span class="font-extrabold text-base">{{ strtoupper(substr($product->product_name ?? 'P', 0, 1)) }}</span>
+                                                @endif
+                                            </div>
+                                            @if($product->popularity == 'hot')
+                                                <span style="border: 1px solid #f9731640;" class="text-[10px] bg-orange-500/10 text-orange-400 px-1.5 py-0.5 rounded font-mono border border-orange-500/20 uppercase">HOT</span>
+                                            @elseif($product->popularity == 'popular')
+                                                <span style="border: 1px solid #10b98140;" class="text-[10px] bg-emerald-500/10 text-emerald-300 px-1.5 py-0.5 rounded font-mono uppercase">POPULAR</span>
+                                            @else
+                                                <span style="border: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono uppercase">IN STOCK</span>
+                                            @endif
                                         </div>
-                                        <span style="border: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono ">IN STOCK</span>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm mb-1">Facebook</h4>
-                                    <p class="text-xs text-emerald-200 mb-2">PVA + Friends</p>
-                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-emerald-500 to-teal-400 w-[90%] h-full"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Item 2: Instagram -->
-                                <div style="border: 1px solid #10b98130;" 
-                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-green-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-green-900/20">
-                                    <div class="flex items-start justify-between mb-3">
-                                        <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-pink-600/30">
-                                            <i class="fa-brands fa-instagram text-lg"></i>
+                                        <h4 class="font-bold text-white text-sm mb-1 truncate">{{ $product->product_name }}</h4>
+                                        <p class="text-xs text-emerald-200 mb-2 truncate">{{ $product->tag ?? ($product->product_desc ? Str::limit($product->product_desc, 22) : 'Verified Accounts') }}</p>
+                                        <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
+                                            <div class="h-full {{ $product->popularity == 'hot' ? 'bg-gradient-to-r from-red-500 to-orange-400' : 'bg-gradient-to-r from-emerald-500 to-teal-400' }}"
+                                                style="width: {{ $product->popularity == 'hot' ? '92%' : ($product->popularity == 'popular' ? '78%' : '65%') }};"></div>
                                         </div>
-                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono ">IN STOCK</span>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm mb-1">Instagram</h4>
-                                    <p class="text-xs text-emerald-200 mb-2">Aged & Active</p>
-                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-green-500 to-emerald-400 w-[75%] h-full"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Item 3: Gmail -->
-                                <div style="border: 1px solid #10b98130;" 
-                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-orange-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-orange-900/20">
-                                    <div class="flex items-start justify-between mb-3">
-                                        <div class="w-10 h-10 rounded-lg bg-red-500 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-red-600/30">
-                                            <i class="fa-solid fa-envelope text-lg"></i>
-                                        </div>
-                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-orange-500/10 text-orange-400 px-1.5 py-0.5 rounded font-mono border border-orange-500/20">HOT</span>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm mb-1">Gmail</h4>
-                                    <p class="text-xs text-emerald-200 mb-2">G-Suite Verified</p>
-                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-red-500 to-orange-400 w-[95%] h-full"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Item 4: Twitter (X) -->
-                                <div style="border: 1px solid #10b98130;" 
-                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-gray-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-gray-900/20">
-                                    <div class="flex items-start justify-between mb-3">
-                                        <div class="w-10 h-10 rounded-lg bg-black border border-slate-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-white/10">
-                                            <i class="fa-brands fa-x-twitter text-lg"></i>
-                                        </div>
-                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono ">IN STOCK</span>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm mb-1">Twitter (X)</h4>
-                                    <p class="text-xs text-emerald-200 mb-2">Phone Verified</p>
-                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-gray-500 to-white w-[60%] h-full"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Item 5: TikTok -->
-                                <div style="border: 1px solid #10b98130;" 
-                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-teal-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-teal-900/20">
-                                    <div class="flex items-start justify-between mb-3">
-                                        <div class="w-10 h-10 rounded-lg bg-black border border-slate-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-teal-500/20">
-                                            <i class="fa-brands fa-tiktok text-lg"></i>
-                                        </div>
-                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-lime-500/10 text-lime-400 px-1.5 py-0.5 rounded font-mono border border-lime-500/20">LOW</span>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm mb-1">TikTok</h4>
-                                    <p class="text-xs text-emerald-200 mb-2">US & UK Region</p>
-                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-teal-400 to-green-500 w-[40%] h-full"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Item 6: Telegram -->
-                                <div style="border: 1px solid #10b98130;" 
-                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-sky-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-sky-900/20">
-                                    <div class="flex items-start justify-between mb-3">
-                                        <div class="w-10 h-10 rounded-lg bg-sky-400 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-sky-400/30">
-                                            <i class="fa-brands fa-telegram text-lg"></i>
-                                        </div>
-                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono ">IN STOCK</span>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm mb-1">Telegram</h4>
-                                    <p class="text-xs text-emerald-200 mb-2">Premium Members</p>
-                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-sky-400 to-blue-500 w-[85%] h-full"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Item 7: LinkedIn -->
-                                <div style="border: 1px solid #10b98130;" 
-                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-blue-700/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-blue-900/20">
-                                    <div class="flex items-start justify-between mb-3">
-                                        <div class="w-10 h-10 rounded-lg bg-blue-700 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-blue-700/30">
-                                            <i class="fa-brands fa-linkedin-in text-lg"></i>
-                                        </div>
-                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono ">IN STOCK</span>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm mb-1">LinkedIn</h4>
-                                    <p class="text-xs text-emerald-200 mb-2">Corporate Profiles</p>
-                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-blue-700 to-blue-500 w-[55%] h-full"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Item 8: Pinterest -->
-                                <div style="border: 1px solid #10b98130;" 
-                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80  hover:border-red-600/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-red-900/20">
-                                    <div class="flex items-start justify-between mb-3">
-                                        <div class="w-10 h-10 rounded-lg bg-red-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-red-600/30">
-                                            <i class="fa-brands fa-pinterest-p text-lg"></i>
-                                        </div>
-                                        <span style="border-bottom: 1px solid #10b98140;" class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono ">IN STOCK</span>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm mb-1">Pinterest</h4>
-                                    <p class="text-xs text-emerald-200 mb-2">Business Accounts</p>
-                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-red-600 to-red-400 w-[70%] h-full"></div>
-                                    </div>
-                                </div>
-
-                                    <!-- Ticketmaster -->
-                                <div style="border: 1px solid #10b98130;"
-                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80 hover:border-blue-600/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-blue-900/20">
-                                    <div class="flex items-start justify-between mb-3">
-                                        <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-blue-600/30">
-                                            <i class="fa-solid fa-ticket text-lg"></i>
-                                        </div>
-                                        <span style="border-bottom: 1px solid #10b98140;"
-                                            class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono">
-                                            IN STOCK
-                                        </span>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm mb-1">Ticketmaster</h4>
-                                    <p class="text-xs text-emerald-200 mb-2">Verified Accounts</p>
-                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-blue-600 to-blue-400 w-[65%] h-full"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Medium -->
-                                <div style="border: 1px solid #10b98130;"
-                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80 hover:border-black/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-black/30">
-                                    <div class="flex items-start justify-between mb-3">
-                                        <div class="w-10 h-10 rounded-lg bg-black flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-black/40">
-                                            <i class="fa-brands fa-medium text-lg"></i>
-                                        </div>
-                                        <span style="border-bottom: 1px solid #10b98140;"
-                                            class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono">
-                                            IN STOCK
-                                        </span>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm mb-1">Medium</h4>
-                                    <p class="text-xs text-emerald-200 mb-2">Aged Writer Accounts</p>
-                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-neutral-700 to-neutral-500 w-[60%] h-full"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Naver -->
-                                <div style="border: 1px solid #10b98130;"
-                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80 hover:border-green-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-green-900/20">
-                                    <div class="flex items-start justify-between mb-3">
-                                        <div class="w-10 h-10 rounded-lg bg-green-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg shadow-green-600/30">
-                                            <span class="font-extrabold text-lg">N</span>
-                                        </div>
-                                        <span style="border-bottom: 1px solid #10b98140;"
-                                            class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono">
-                                            IN STOCK
-                                        </span>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm mb-1">Naver</h4>
-                                    <p class="text-xs text-emerald-200 mb-2">Verified Accounts</p>
-                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-green-600 to-green-400 w-[75%] h-full"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Binance -->
-                                <div style="border: 1px solid #10b98130;"
-                                    class="group bg-emerald-950/40 hover:bg-emerald-900/80 hover:border-yellow-500/50 rounded-xl p-2 lg:!p-4 transition-all cursor-pointer hover:shadow-lg hover:shadow-yellow-900/20">
-                                    <div class="flex items-start justify-between mb-3">
-                                        <div class="w-10 text-white h-10 rounded-lg bg-yellow-500 flex items-center justify-center text-black group-hover:scale-110 transition-transform shadow-lg shadow-yellow-500/30">
-                                            <span class="font-extrabold text-lg">B</span>
-                                        </div>
-                                        <span style="border-bottom: 1px solid #10b98140;"
-                                            class="text-[10px] bg-green-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono">
-                                            IN STOCK
-                                        </span>
-                                    </div>
-                                    <h4 class="font-bold text-white text-sm mb-1">Binance</h4>
-                                    <p class="text-xs text-emerald-200 mb-2">KYC Ready Accounts</p>
-                                    <div class="w-full bg-emerald-900 h-1 rounded-full overflow-hidden">
-                                        <div class="bg-gradient-to-r from-yellow-500 to-yellow-300 w-[80%] h-full"></div>
-                                    </div>
-                                </div>
-
-
+                                    </a>
+                                @endforeach
                             </div>
 
                             <!-- Dashboard Footer -->

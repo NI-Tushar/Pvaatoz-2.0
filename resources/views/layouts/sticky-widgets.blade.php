@@ -7,8 +7,66 @@
     // Build social links list - only those that are configured
     $socialList = [];
 
-    // WhatsApp
-    $waRaw = !empty($config?->whatsapp) ? trim($config->whatsapp) : (!empty($config?->phone) ? trim($config->phone) : null);
+    // Telegram
+    $tgRaw = !empty($config?->telegram) ? trim($config->telegram) : null;
+    if ($tgRaw && $tgRaw !== '#') {
+        if (str_starts_with($tgRaw, 'http://') || str_starts_with($tgRaw, 'https://')) {
+            $tgUrl = $tgRaw;
+        } else {
+            $tgUsername = ltrim($tgRaw, '@');
+            $tgUrl = 'https://t.me/' . $tgUsername;
+        }
+
+        $socialList[] = [
+            'name' => 'Telegram',
+            'url' => $tgUrl,
+            'icon' => 'fa-brands fa-telegram text-xl',
+            'bg' => 'bg-[#229ED9] hover:bg-[#1e8ec3]',
+            'shadow' => 'shadow-[#229ED9]/35',
+            'border' => 'border-[#229ED9]/30',
+            'tooltip' => 'Message on Telegram',
+            'target' => '_blank',
+        ];
+    }
+
+    // Discord
+    $dcRaw = !empty($config?->discord) ? trim($config->discord) : null;
+    if ($dcRaw && $dcRaw !== '#') {
+        if (str_starts_with($dcRaw, 'http://') || str_starts_with($dcRaw, 'https://')) {
+            $dcUrl = $dcRaw;
+        } else {
+            $dcUrl = 'https://discord.gg/' . ltrim($dcRaw, '/');
+        }
+
+        $socialList[] = [
+            'name' => 'Discord',
+            'url' => $dcUrl,
+            'icon' => 'fa-brands fa-discord text-lg',
+            'bg' => 'bg-[#5865F2] hover:bg-[#4752C4]',
+            'shadow' => 'shadow-[#5865F2]/35',
+            'border' => 'border-[#5865F2]/30',
+            'tooltip' => 'Join our Discord',
+            'target' => '_blank',
+        ];
+    }
+
+    // Email / Gmail (Redirects to Contact Page)
+    $emailRaw = !empty($config?->email) ? trim($config->email) : null;
+    if ($emailRaw && $emailRaw !== '#') {
+        $socialList[] = [
+            'name' => 'Email / Gmail',
+            'url' => route('contact'),
+            'icon' => 'fa-solid fa-envelope text-lg',
+            'bg' => 'bg-[#EA4335] hover:bg-[#d93025]',
+            'shadow' => 'shadow-[#EA4335]/35',
+            'border' => 'border-[#EA4335]/30',
+            'tooltip' => 'Contact Us (' . $emailRaw . ')',
+            'target' => '_self',
+        ];
+    }
+
+    // WhatsApp (Only if explicitly provided in admin panel)
+    $waRaw = !empty($config?->whatsapp) ? trim($config->whatsapp) : null;
     if ($waRaw && $waRaw !== '#') {
         if (str_starts_with($waRaw, 'http://') || str_starts_with($waRaw, 'https://')) {
             $waUrl = $waRaw;
@@ -29,29 +87,9 @@
                 'shadow' => 'shadow-[#25D366]/35',
                 'border' => 'border-[#25D366]/30',
                 'tooltip' => 'Chat on WhatsApp',
+                'target' => '_blank',
             ];
         }
-    }
-
-    // Telegram
-    $tgRaw = !empty($config?->telegram) ? trim($config->telegram) : null;
-    if ($tgRaw && $tgRaw !== '#') {
-        if (str_starts_with($tgRaw, 'http://') || str_starts_with($tgRaw, 'https://')) {
-            $tgUrl = $tgRaw;
-        } else {
-            $tgUsername = ltrim($tgRaw, '@');
-            $tgUrl = 'https://t.me/' . $tgUsername;
-        }
-
-        $socialList[] = [
-            'name' => 'Telegram',
-            'url' => $tgUrl,
-            'icon' => 'fa-brands fa-telegram text-xl',
-            'bg' => 'bg-[#229ED9] hover:bg-[#1e8ec3]',
-            'shadow' => 'shadow-[#229ED9]/35',
-            'border' => 'border-[#229ED9]/30',
-            'tooltip' => 'Message on Telegram',
-        ];
     }
 
     // Facebook
@@ -65,6 +103,7 @@
             'shadow' => 'shadow-[#1877F2]/35',
             'border' => 'border-[#1877F2]/30',
             'tooltip' => 'Follow on Facebook',
+            'target' => '_blank',
         ];
     }
 
@@ -79,6 +118,7 @@
             'shadow' => 'shadow-black/50',
             'border' => 'border-slate-700',
             'tooltip' => 'Follow on X',
+            'target' => '_blank',
         ];
     }
 
@@ -93,6 +133,7 @@
             'shadow' => 'shadow-pink-500/35',
             'border' => 'border-pink-500/30',
             'tooltip' => 'Follow on Instagram',
+            'target' => '_blank',
         ];
     }
 
@@ -107,6 +148,7 @@
             'shadow' => 'shadow-red-500/35',
             'border' => 'border-red-500/30',
             'tooltip' => 'Subscribe on YouTube',
+            'target' => '_blank',
         ];
     }
 @endphp
@@ -125,8 +167,8 @@
 
             <!-- Social Button -->
             <a href="{{ $social['url'] }}" 
-               target="_blank" 
-               rel="noopener noreferrer" 
+               target="{{ $social['target'] ?? '_blank' }}" 
+               @if(($social['target'] ?? '_blank') === '_blank') rel="noopener noreferrer" @endif
                title="{{ $social['tooltip'] }}"
                aria-label="{{ $social['name'] }}"
                class="w-10 h-10 sm:w-11 sm:h-11 rounded-full {{ $social['bg'] }} text-white shadow-lg {{ $social['shadow'] }} border {{ $social['border'] }} flex items-center justify-center transition-all duration-200 transform group-hover:scale-110 group-hover:-translate-x-0.5 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/40">

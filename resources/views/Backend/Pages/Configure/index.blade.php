@@ -426,6 +426,20 @@
                             @enderror
                         </div>
 
+                        <!-- Discord -->
+                        <div>
+                            <label for="discord" class="admin-label flex items-center gap-1.5">
+                                <i class="fa-brands fa-discord text-indigo-400"></i> Discord URL or Server Invite
+                            </label>
+                            <input type="text" name="discord" id="discord" 
+                                   value="{{ old('discord', $configer?->discord) }}" 
+                                   placeholder="https://discord.gg/yourinvite"
+                                   class="admin-input">
+                            @error('discord')
+                                <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         <!-- YouTube -->
                         <div>
                             <label for="youtube" class="admin-label flex items-center gap-1.5">

@@ -381,6 +381,26 @@
                     <!-- Content -->
                     <div class="p-4 space-y-3 flex-1 flex flex-col justify-between">
                         <div class="space-y-3">
+                            <!-- Hero Showcase Toggle Bar -->
+                            <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
+                                <div>
+                                    <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-star text-amber-500"></i> Hero Box Showcase
+                                    </span>
+                                    <span class="text-[10px] text-slate-400 block">Show in Home Page Top Div</span>
+                                </div>
+                                <button type="button" 
+                                        onclick="toggleHeroProduct({{ $product->id }}, this)"
+                                        id="hero-btn-{{ $product->id }}"
+                                        data-enabled="{{ $product->show_in_hero ? '1' : '0' }}"
+                                        class="px-2.5 py-1 rounded-full text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer {{ $product->show_in_hero ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 hover:bg-emerald-200' : 'bg-slate-100 text-slate-500 border border-slate-300 hover:bg-slate-200' }}"
+                                        title="Click to enable or disable from the Home Page Hero Dashboard Showcase">
+                                    <i class="fa-solid {{ $product->show_in_hero ? 'fa-toggle-on text-base text-emerald-600' : 'fa-toggle-off text-base text-slate-400' }}"></i>
+                                    <span class="hero-status-label">{{ $product->show_in_hero ? 'Enabled' : 'Disabled' }}</span>
+                                </button>
+                                <input type="hidden" name="show_in_hero" id="hero-input-{{ $product->id }}" value="{{ $product->show_in_hero ? '1' : '0' }}">
+                            </div>
+
                             <!-- Name -->
                             <input type="text" name="product_name" value="{{ $product->product_name }}"
                                 class="w-full text-lg font-bold bg-transparent border-b focus:outline-none"
@@ -827,6 +847,83 @@
 
             reader.readAsDataURL(file);
         });
+    }
+
+    // Toggle Product Hero Showcase Status
+    function toggleHeroProduct(productId, btn) {
+        btn.disabled = true;
+
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+        fetch(`/admin/product/${productId}/toggle-hero`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            btn.disabled = false;
+            if (data.success) {
+                const isNowEnabled = data.show_in_hero;
+                btn.setAttribute('data-enabled', isNowEnabled ? '1' : '0');
+
+                // Update hidden input if present in form
+                const hiddenInput = document.getElementById(`hero-input-${productId}`);
+                if (hiddenInput) {
+                    hiddenInput.value = isNowEnabled ? '1' : '0';
+                }
+
+                // Update button styles and icons
+                const icon = btn.querySelector('i');
+                const label = btn.querySelector('.hero-status-label');
+
+                if (isNowEnabled) {
+                    btn.className = 'px-2.5 py-1 rounded-full text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer bg-emerald-100 text-emerald-800 border border-emerald-300 hover:bg-emerald-200';
+                    icon.className = 'fa-solid fa-toggle-on text-base text-emerald-600';
+                    label.textContent = 'Enabled';
+                } else {
+                    btn.className = 'px-2.5 py-1 rounded-full text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer bg-slate-100 text-slate-500 border border-slate-300 hover:bg-slate-200';
+                    icon.className = 'fa-solid fa-toggle-off text-base text-slate-400';
+                    label.textContent = 'Disabled';
+                }
+
+                showAdminToast(data.message, isNowEnabled);
+            }
+        })
+        .catch(err => {
+            console.error('Error toggling hero showcase:', err);
+            btn.disabled = false;
+            showAdminToast('Failed to update Hero status. Please try again.', false);
+        });
+    }
+
+    let _adminToastTimer = null;
+    function showAdminToast(msg, isSuccess = true) {
+        let toast = document.getElementById('hero-admin-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'hero-admin-toast';
+            toast.className = 'fixed bottom-6 right-6 z-[9999] px-4 py-3 rounded-xl shadow-2xl text-white flex items-center gap-2.5 text-xs font-semibold transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300';
+            document.body.appendChild(toast);
+        }
+
+        toast.className = `fixed bottom-6 right-6 z-[9999] px-4 py-3 rounded-xl shadow-2xl text-white flex items-center gap-2.5 text-xs font-semibold transform translate-y-0 opacity-100 pointer-events-auto transition-all duration-300 ${isSuccess ? 'bg-slate-900 border border-emerald-500 shadow-emerald-950/40' : 'bg-rose-900 border border-rose-500 shadow-rose-950/40'}`;
+        toast.innerHTML = `
+            <i class="fa-solid ${isSuccess ? 'fa-circle-check text-emerald-400' : 'fa-circle-exclamation text-rose-300'} text-base"></i>
+            <span>${msg}</span>
+        `;
+
+        clearTimeout(_adminToastTimer);
+        _adminToastTimer = setTimeout(() => {
+            toast.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+            toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+        }, 3000);
     }
 </script>
 @endsection

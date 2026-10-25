@@ -144,6 +144,10 @@ class ProductController extends Controller
             'status'         => $request->status,
         ];
 
+        if ($request->has('show_in_hero')) {
+            $updateData['show_in_hero'] = $request->boolean('show_in_hero');
+        }
+
         // 2. Handle Logo Update (Only if new file uploaded)
         if ($request->hasFile('product_logo')) {
             // Delete old logo if exists
@@ -212,6 +216,30 @@ class ProductController extends Controller
 
         // 6. Redirect back
         return redirect()->back()->with('success', 'Product updated successfully.');
+    }
+
+    /**
+     * Toggle whether the product appears in the home page hero showcase box.
+     */
+    public function toggleHero(Product $product)
+    {
+        $product->show_in_hero = !$product->show_in_hero;
+        $product->save();
+
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'show_in_hero' => (bool) $product->show_in_hero,
+                'product_id' => $product->id,
+                'message' => $product->show_in_hero 
+                    ? "{$product->product_name} is now enabled for the Hero showcase." 
+                    : "{$product->product_name} is now disabled from the Hero showcase.",
+            ]);
+        }
+
+        return redirect()->back()->with('success', $product->show_in_hero 
+            ? "{$product->product_name} is now enabled for the Hero showcase." 
+            : "{$product->product_name} is now disabled from the Hero showcase.");
     }
 
     public function destroy($product_id)

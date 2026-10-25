@@ -43,6 +43,7 @@ class ConfigerController extends Controller
             'youtube'       => $request->youtube,
             'instagram'     => $request->instagram,
             'telegram'      => $request->telegram,
+            'discord'       => $request->discord,
             'video'         => $request->video,
         ];
 
@@ -87,6 +88,7 @@ class ConfigerController extends Controller
             'youtube'       => $request->youtube,
             'instagram'     => $request->instagram,
             'telegram'      => $request->telegram,
+            'discord'       => $request->discord,
             'video'         => $request->video,
         ];
 

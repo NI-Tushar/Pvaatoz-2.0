@@ -34,6 +34,7 @@ class UpdateConfigerRequest extends FormRequest
             'youtube' => ['nullable', 'string'],
             'instagram' => ['nullable', 'string'],
             'telegram' => ['nullable', 'string'],
+            'discord' => ['nullable', 'string', 'max:255'],
             'companydetail' => ['nullable', 'string'],
             'video' => ['nullable', 'string'],
         ];

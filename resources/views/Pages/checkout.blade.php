@@ -88,6 +88,28 @@
         qty: {{ $selectedPkgQty }},
         unitPrice: {{ $selectedPkgPrice }},
         paymentMethod: '{{ $defaultPaymentSlug }}',
+        paymentCompleted: false,
+        toastVisible: false,
+        toastMessage: '',
+        toastTimer: null,
+        showCheckoutToast(msg) {
+            this.toastMessage = msg;
+            this.toastVisible = true;
+            clearTimeout(this.toastTimer);
+            this.toastTimer = setTimeout(() => {
+                this.toastVisible = false;
+            }, 3500);
+        },
+        handleOrderSubmit(e) {
+            if (!this.paymentCompleted) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                this.showCheckoutToast('Complete your payment before place order');
+                return false;
+            }
+        },
         copiedWallet: false,
         copyAddress(addr) {
             if (!addr) return;
@@ -324,7 +346,7 @@
             </div>
         </div>
 
-        <form action="{{ route('checkout.submit') }}" method="POST">
+        <form action="{{ route('checkout.submit') }}" method="POST" @submit="handleOrderSubmit($event)">
             @csrf
             <!-- Form Hidden Fields -->
             <input type="hidden" name="cart_items" :value="mode === 'cart' ? JSON.stringify(cartItems) : ''">
@@ -640,7 +662,7 @@
                                                    : 'text-amber-500'));
                                         $iconClass = $pm->icon ?? ($isUsdt ? 'fa-solid fa-coins' : ($isUsdc ? 'fa-solid fa-circle-dollar-to-slot' : ($isSol ? 'fa-solid fa-bolt' : 'fa-brands fa-bitcoin')));
                                     @endphp
-                                    <div @click="paymentMethod = '{{ $pm->slug }}'"
+                                    <div @click="paymentMethod = '{{ $pm->slug }}'; paymentCompleted = false"
                                          :class="paymentMethod === '{{ $pm->slug }}' ? 'border-emerald-500 bg-emerald-50/70 ring-2 ring-emerald-500/20 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'"
                                          class="p-4 rounded-2xl border cursor-pointer transition-all flex items-start gap-3.5 group">
                                         <div class="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-slate-200/80 flex items-center justify-center shrink-0 text-xl {{ $iconColor }} transition">
@@ -703,31 +725,59 @@
                                         </div>
                                     @endif
 
-                                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
                                         @if($pm->qr_code)
-                                            <!-- QR Code Display -->
-                                            <div class="shrink-0 p-2.5 rounded-xl bg-white border border-slate-200 shadow-sm text-center">
-                                                <img src="{{ asset('storage/' . $pm->qr_code) }}" 
-                                                     alt="Scan to pay {{ $pm->name }}" 
-                                                     class="w-28 h-28 object-contain mx-auto rounded">
-                                                <span class="text-[10px] text-slate-400 block mt-1">Scan QR to pay</span>
+                                            <!-- QR Code Display (Enlarged) -->
+                                            <div class="shrink-0 p-3.5 rounded-2xl bg-white border border-slate-200 shadow-md text-center flex flex-col items-center">
+                                                <div class="w-48 h-48 sm:w-56 sm:h-56 p-2 rounded-xl bg-white border border-slate-100 flex items-center justify-center shadow-inner">
+                                                    <img src="{{ asset('storage/' . $pm->qr_code) }}" 
+                                                         alt="Scan to pay {{ $pm->name }}" 
+                                                         class="max-w-full max-h-full object-contain rounded">
+                                                </div>
+                                                <span class="text-xs font-bold text-slate-600 block mt-2.5 flex items-center gap-1.5">
+                                                    <i class="fa-solid fa-qrcode text-emerald-600"></i> Scan to pay {{ $pm->currency ?? $pm->name }}
+                                                </span>
                                             </div>
                                         @endif
 
                                         <!-- Instructions -->
-                                        <div class="flex-1 text-xs text-slate-600 space-y-2">
+                                        <div class="flex-1 text-xs text-slate-600 space-y-3 w-full">
                                             @if($pm->instructions)
-                                                <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 leading-relaxed">
-                                                    <strong class="text-slate-800 block mb-1 flex items-center gap-1.5">
-                                                        <i class="fa-solid fa-circle-info text-emerald-600"></i> Instructions:
+                                                <div class="p-4 rounded-xl bg-white border border-slate-200/90 leading-relaxed shadow-xs">
+                                                    <strong class="text-slate-800 block mb-1.5 flex items-center gap-1.5 text-xs font-bold">
+                                                        <i class="fa-solid fa-circle-info text-emerald-600"></i> Payment Instructions:
                                                     </strong>
-                                                    {{ $pm->instructions }}
+                                                    <div class="text-slate-700 whitespace-pre-line leading-relaxed">
+                                                        {{ $pm->instructions }}
+                                                    </div>
                                                 </div>
                                             @endif
-                                            <p class="text-[11px] text-slate-500 leading-relaxed">
-                                                After sending payment, click <strong>"Place Order"</strong> below. Credentials and account backup files will be dispatched automatically to your email once transaction is recorded.
-                                            </p>
+                                            <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200/80 text-[11px] text-emerald-800 leading-relaxed flex items-start gap-2">
+                                                <i class="fa-solid fa-shield-halved text-emerald-600 text-sm mt-0.5 shrink-0"></i>
+                                                <span>Send exact amount and network to ensure automatic verification and instant dispatch.</span>
+                                            </div>
                                         </div>
+                                    </div>
+
+                                    <!-- Payment Completed Checkbox Below QR Code -->
+                                    <div class="pt-3 border-t border-slate-200/90">
+                                        <label class="inline-flex items-center gap-3 p-3.5 rounded-xl bg-white border cursor-pointer select-none transition-all w-full shadow-sm hover:border-emerald-500"
+                                               :class="paymentCompleted ? 'border-emerald-500 bg-emerald-50/60 ring-2 ring-emerald-500/20' : 'border-slate-300'">
+                                            <input type="checkbox" 
+                                                   x-model="paymentCompleted" 
+                                                   class="w-5 h-5 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 focus:ring-offset-0 cursor-pointer">
+                                            <div class="flex-1 min-w-0">
+                                                <span class="text-sm font-bold text-slate-900 block">
+                                                    I have completed the payment.
+                                                </span>
+                                                <span class="text-xs text-slate-500 block">
+                                                    Confirm that your transaction has been sent before placing the order.
+                                                </span>
+                                            </div>
+                                            <span x-show="paymentCompleted" class="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md flex items-center gap-1 shrink-0">
+                                                <i class="fa-solid fa-circle-check text-emerald-600"></i> Confirmed
+                                            </span>
+                                        </label>
                                     </div>
                                 </div>
                             @endforeach
@@ -785,8 +835,10 @@
                         <!-- Place Order Button -->
                         <div class="mt-6 space-y-3">
                             <button type="submit" 
-                                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-emerald-600/30 transition-all text-center flex items-center justify-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
-                                <i class="fa-solid fa-lock text-sm"></i>
+                                    @click="handleOrderSubmit($event)"
+                                    :class="paymentCompleted ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/30 hover:-translate-y-0.5 cursor-pointer' : 'bg-slate-300 hover:bg-slate-300 text-slate-500 shadow-none cursor-pointer'"
+                                    class="w-full font-bold py-3.5 px-6 rounded-xl transition-all text-center flex items-center justify-center gap-2 transform active:translate-y-0">
+                                <i class="fa-solid" :class="paymentCompleted ? 'fa-lock' : 'fa-lock-open text-slate-400'"></i>
                                 <span>Place Order Now</span>
                             </button>
 
@@ -835,6 +887,29 @@
 
             </div>
         </form>
+
+        <!-- Floating Toaster Notification for Payment Confirmation Alert -->
+        <div x-show="toastVisible" 
+             x-transition:enter="transition ease-out duration-300 transform"
+             x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:leave="transition ease-in duration-200 transform"
+             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+             x-transition:leave-end="opacity-0 translate-y-8 scale-95"
+             x-cloak
+             style="display: none;"
+             class="fixed bottom-6 right-6 z-50 max-w-sm sm:max-w-md bg-slate-900/95 text-white p-4 rounded-2xl shadow-2xl border border-amber-500/70 backdrop-blur-md flex items-center gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/30 text-lg">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+                <p class="text-[11px] font-bold text-amber-400 uppercase tracking-wider m-0">Payment Notice</p>
+                <p class="text-xs sm:text-sm font-semibold text-white m-0 mt-0.5" x-text="toastMessage"></p>
+            </div>
+            <button type="button" @click="toastVisible = false" class="text-slate-400 hover:text-white p-1 transition cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
 
     </div>
 

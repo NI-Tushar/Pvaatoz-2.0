@@ -104,6 +104,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 
     Route::resource('configer', ConfigerController::class);
     Route::resource('product', ProductController::class);
+    Route::post('product/{product}/toggle-hero', [ProductController::class, 'toggleHero'])->name('product.toggleHero');
     Route::get('product-delete/{id}', [ProductController::class, 'destroy'])->name('productDelete');
     Route::post('product-search', [ProductController::class, 'search'])->name('productSearch');
 

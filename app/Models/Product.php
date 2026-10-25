@@ -25,11 +25,13 @@ class Product extends Model
         'product_desc',
         'feature_list',
         'status',
+        'show_in_hero',
     ];
 
-    // Cast feature_list to array
+    // Cast feature_list to array and show_in_hero to boolean
     protected $casts = [
         'feature_list' => 'array',
+        'show_in_hero' => 'boolean',
     ];
 
     /**

@@ -64,6 +64,12 @@ class HomePageController extends Controller
                 ->get();
         }
 
+        // Hero dashboard visual products (products enabled from admin panel for hero showcase)
+        $data['heroProducts'] = Product::where('status', 'active')
+            ->where('show_in_hero', true)
+            ->orderBy('id', 'asc')
+            ->get();
+
         return view("Pages.home", $data);
     }
 
