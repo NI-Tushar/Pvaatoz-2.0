@@ -102,6 +102,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
         return view('Backend.Pages.dashboard', $data);
     })->name('dashboard');
 
+    Route::post('configer/test-notification', [ConfigerController::class, 'testNotification'])->name('configer.test-notification');
     Route::resource('configer', ConfigerController::class);
     Route::resource('product', ProductController::class);
     Route::post('product/{product}/toggle-hero', [ProductController::class, 'toggleHero'])->name('product.toggleHero');

@@ -32,19 +32,22 @@ class ConfigerController extends Controller
         }
 
         $data = [
-            'name'          => $request->name,
-            'phone'         => $request->phone,
-            'whatsapp'      => $request->whatsapp,
-            'email'         => $request->email,
-            'address'       => $request->address,
-            'companydetail' => $request->companydetail,
-            'facebook'      => $request->facebook,
-            'twitter'       => $request->twitter,
-            'youtube'       => $request->youtube,
-            'instagram'     => $request->instagram,
-            'telegram'      => $request->telegram,
-            'discord'       => $request->discord,
-            'video'         => $request->video,
+            'name'               => $request->name,
+            'phone'              => $request->phone,
+            'whatsapp'           => $request->whatsapp,
+            'email'              => $request->email,
+            'app_password'       => $request->app_password,
+            'address'            => $request->address,
+            'companydetail'      => $request->companydetail,
+            'facebook'           => $request->facebook,
+            'twitter'            => $request->twitter,
+            'youtube'            => $request->youtube,
+            'instagram'          => $request->instagram,
+            'telegram'           => $request->telegram,
+            'telegram_bot_token' => $request->telegram_bot_token,
+            'telegram_chat_id'   => $request->telegram_chat_id,
+            'discord'            => $request->discord,
+            'video'              => $request->video,
         ];
 
         /* Upload Logo */
@@ -77,19 +80,22 @@ class ConfigerController extends Controller
         }
 
         $data = [
-            'name'          => $request->name,
-            'phone'         => $request->phone,
-            'whatsapp'      => $request->whatsapp,
-            'email'         => $request->email,
-            'address'       => $request->address,
-            'companydetail' => $request->companydetail,
-            'facebook'      => $request->facebook,
-            'twitter'       => $request->twitter,
-            'youtube'       => $request->youtube,
-            'instagram'     => $request->instagram,
-            'telegram'      => $request->telegram,
-            'discord'       => $request->discord,
-            'video'         => $request->video,
+            'name'               => $request->name,
+            'phone'              => $request->phone,
+            'whatsapp'           => $request->whatsapp,
+            'email'              => $request->email,
+            'app_password'       => $request->app_password,
+            'address'            => $request->address,
+            'companydetail'      => $request->companydetail,
+            'facebook'           => $request->facebook,
+            'twitter'            => $request->twitter,
+            'youtube'            => $request->youtube,
+            'instagram'          => $request->instagram,
+            'telegram'           => $request->telegram,
+            'telegram_bot_token' => $request->telegram_bot_token,
+            'telegram_chat_id'   => $request->telegram_chat_id,
+            'discord'            => $request->discord,
+            'video'              => $request->video,
         ];
 
         /* Update Logo */
@@ -115,6 +121,54 @@ class ConfigerController extends Controller
     }
 
     /**
+     * Send a test order notification for Email or Telegram.
+     */
+    public function testNotification(Request $request, \App\Services\OrderNotificationService $notificationService)
+    {
+        if (! Gate::any(['isAdmin'], Auth::guard('admin')->user())) {
+            abort(403);
+        }
+
+        $channel = $request->input('channel', 'email');
+        $configer = Configer::latest()->first();
+
+        // Create in-memory mock order for testing
+        $mockOrder = new \App\Models\Order([
+            'order_number'   => 'TEST-' . strtoupper(substr(uniqid(), -6)),
+            'customer_name'  => 'John Doe (Test Customer)',
+            'customer_email' => 'customer.test@example.com',
+            'customer_phone' => '+1 (555) 019-2834',
+            'payment_method' => 'usdt_trc20',
+            'payment_status' => 'paid',
+            'total_quantity' => 5,
+            'total_price'    => 45.00,
+            'notes'          => 'This is a test notification generated from the Admin Website Configurations page.',
+            'created_at'     => now(),
+        ]);
+        $mockOrder->id = 999999;
+
+        $item1 = new \App\Models\OrderItem([
+            'product_name' => 'Gmail Aged Accounts (2020-2023)',
+            'quantity'     => 5,
+            'unit_price'   => 9.00,
+            'subtotal'     => 45.00,
+        ]);
+        $mockOrder->setRelation('items', collect([$item1]));
+
+        if ($channel === 'telegram') {
+            $res = $notificationService->sendTelegramNotification($mockOrder, $configer);
+        } else {
+            $res = $notificationService->sendEmailNotification($mockOrder, $configer);
+        }
+
+        if ($res['success']) {
+            return redirect()->back()->with('success', '✅ ' . $res['message']);
+        } else {
+            return redirect()->back()->with('error', '⚠️ ' . $res['message']);
+        }
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Configer $configer)
@@ -122,3 +176,4 @@ class ConfigerController extends Controller
         //
     }
 }
+

@@ -87,6 +87,13 @@
         </div>
     @endif
 
+    @if(session('error'))
+        <div class="p-4 rounded-xl bg-rose-950/70 border border-rose-800 text-rose-300 flex items-center gap-3 shadow-md">
+            <i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg"></i>
+            <span class="text-sm font-medium">{{ session('error') }}</span>
+        </div>
+    @endif
+
     @if ($errors->any())
         <div class="p-4 rounded-xl bg-rose-950/70 border border-rose-800 text-rose-300 space-y-1 shadow-md">
             <div class="flex items-center gap-2 text-sm font-bold text-rose-200">
@@ -142,33 +149,92 @@
                             @enderror
                         </div>
 
-                        <!-- Email & Phone (Grid) -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label for="email" class="admin-label">
-                                    Support Email <span class="text-emerald-400">*</span>
-                                </label>
-                                <input type="email" name="email" id="email" required
-                                       value="{{ old('email', $configer?->email) }}" 
-                                       placeholder="support@accuevault.com"
-                                       class="admin-input @error('email') border-rose-500 @enderror">
-                                @error('email')
-                                    <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
-                                @enderror
+                        <!-- Order Notification Email & SMTP App Password Box -->
+                        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-700/80 space-y-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm">
+                                        <i class="fa-solid fa-envelope-circle-check"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-white uppercase tracking-wider">Order Email & SMTP Credentials</h4>
+                                        <p class="text-[11px] text-slate-400">Order details will be sent directly to this email using SMTP</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/80 border border-emerald-800/80 px-2.5 py-1 rounded-full self-start sm:self-auto flex items-center gap-1.5">
+                                    <i class="fa-solid fa-server text-[9px]"></i>
+                                    {{ env('MAIL_HOST', 'smtp.gmail.com') }}:{{ env('MAIL_PORT', 587) }}
+                                </span>
                             </div>
 
-                            <div>
-                                <label for="phone" class="admin-label">
-                                    Phone / WhatsApp Number <span class="text-emerald-400">*</span>
-                                </label>
-                                <input type="text" name="phone" id="phone" required
-                                       value="{{ old('phone', $configer?->phone) }}" 
-                                       placeholder="+1 (555) 019-2834"
-                                       class="admin-input @error('phone') border-rose-500 @enderror">
-                                @error('phone')
-                                    <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
-                                @enderror
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <!-- Email Address -->
+                                <div>
+                                    <label for="email" class="admin-label flex items-center justify-between">
+                                        <span>Notification Email <span class="text-emerald-400">*</span></span>
+                                        <span class="text-[10px] text-emerald-400 font-semibold lowercase">receives order details</span>
+                                    </label>
+                                    <input type="email" name="email" id="email" required
+                                           value="{{ old('email', $configer?->email) }}" 
+                                           placeholder="e.g. nitushar.fleekbd@gmail.com"
+                                           class="admin-input @error('email') border-rose-500 @enderror">
+                                    <span class="text-[11px] text-slate-400 mt-1 block">
+                                        Receives order notifications & acts as SMTP username.
+                                    </span>
+                                    @error('email')
+                                        <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <!-- App Password -->
+                                <div>
+                                    <label for="app_password" class="admin-label flex items-center justify-between">
+                                        <span>SMTP App Password</span>
+                                        <span class="text-[10px] text-amber-400 font-semibold">16-char Google App Pwd</span>
+                                    </label>
+                                    <div class="relative">
+                                        <input type="password" name="app_password" id="app_password" 
+                                               value="{{ old('app_password', $configer?->app_password) }}" 
+                                               placeholder="e.g. uipyctvzokinazqw"
+                                               class="admin-input pr-10 font-mono @error('app_password') border-rose-500 @enderror">
+                                        <button type="button" id="toggleAppPwd" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition">
+                                            <i class="fa-solid fa-eye text-xs" id="toggleAppPwdIcon"></i>
+                                        </button>
+                                    </div>
+                                    <span class="text-[11px] text-slate-400 mt-1 block">
+                                        App password from Google / SMTP. Falls back to <code>.env</code> if empty.
+                                    </span>
+                                    @error('app_password')
+                                        <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
+
+                            <!-- Connection info & Test Email Button -->
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2.5 border-t border-slate-800 text-[11px] text-slate-400">
+                                <span class="flex items-center gap-1.5">
+                                    <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                                    Host, port & TLS are loaded securely from <code>.env</code>
+                                </span>
+                                <button type="submit" form="testEmailForm" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-950/80 hover:bg-emerald-900/90 text-emerald-300 border border-emerald-800/80 transition font-semibold text-xs shadow-sm self-start sm:self-auto">
+                                    <i class="fa-solid fa-paper-plane text-emerald-400 text-[10px]"></i>
+                                    <span>Send Test Order Email</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Phone / WhatsApp Number -->
+                        <div>
+                            <label for="phone" class="admin-label">
+                                Contact Phone / WhatsApp <span class="text-emerald-400">*</span>
+                            </label>
+                            <input type="text" name="phone" id="phone" required
+                                   value="{{ old('phone', $configer?->phone) }}" 
+                                   placeholder="+1 (555) 019-2834"
+                                   class="admin-input @error('phone') border-rose-500 @enderror">
+                            @error('phone')
+                                <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <!-- Company Address -->
@@ -412,18 +478,61 @@
                             @enderror
                         </div>
 
-                        <!-- Telegram -->
-                        <div>
-                            <label for="telegram" class="admin-label flex items-center gap-1.5">
-                                <i class="fa-brands fa-telegram text-sky-400"></i> Telegram Username or Link
-                            </label>
-                            <input type="text" name="telegram" id="telegram" 
-                                   value="{{ old('telegram', $configer?->telegram) }}" 
-                                   placeholder="https://t.me/yourusername"
-                                   class="admin-input">
-                            @error('telegram')
-                                <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
-                            @enderror
+                        <!-- Telegram Account & Order Delivery -->
+                        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-700/80 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <label for="telegram" class="admin-label flex items-center gap-1.5 mb-0">
+                                    <i class="fa-brands fa-telegram text-sky-400 text-base"></i>
+                                    <span>Telegram Order Account</span>
+                                </label>
+                                <span class="text-[10px] text-sky-400 font-semibold bg-sky-950/70 border border-sky-800/80 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                    <i class="fa-solid fa-paper-plane text-[9px]"></i> Receives Orders
+                                </span>
+                            </div>
+
+                            <div>
+                                <input type="text" name="telegram" id="telegram" 
+                                       value="{{ old('telegram', $configer?->telegram) }}" 
+                                       placeholder="@yourusername or https://t.me/yourusername"
+                                       class="admin-input @error('telegram') border-rose-500 @enderror">
+                                <span class="text-[11px] text-slate-400 mt-1 block">
+                                    Customer orders will be dispatched directly to this Telegram profile / account.
+                                </span>
+                                @error('telegram')
+                                    <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- Optional Telegram Bot Token -->
+                            <div>
+                                <label for="telegram_bot_token" class="admin-label flex items-center justify-between">
+                                    <span class="flex items-center gap-1"><i class="fa-solid fa-robot text-sky-400 text-xs"></i> Telegram Bot Token <span class="text-[10px] text-slate-500 font-normal">(Optional if set in .env)</span></span>
+                                    @if(!empty($configer?->telegram_bot_token) || !empty(env('TELEGRAM_BOT_TOKEN')))
+                                        <span class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1"><i class="fa-solid fa-check text-[9px]"></i> Bot Configured</span>
+                                    @endif
+                                </label>
+                                <input type="text" name="telegram_bot_token" id="telegram_bot_token" 
+                                       value="{{ old('telegram_bot_token', $configer?->telegram_bot_token) }}" 
+                                       placeholder="e.g. 7123456789:AAH... from @BotFather"
+                                       class="admin-input font-mono text-xs @error('telegram_bot_token') border-rose-500 @enderror">
+                                <span class="text-[10px] text-slate-400 mt-1 block">
+                                    Enables instant automated bot push to your Telegram account. Create via @BotFather.
+                                </span>
+                                @error('telegram_bot_token')
+                                    <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- Test Telegram Button -->
+                            <div class="flex items-center justify-between pt-1 border-t border-slate-800 text-[11px]">
+                                <span class="text-slate-400 text-[10px]">
+                                    Target: <strong class="text-white">{{ $configer?->telegram ?: 'Not set' }}</strong>
+                                </span>
+                                <button type="submit" form="testTelegramForm" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-950/80 hover:bg-sky-900/90 text-sky-300 border border-sky-800/80 transition font-medium text-xs">
+                                    <i class="fa-brands fa-telegram text-sky-400 text-xs"></i>
+                                    <span>Send Test Telegram Alert</span>
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Discord -->
@@ -499,6 +608,16 @@
 
     </form>
 
+    <!-- Hidden standalone forms for test notifications -->
+    <form id="testEmailForm" action="{{ route('admin.configer.test-notification') }}" method="POST" class="hidden">
+        @csrf
+        <input type="hidden" name="channel" value="email">
+    </form>
+    <form id="testTelegramForm" action="{{ route('admin.configer.test-notification') }}" method="POST" class="hidden">
+        @csrf
+        <input type="hidden" name="channel" value="telegram">
+    </form>
+
 </div>
 
 @endsection
@@ -538,6 +657,25 @@
 
         setupLivePreview('image', 'ImagePreview', 'logoFileName');
         setupLivePreview('image_two', 'ImagePreview_two', 'faviconFileName', 'FaviconTabPreview');
+
+        // Toggle App Password visibility
+        const toggleAppPwdBtn = document.getElementById('toggleAppPwd');
+        const appPwdInput = document.getElementById('app_password');
+        const appPwdIcon = document.getElementById('toggleAppPwdIcon');
+
+        if (toggleAppPwdBtn && appPwdInput && appPwdIcon) {
+            toggleAppPwdBtn.addEventListener('click', function () {
+                if (appPwdInput.type === 'password') {
+                    appPwdInput.type = 'text';
+                    appPwdIcon.classList.remove('fa-eye');
+                    appPwdIcon.classList.add('fa-eye-slash');
+                } else {
+                    appPwdInput.type = 'password';
+                    appPwdIcon.classList.remove('fa-eye-slash');
+                    appPwdIcon.classList.add('fa-eye');
+                }
+            });
+        }
     });
 </script>
 @endpush
