@@ -283,9 +283,13 @@ class HomePageController extends Controller
 
         // 1. Fetch Orders from real orders table, with fallback to legacy contact messages
         $dbOrders = \App\Models\Order::with('items')
-            ->where(function ($q) use ($user) {
-                $q->where('user_id', $user->id)
-                  ->orWhere('customer_email', $user->email);
+            ->where(function ($q) use ($user, $isAdmin) {
+                if ($isAdmin) {
+                    $q->where('customer_email', $user->email);
+                } else {
+                    $q->where('user_id', $user->id)
+                      ->orWhere('customer_email', $user->email);
+                }
             })
             ->latest()
             ->get();
@@ -466,7 +470,20 @@ class HomePageController extends Controller
 
         // 1. Create Real Order in database
         $orderNumber = 'AV-' . date('ymd') . '-' . strtoupper(\Illuminate\Support\Str::random(5));
-        $authUserId = auth()->check() ? auth()->id() : (auth()->guard('admin')->check() ? auth()->guard('admin')->id() : null);
+        
+        // Ensure user_id strictly references an existing record in the users table (never admin guard id)
+        $authUserId = null;
+        if (auth()->guard('web')->check()) {
+            $candidateId = auth()->guard('web')->id();
+            if (\App\Models\User::where('id', $candidateId)->exists()) {
+                $authUserId = $candidateId;
+            }
+        } elseif (!empty($validated['email'])) {
+            $matchedUser = \App\Models\User::where('email', $validated['email'])->first();
+            if ($matchedUser) {
+                $authUserId = $matchedUser->id;
+            }
+        }
 
         $order = \App\Models\Order::create([
             'order_number' => $orderNumber,

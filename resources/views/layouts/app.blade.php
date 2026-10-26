@@ -309,6 +309,66 @@
             padding-left: 0 !important;
             padding-right: 0 !important;
         }
+
+        /* ================= Footer Contact Social Icons (Matching Sticky Widgets) ================= */
+        #footer .footer-top .social-links {
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 0.625rem !important;
+        }
+
+        #footer .footer-top .social-links a {
+            margin: 0 !important;
+            width: 38px !important;
+            height: 38px !important;
+            border-radius: 9999px !important;
+            color: #ffffff !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            text-decoration: none !important;
+            outline: none !important;
+        }
+
+        #footer .footer-top .social-links a i {
+            color: #ffffff !important;
+            font-size: 16px !important;
+            line-height: 1 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        #footer .footer-top .social-links a:hover {
+            transform: scale(1.1) translateY(-2px) !important;
+            color: #ffffff !important;
+        }
+
+        #footer .footer-top .social-links a.social-telegram { background-color: #229ED9 !important; border: 1px solid rgba(34, 158, 217, 0.4) !important; box-shadow: 0 4px 10px rgba(34, 158, 217, 0.35) !important; }
+        #footer .footer-top .social-links a.social-telegram:hover { background-color: #1e8ec3 !important; }
+
+        #footer .footer-top .social-links a.social-discord { background-color: #5865F2 !important; border: 1px solid rgba(88, 101, 242, 0.4) !important; box-shadow: 0 4px 10px rgba(88, 101, 242, 0.35) !important; }
+        #footer .footer-top .social-links a.social-discord:hover { background-color: #4752C4 !important; }
+
+        #footer .footer-top .social-links a.social-email { background-color: #EA4335 !important; border: 1px solid rgba(234, 67, 53, 0.4) !important; box-shadow: 0 4px 10px rgba(234, 67, 53, 0.35) !important; }
+        #footer .footer-top .social-links a.social-email:hover { background-color: #d93025 !important; }
+
+        #footer .footer-top .social-links a.social-whatsapp { background-color: #25D366 !important; border: 1px solid rgba(37, 211, 102, 0.4) !important; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.35) !important; }
+        #footer .footer-top .social-links a.social-whatsapp:hover { background-color: #20ba59 !important; }
+
+        #footer .footer-top .social-links a.social-facebook { background-color: #1877F2 !important; border: 1px solid rgba(24, 119, 242, 0.4) !important; box-shadow: 0 4px 10px rgba(24, 119, 242, 0.35) !important; }
+        #footer .footer-top .social-links a.social-facebook:hover { background-color: #166fe5 !important; }
+
+        #footer .footer-top .social-links a.social-x { background-color: #0f172a !important; border: 1px solid #334155 !important; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important; }
+        #footer .footer-top .social-links a.social-x:hover { background-color: #000000 !important; }
+
+        #footer .footer-top .social-links a.social-instagram { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888) !important; border: 1px solid rgba(236, 72, 153, 0.4) !important; box-shadow: 0 4px 10px rgba(236, 72, 153, 0.35) !important; }
+        #footer .footer-top .social-links a.social-instagram:hover { filter: brightness(1.15) !important; }
+
+        #footer .footer-top .social-links a.social-youtube { background-color: #FF0000 !important; border: 1px solid rgba(239, 68, 68, 0.4) !important; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.35) !important; }
+        #footer .footer-top .social-links a.social-youtube:hover { background-color: #e60000 !important; }
     </style>
 
     @stack('css')
@@ -342,7 +402,158 @@
         ->select('id', 'product_name', 'category', 'product_logo', 'bg_color_1', 'bg_color_2', 'product_color', 'tag')
         ->orderBy('product_name')
         ->get()
-        ->groupBy('category'); // group by category using Collection 
+        ->groupBy('category'); // group by category using Collection
+
+        // Build shared social & contact channels list (identical for sticky widgets and footer)
+        $brandName = $name;
+        $defaultMsg = 'Hello ' . $brandName . ', I would like to inquire about your PVA accounts & services.';
+        $encodedMsg = rawurlencode($defaultMsg);
+        $socialList = [];
+
+        // 1. Telegram
+        $tgRaw = !empty($configer?->telegram) ? trim($configer->telegram) : null;
+        if ($tgRaw && $tgRaw !== '#') {
+            $tgUrl = (str_starts_with($tgRaw, 'http://') || str_starts_with($tgRaw, 'https://')) 
+                ? $tgRaw 
+                : 'https://t.me/' . ltrim($tgRaw, '@');
+            $socialList[] = [
+                'key' => 'telegram',
+                'name' => 'Telegram',
+                'url' => $tgUrl,
+                'icon' => 'fa-brands fa-telegram text-xl',
+                'bg' => 'bg-[#229ED9] hover:bg-[#1e8ec3]',
+                'shadow' => 'shadow-[#229ED9]/35',
+                'border' => 'border-[#229ED9]/30',
+                'tooltip' => 'Message on Telegram',
+                'target' => '_blank',
+            ];
+        }
+
+        // 2. Discord
+        $dcRaw = !empty($configer?->discord) ? trim($configer->discord) : null;
+        if ($dcRaw && $dcRaw !== '#') {
+            $dcUrl = (str_starts_with($dcRaw, 'http://') || str_starts_with($dcRaw, 'https://')) 
+                ? $dcRaw 
+                : 'https://discord.gg/' . ltrim($dcRaw, '/');
+            $socialList[] = [
+                'key' => 'discord',
+                'name' => 'Discord',
+                'url' => $dcUrl,
+                'icon' => 'fa-brands fa-discord text-lg',
+                'bg' => 'bg-[#5865F2] hover:bg-[#4752C4]',
+                'shadow' => 'shadow-[#5865F2]/35',
+                'border' => 'border-[#5865F2]/30',
+                'tooltip' => 'Join our Discord',
+                'target' => '_blank',
+            ];
+        }
+
+        // 3. Email / Gmail (Redirects to Contact Page)
+        $emailRaw = !empty($configer?->email) ? trim($configer->email) : null;
+        if ($emailRaw && $emailRaw !== '#') {
+            $socialList[] = [
+                'key' => 'email',
+                'name' => 'Email / Gmail',
+                'url' => route('contact'),
+                'icon' => 'fa-solid fa-envelope text-lg',
+                'bg' => 'bg-[#EA4335] hover:bg-[#d93025]',
+                'shadow' => 'shadow-[#EA4335]/35',
+                'border' => 'border-[#EA4335]/30',
+                'tooltip' => 'Contact Us (' . $emailRaw . ')',
+                'target' => '_self',
+            ];
+        }
+
+        // 4. WhatsApp
+        $waRaw = !empty($configer?->whatsapp) ? trim($configer->whatsapp) : null;
+        if ($waRaw && $waRaw !== '#') {
+            if (str_starts_with($waRaw, 'http://') || str_starts_with($waRaw, 'https://')) {
+                $waUrl = $waRaw;
+                if (!str_contains($waUrl, 'text=')) {
+                    $waUrl .= (str_contains($waUrl, '?') ? '&' : '?') . 'text=' . $encodedMsg;
+                }
+            } else {
+                $digits = preg_replace('/[^0-9]/', '', $waRaw);
+                $waUrl = !empty($digits) ? "https://wa.me/{$digits}?text={$encodedMsg}" : null;
+            }
+            if ($waUrl) {
+                $socialList[] = [
+                    'key' => 'whatsapp',
+                    'name' => 'WhatsApp',
+                    'url' => $waUrl,
+                    'icon' => 'fa-brands fa-whatsapp text-xl',
+                    'bg' => 'bg-[#25D366] hover:bg-[#20ba59]',
+                    'shadow' => 'shadow-[#25D366]/35',
+                    'border' => 'border-[#25D366]/30',
+                    'tooltip' => 'Chat on WhatsApp',
+                    'target' => '_blank',
+                ];
+            }
+        }
+
+        // 5. Facebook
+        $fbRaw = !empty($configer?->facebook) ? trim($configer->facebook) : null;
+        if ($fbRaw && $fbRaw !== '#') {
+            $socialList[] = [
+                'key' => 'facebook',
+                'name' => 'Facebook',
+                'url' => $fbRaw,
+                'icon' => 'fa-brands fa-facebook-f text-lg',
+                'bg' => 'bg-[#1877F2] hover:bg-[#166fe5]',
+                'shadow' => 'shadow-[#1877F2]/35',
+                'border' => 'border-[#1877F2]/30',
+                'tooltip' => 'Follow on Facebook',
+                'target' => '_blank',
+            ];
+        }
+
+        // 6. Twitter / X
+        $twRaw = !empty($configer?->twitter) ? trim($configer->twitter) : null;
+        if ($twRaw && $twRaw !== '#') {
+            $socialList[] = [
+                'key' => 'x',
+                'name' => 'X (Twitter)',
+                'url' => $twRaw,
+                'icon' => 'fa-brands fa-x-twitter text-lg',
+                'bg' => 'bg-slate-900 hover:bg-black',
+                'shadow' => 'shadow-black/50',
+                'border' => 'border-slate-700',
+                'tooltip' => 'Follow on X',
+                'target' => '_blank',
+            ];
+        }
+
+        // 7. Instagram
+        $igRaw = !empty($configer?->instagram) ? trim($configer->instagram) : null;
+        if ($igRaw && $igRaw !== '#') {
+            $socialList[] = [
+                'key' => 'instagram',
+                'name' => 'Instagram',
+                'url' => $igRaw,
+                'icon' => 'fa-brands fa-instagram text-xl',
+                'bg' => 'bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] hover:brightness-110',
+                'shadow' => 'shadow-pink-500/35',
+                'border' => 'border-pink-500/30',
+                'tooltip' => 'Follow on Instagram',
+                'target' => '_blank',
+            ];
+        }
+
+        // 8. YouTube
+        $ytRaw = !empty($configer?->youtube) ? trim($configer->youtube) : null;
+        if ($ytRaw && $ytRaw !== '#') {
+            $socialList[] = [
+                'key' => 'youtube',
+                'name' => 'YouTube',
+                'url' => $ytRaw,
+                'icon' => 'fa-brands fa-youtube text-lg',
+                'bg' => 'bg-[#FF0000] hover:bg-[#e60000]',
+                'shadow' => 'shadow-red-500/35',
+                'border' => 'border-red-500/30',
+                'tooltip' => 'Subscribe on YouTube',
+                'target' => '_blank',
+            ];
+        }
     @endphp
 </head>
 <body>
@@ -657,42 +868,24 @@
                     <h4>Contact Us</h4>
                     <p class="mt-3">
                         {{ $address }} <br>
-                        <strong>Phone:</strong> {{ $contact_num }}<br>
-                        <strong>Email:</strong> {{ $contact_email }}<br>
+                        <strong>Phone:</strong> <a href="tel:{{ preg_replace('/[^0-9+]/', '', $contact_num) }}" class="hover:text-emerald-400 transition-colors">{{ $contact_num }}</a><br>
+                        <strong>Email:</strong> <a href="mailto:{{ $contact_email }}" class="hover:text-emerald-400 transition-colors">{{ $contact_email }}</a><br>
                     </p>
 
-                    <div class="social-links mt-3 flex items-center flex-wrap gap-2">
-                        @if(!empty($configer?->facebook) && $configer->facebook !== '#')
-                            <a href="{{ $configer->facebook }}" target="_blank" rel="noopener noreferrer" class="facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
-                        @endif
-                        @if(!empty($configer?->twitter) && $configer->twitter !== '#')
-                            <a href="{{ $configer->twitter }}" target="_blank" rel="noopener noreferrer" class="twitter" title="Twitter / X"><i class="bi bi-twitter-x"></i></a>
-                        @endif
-                        @if(!empty($configer?->instagram) && $configer->instagram !== '#')
-                            <a href="{{ $configer->instagram }}" target="_blank" rel="noopener noreferrer" class="instagram" title="Instagram"><i class="bi bi-instagram"></i></a>
-                        @endif
-                        @if(!empty($configer?->youtube) && $configer->youtube !== '#')
-                            <a href="{{ $configer->youtube }}" target="_blank" rel="noopener noreferrer" class="youtube" title="YouTube"><i class="bi bi-youtube"></i></a>
-                        @endif
-                        @if(!empty($configer?->telegram) && $configer->telegram !== '#')
-                            <a href="{{ str_starts_with($configer->telegram, 'http') ? $configer->telegram : 'https://t.me/' . ltrim($configer->telegram, '@') }}" target="_blank" rel="noopener noreferrer" class="telegram" title="Telegram"><i class="bi bi-telegram"></i></a>
-                        @endif
-                        @php
-                            $ftWaNumber = !empty($configer?->whatsapp) ? trim($configer->whatsapp) : (!empty($configer?->phone) ? trim($configer->phone) : null);
-                            $ftWaUrl = null;
-                            if ($ftWaNumber && $ftWaNumber !== '#') {
-                                if (str_starts_with($ftWaNumber, 'http://') || str_starts_with($ftWaNumber, 'https://')) {
-                                    $ftWaUrl = $ftWaNumber;
-                                } else {
-                                    $digits = preg_replace('/[^0-9]/', '', $ftWaNumber);
-                                    $ftWaUrl = !empty($digits) ? 'https://wa.me/' . $digits . '?text=' . rawurlencode('Hello ' . ($configer?->name ?? 'AccueVault') . ', I would like to inquire about your PVA accounts & services.') : null;
-                                }
-                            }
-                        @endphp
-                        @if($ftWaUrl)
-                            <a href="{{ $ftWaUrl }}" target="_blank" rel="noopener noreferrer" class="whatsapp" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
-                        @endif
+                    @if(!empty($socialList))
+                    <div class="social-links mt-3 flex items-center flex-wrap gap-2.5">
+                        @foreach($socialList as $social)
+                            <a href="{{ $social['url'] }}" 
+                               target="{{ $social['target'] ?? '_blank' }}" 
+                               @if(($social['target'] ?? '_blank') === '_blank') rel="noopener noreferrer" @endif
+                               title="{{ $social['tooltip'] }}"
+                               aria-label="{{ $social['name'] }}"
+                               class="social-{{ $social['key'] }} {{ $social['bg'] }} {{ $social['shadow'] }} {{ $social['border'] }} inline-flex items-center justify-center transition-all duration-200 transform hover:scale-110 active:scale-95 group">
+                                <i class="{{ $social['icon'] }} pointer-events-none transition-transform duration-200 group-hover:rotate-6"></i>
+                            </a>
+                        @endforeach
                     </div>
+                    @endif
 
                 </div>
 

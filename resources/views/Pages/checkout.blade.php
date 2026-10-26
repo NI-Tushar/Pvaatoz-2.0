@@ -28,6 +28,22 @@
         $rawPhone = '15550192834';
     }
 
+    // Telegram Live Support Link (stored from Admin Panel)
+    $tgRaw = !empty($configer?->telegram) ? trim($configer->telegram) : null;
+    if (!$tgRaw) {
+        $tgRaw = \App\Models\OrderTakingSetting::current()?->telegram_address;
+    }
+    if ($tgRaw && $tgRaw !== '#') {
+        if (str_starts_with($tgRaw, 'http://') || str_starts_with($tgRaw, 'https://')) {
+            $telegramUrl = $tgRaw;
+        } else {
+            $tgUsername = ltrim($tgRaw, '@');
+            $telegramUrl = 'https://t.me/' . $tgUsername;
+        }
+    } else {
+        $telegramUrl = 'https://t.me/accuevault';
+    }
+
     $initialDbItems = [];
     if (isset($dbCartItems) && $dbCartItems->isNotEmpty()) {
         foreach ($dbCartItems as $c) {
@@ -296,9 +312,9 @@
                                 <i class="fa-solid fa-house"></i>
                                 Back to Home
                             </a>
-                            <a href="https://wa.me/{{ $rawPhone }}" target="_blank" class="inline-flex items-center gap-2 bg-white border border-emerald-600 text-emerald-700 hover:bg-emerald-50 text-sm font-semibold px-5 py-2.5 rounded-xl transition">
-                                <i class="fa-brands fa-whatsapp text-lg"></i>
-                                Live Support on WhatsApp
+                            <a href="{{ $telegramUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-[#229ED9] hover:bg-[#1e8ec3] text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md shadow-[#229ED9]/25 transition">
+                                <i class="fa-brands fa-telegram text-lg"></i>
+                                Live Support on Telegram
                             </a>
                         </div>
                     </div>

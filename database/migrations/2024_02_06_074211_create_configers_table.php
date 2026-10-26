@@ -16,15 +16,15 @@ return new class extends Migration
             $table->string('name');
             $table->string('logo')->nullable();
             $table->string('logo_two')->nullable();
-            $table->string('video');
-            $table->text('companydetail');
-            $table->string('phone');
-            $table->string('email');
-            $table->text('address');
-            $table->string('facebook');
-            $table->string('twitter');
-            $table->string('youtube');
-            $table->string('instagram');
+            $table->string('video')->nullable();
+            $table->text('companydetail')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->text('address')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('instagram')->nullable();
             $table->timestamps();
         });
     }
