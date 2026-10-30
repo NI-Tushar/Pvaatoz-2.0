@@ -61,32 +61,37 @@
             ];
         }
     }
-    $selectedPkgName = isset($selectedPackage) && $selectedPackage 
+    $hasSelectedPkg = isset($selectedPackage) && $selectedPackage;
+    $selectedPkgName = $hasSelectedPkg 
         ? ($product->product_name . ' (' . $selectedPackage->package_name . ')') 
         : $product->product_name;
-    $selectedPkgPrice = isset($selectedPackage) && $selectedPackage 
+    $selectedPkgPrice = $hasSelectedPkg 
         ? (float) $selectedPackage->price 
         : 0.85;
-    $selectedPkgTag = isset($selectedPackage) && $selectedPackage 
+    $selectedPkgTag = $hasSelectedPkg 
         ? $selectedPackage->package_name 
         : ($product->tag ?? '100% PVA');
-    $selectedPkgQty = isset($selectedPackage) && $selectedPackage ? 1 : 10;
+    
+    // Accurate package account count and unit price per account
+    $selectedPkgQty = $hasSelectedPkg ? (int) $selectedPackage->account_count : 10;
+    $selectedPkgUnitPrice = $hasSelectedPkg ? (float) $selectedPackage->unit_price_per_account : 0.85;
 @endphp
 
 <div class="bg-slate-50 text-slate-800 antialiased min-h-screen pt-28 pb-20 font-['Inter',sans-serif]"
      x-data="{
-        mode: '{{ (isset($selectedPackage) && $selectedPackage) ? 'single' : (count($initialDbItems) > 0 ? 'cart' : 'single') }}',
+        mode: '{{ $hasSelectedPkg ? 'single' : (count($initialDbItems) > 0 ? 'cart' : 'single') }}',
         cartItems: {{ json_encode($initialDbItems) }},
         singleProduct: {
             id: {{ $product->id }},
+            package_id: {{ $hasSelectedPkg ? $selectedPackage->id : 'null' }},
             product_name: '{{ addslashes($selectedPkgName) }}',
-            category: '{{ addslashes($product->category) }}',
+            category: '{{ addslashes((string)($product->category ?? '')) }}',
             tag: '{{ addslashes($selectedPkgTag) }}',
             product_logo: '{{ $product->product_logo ? asset('storage/' . $product->product_logo) : asset('no_image.jpg') }}',
             bg_color_1: '{{ $product->bg_color_1 ?? '#064e3b' }}',
             bg_color_2: '{{ $product->bg_color_2 ?? '#022c22' }}',
             product_color: '{{ $product->product_color ?? '#10b981' }}',
-            unit_price: {{ $selectedPkgPrice }}
+            unit_price: {{ $selectedPkgUnitPrice }}
         },
 @php
     $enabledPaymentMethods = $paymentMethods ?? \App\Models\PaymentMethod::where('is_enabled', true)->orderBy('sort_order', 'asc')->get();
@@ -102,7 +107,9 @@
 @endphp
 
         qty: {{ $selectedPkgQty }},
-        unitPrice: {{ $selectedPkgPrice }},
+        unitPrice: {{ $selectedPkgUnitPrice }},
+        packagePrice: {{ $selectedPkgPrice }},
+        hasPackage: {{ $hasSelectedPkg ? 'true' : 'false' }},
         paymentMethod: '{{ $defaultPaymentSlug }}',
         paymentCompleted: false,
         toastVisible: false,
@@ -156,6 +163,8 @@
 
         // Single product calculations
         get singleDiscountRate() {
+            // Package pricing is strictly calculated per package rate without arbitrary percentage cuts
+            if (this.hasPackage) return 0;
             if (this.qty >= 100) return 0.25;
             if (this.qty >= 50) return 0.15;
             if (this.qty >= 25) return 0.10;
@@ -171,6 +180,9 @@
             return (this.qty * this.unitPrice * (1 - this.singleDiscountRate)).toFixed(2);
         },
         get singleDiscountLabel() {
+            if (this.hasPackage) {
+                return '$' + parseFloat(this.unitPrice).toFixed(2) + ' / account';
+            }
             if (this.qty >= 100) return '25% OFF Bulk Tier';
             if (this.qty >= 50) return '15% OFF Volume Tier';
             if (this.qty >= 25) return '10% OFF Tier Discount';
@@ -182,9 +194,11 @@
             const q = parseInt(item.quantity) || 1;
             const p = parseFloat(item.unit_price) || 0.85;
             let disc = 0;
-            if (q >= 100) disc = 0.25;
-            else if (q >= 50) disc = 0.15;
-            else if (q >= 25) disc = 0.10;
+            if (!item.is_package) {
+                if (q >= 100) disc = 0.25;
+                else if (q >= 50) disc = 0.15;
+                else if (q >= 25) disc = 0.10;
+            }
 
             const sub = q * p;
             const discAmt = sub * disc;
@@ -255,7 +269,7 @@
             if (this.mode === 'cart') {
                 return `${this.cartItems.length} Products (${this.cartTotals.totalQty} accounts)`;
             }
-            return `${this.qty}x {{ $product->product_name }}`;
+            return `${this.qty} accounts of ${this.singleProduct.product_name}`;
         },
 
         get whatsappOrderUrl() {
@@ -367,6 +381,8 @@
             <!-- Form Hidden Fields -->
             <input type="hidden" name="cart_items" :value="mode === 'cart' ? JSON.stringify(cartItems) : ''">
             <input type="hidden" name="product_id" :value="mode === 'single' ? singleProduct.id : (cartItems[0]?.product_id || 1)">
+            <input type="hidden" name="package_id" value="{{ $hasSelectedPkg ? $selectedPackage->id : '' }}">
+            <input type="hidden" name="package_name" value="{{ $hasSelectedPkg ? $selectedPackage->package_name : '' }}">
             <input type="hidden" name="quantity" :value="currentFinalQty">
             <input type="hidden" name="total_price" :value="currentFinalTotal">
             <input type="hidden" name="payment_method" :value="paymentMethod">
@@ -453,12 +469,12 @@
                     <div x-show="mode === 'single'" class="space-y-6">
                         <!-- Selected Product Card -->
                         <div class="light-detail-card rounded-3xl p-6 sm:p-7">
-                            <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
                                 <span class="text-xs font-bold uppercase tracking-wider text-slate-500">
                                     Selected Product
                                 </span>
                                 @if(count($allProducts) > 1)
-                                    <div class="text-xs">
+                                    <div class="text-xs flex items-center">
                                         <span class="text-slate-400">Change product:</span>
                                         <select onchange="if(this.value) window.location.href=this.value"
                                                 class="ml-1 bg-slate-50 border border-slate-300 rounded-lg text-xs py-1 px-2 text-slate-700 font-semibold focus:outline-none focus:ring-1 focus:ring-emerald-500">
@@ -489,7 +505,7 @@
                                 <div class="flex-1 min-w-0">
                                     <div class="flex items-center gap-2 mb-1 flex-wrap">
                                         <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                                            {{ $product->tag ?? '100% PVA' }}
+                                            {{ $selectedPkgTag }}
                                         </span>
                                         <span class="text-xs text-slate-500 font-medium">
                                             {{ ucwords(str_replace('_', ' ', $product->category ?? 'Account')) }}
@@ -498,11 +514,38 @@
                                     <h2 class="text-xl sm:text-2xl font-bold text-slate-900 truncate">
                                         {{ $product->product_name }}
                                     </h2>
+                                    @if($hasSelectedPkg)
+                                        <div class="mt-1 flex items-center gap-2 flex-wrap">
+                                            <span class="text-xs font-extrabold text-emerald-800 bg-emerald-100/90 border border-emerald-200 px-2.5 py-0.5 rounded-md">
+                                                {{ $selectedPackage->package_name }}
+                                            </span>
+                                            <span class="text-xs text-slate-500 font-medium">
+                                                ${{ number_format($selectedPackage->price, 2) }} for {{ $selectedPackage->account_count }} Accounts (${{ number_format($selectedPackage->unit_price_per_account, 2) }}/acct)
+                                            </span>
+                                        </div>
+                                    @endif
                                     <p class="text-xs text-slate-500 mt-1 line-clamp-1">
                                         {{ $product->product_desc ?? 'Instant digital credentials delivery with complete verification guarantee.' }}
                                     </p>
                                 </div>
                             </div>
+
+                            @if(isset($productPackages) && $productPackages->count() > 1)
+                                <div class="mt-4 pt-3.5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                                    <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-gem text-emerald-600"></i>
+                                        Package Option:
+                                    </span>
+                                    <select onchange="if(this.value) window.location.href=this.value"
+                                            class="bg-slate-50 hover:bg-white border border-slate-300 rounded-xl text-xs py-1.5 px-3 text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 transition max-w-full">
+                                        @foreach($productPackages as $pkg)
+                                            <option value="{{ route('checkout', $product->id) }}?package_id={{ $pkg->id }}" {{ ($hasSelectedPkg && $selectedPackage->id == $pkg->id) ? 'selected' : '' }}>
+                                                {{ $pkg->package_name }} — ${{ number_format($pkg->price, 2) }} ({{ $pkg->account_count }} Accounts @ ${{ number_format($pkg->unit_price_per_account, 2) }}/ea)
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
                         </div>
 
                         <!-- Quantity & Package Tier Selection -->
@@ -521,48 +564,56 @@
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                                 <button type="button" 
                                         @click="qty = 10" 
-                                        :class="qty === 10 ? 'border-emerald-500 bg-emerald-50 text-emerald-900 font-bold ring-2 ring-emerald-500/20' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300'"
+                                        :class="qty === 10 ? 'border-emerald-500 bg-emerald-50 text-emerald-900 font-bold ring-2 ring-emerald-500/20 shadow-xs' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300'"
                                         class="py-3 px-2 rounded-xl border text-center transition-all cursor-pointer">
                                     <span class="block text-sm font-semibold">10 Accounts</span>
-                                    <span class="block text-[11px] text-slate-500">Starter Pack</span>
+                                    <span class="block text-[11px] font-bold text-emerald-700" 
+                                          x-text="'$' + (10 * unitPrice).toFixed(2)"></span>
                                 </button>
                                 <button type="button" 
                                         @click="qty = 25" 
-                                        :class="qty === 25 ? 'border-emerald-500 bg-emerald-50 text-emerald-900 font-bold ring-2 ring-emerald-500/20' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300'"
+                                        :class="qty === 25 ? 'border-emerald-500 bg-emerald-50 text-emerald-900 font-bold ring-2 ring-emerald-500/20 shadow-xs' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300'"
                                         class="py-3 px-2 rounded-xl border text-center transition-all cursor-pointer">
                                     <span class="block text-sm font-semibold">25 Accounts</span>
-                                    <span class="block text-[11px] text-emerald-700 font-medium">Save 10%</span>
+                                    <span class="block text-[11px] font-bold text-emerald-700" 
+                                          x-text="'$' + (25 * unitPrice).toFixed(2)"></span>
                                 </button>
                                 <button type="button" 
                                         @click="qty = 50" 
-                                        :class="qty === 50 ? 'border-emerald-500 bg-emerald-50 text-emerald-900 font-bold ring-2 ring-emerald-500/20' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300'"
+                                        :class="qty === 50 ? 'border-emerald-500 bg-emerald-50 text-emerald-900 font-bold ring-2 ring-emerald-500/20 shadow-xs' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300'"
                                         class="py-3 px-2 rounded-xl border text-center transition-all cursor-pointer">
                                     <span class="block text-sm font-semibold">50 Accounts</span>
-                                    <span class="block text-[11px] text-emerald-700 font-medium">Save 15%</span>
+                                    <span class="block text-[11px] font-bold text-emerald-700" 
+                                          x-text="'$' + (50 * unitPrice).toFixed(2)"></span>
                                 </button>
                                 <button type="button" 
                                         @click="qty = 100" 
-                                        :class="qty === 100 ? 'border-emerald-500 bg-emerald-50 text-emerald-900 font-bold ring-2 ring-emerald-500/20' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300'"
+                                        :class="qty === 100 ? 'border-emerald-500 bg-emerald-50 text-emerald-900 font-bold ring-2 ring-emerald-500/20 shadow-xs' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300'"
                                         class="py-3 px-2 rounded-xl border text-center transition-all cursor-pointer">
                                     <span class="block text-sm font-semibold">100+ Accounts</span>
-                                    <span class="block text-[11px] text-emerald-700 font-medium">Save 25%</span>
+                                    <span class="block text-[11px] font-bold text-emerald-700" 
+                                          x-text="'$' + (100 * unitPrice).toFixed(2)"></span>
                                 </button>
                             </div>
 
                             <!-- Custom Quantity Input -->
-                            <div class="pt-2 flex items-center justify-between gap-4">
-                                <span class="text-xs text-slate-600 font-medium">Or custom quantity:</span>
+                            <div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div class="flex flex-col">
+                                    <span class="text-xs text-slate-700 font-semibold">Or custom quantity:</span>
+                                    <span class="text-[11px] text-slate-500 font-medium" x-text="'Calculated at $' + parseFloat(unitPrice).toFixed(2) + ' per account'"></span>
+                                </div>
                                 <div class="flex items-center gap-2">
                                     <button type="button" 
-                                            @click="if(qty > 5) qty -= 5"
-                                            class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center font-bold">-</button>
+                                            @click="if(qty > 5) qty -= 5; else if(qty > 1) qty -= 1;"
+                                            class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 flex items-center justify-center font-bold text-base cursor-pointer transition shadow-2xs">-</button>
                                     <input type="number" 
                                            min="1" 
                                            x-model.number="qty" 
-                                           class="w-20 text-center font-bold text-slate-900 border border-slate-300 rounded-lg py-1 px-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                           @input="if(!qty || qty < 1) qty = 1"
+                                           class="w-24 text-center font-extrabold text-slate-900 border border-slate-300 rounded-xl py-1.5 px-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-sm bg-white shadow-2xs">
                                     <button type="button" 
                                             @click="qty += 5"
-                                            class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center font-bold">+</button>
+                                            class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 flex items-center justify-center font-bold text-base cursor-pointer transition shadow-2xs">+</button>
                                 </div>
                             </div>
                         </div>

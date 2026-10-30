@@ -396,9 +396,11 @@
             const qty = parseInt(item.quantity) || 1;
             const unitPrice = parseFloat(item.unit_price) || 0.85;
             let discountRate = 0;
-            if (qty >= 100) discountRate = 0.25;
-            else if (qty >= 50) discountRate = 0.15;
-            else if (qty >= 25) discountRate = 0.10;
+            if (!item.is_package) {
+                if (qty >= 100) discountRate = 0.25;
+                else if (qty >= 50) discountRate = 0.15;
+                else if (qty >= 25) discountRate = 0.10;
+            }
 
             const subtotal = qty * unitPrice;
             const discountAmount = subtotal * discountRate;

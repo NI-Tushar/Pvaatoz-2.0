@@ -373,9 +373,9 @@
                                         product_logo: '{{ $product->product_logo ? asset('storage/' . $product->product_logo) : asset('no_image.jpg') }}',
                                         bg_color_1: '{{ $product->bg_color_1 ?? '#064e3b' }}',
                                         bg_color_2: '{{ $product->bg_color_2 ?? '#022c22' }}',
-                                        product_color: '{{ $product->product_color ?? '#10b981' }}',
-                                        unit_price: {{ (float)$pkg->price }}
-                                    }, 1, $event)"
+                                        unit_price: {{ (float)$pkg->unit_price_per_account }},
+                                        is_package: true
+                                    }, {{ (int)$pkg->account_count }}, $event)"
                                     class="w-full flex items-center justify-center gap-1.5 bg-white hover:bg-emerald-50/60 text-slate-700 hover:text-emerald-700 border border-slate-200 hover:border-emerald-300 font-bold py-2 px-4 rounded-xl transition-all duration-200 text-xs shadow-2xs hover:shadow-xs">
                                 <i class="fa-solid fa-cart-plus text-emerald-600 text-[11px]"></i>
                                 <span>Add to Cart</span>

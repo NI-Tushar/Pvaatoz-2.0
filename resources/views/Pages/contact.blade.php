@@ -47,6 +47,26 @@
     }
     $email = $configer?->email ?? 'support@accuevault.com';
     $address = $configer?->address ?? '742 Evergreen Terrace, New York, USA';
+
+    // Fetch Telegram data from configer table (with fallback to OrderTakingSetting)
+    $tgRaw = !empty($configer?->telegram) ? trim($configer->telegram) : null;
+    if (!$tgRaw) {
+        $tgRaw = \App\Models\OrderTakingSetting::current()?->telegram_address;
+    }
+
+    if ($tgRaw && $tgRaw !== '#') {
+        $cleanTg = preg_replace('#^https?://(?:www\.)?t\.me/#i', '', $tgRaw);
+        $cleanTg = preg_replace('#^t\.me/#i', '', $cleanTg);
+        $telegram_handle = ltrim(trim($cleanTg, '/'), '@');
+    } else {
+        $telegram_handle = 'accuevault';
+    }
+
+    if (empty($telegram_handle)) {
+        $telegram_handle = 'accuevault';
+    }
+
+    $telegramUrl = 'https://t.me/' . $telegram_handle;
 @endphp
 
 <div class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-20 font-['Inter',sans-serif]">
@@ -84,7 +104,7 @@
 
             <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight mb-4 drop-shadow-md">
                 Let's Talk About Your <br class="hidden sm:inline" />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-green-400">PVA & Account Needs</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-green-400"> Account Needs</span>
             </h1>
 
             <p class="text-sm sm:text-base lg:text-lg text-emerald-100/90 max-w-2xl mx-auto leading-relaxed font-normal drop-shadow-sm mb-8">
@@ -92,11 +112,11 @@
             </p>
 
             <div class="flex flex-wrap items-center justify-center gap-3">
-                <a href="https://wa.me/{{ $rawPhone }}?text={{ urlencode('Hello, I am interested in purchasing PVA accounts from ' . ($configer?->name ?? 'AccueVault')) }}" 
+                <a href="https://t.me/{{ $telegram_handle }}?text={{ urlencode('Hello, I am interested in purchasing PVA accounts from ' . ($configer?->name ?? 'AccueVault')) }}" 
                    target="_blank" rel="noopener noreferrer"
                    class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-500/30 transition-all transform hover:-translate-y-0.5">
-                    <i class="fa-brands fa-whatsapp text-sm"></i>
-                    <span>Instant WhatsApp Chat</span>
+                    <i class="fa-brands fa-telegram text-sm"></i>
+                    <span>Instant Telegram Chat</span>
                 </a>
                 <a href="#contact-form-section" 
                    class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-extrabold text-xs sm:text-sm border border-white/20 backdrop-blur-sm shadow-sm transition-all transform hover:-translate-y-0.5">
@@ -162,20 +182,21 @@
                 </div>
             </a>
 
-            <!-- Phone Call -->
-            <a href="tel:{{ $phone }}" 
+            <!-- Telegram Chat -->
+            <a href="https://t.me/{{ $telegram_handle }}?text={{ urlencode('Hello, I am interested in purchasing PVA accounts from ' . ($configer?->name ?? 'AccueVault')) }}" 
+               target="_blank" rel="noopener noreferrer"
                class="light-contact-card rounded-2xl p-6 flex flex-col justify-between group">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center text-xl group-hover:bg-teal-600 group-hover:text-white transition-all">
-                        <i class="fa-solid fa-phone"></i>
+                    <div class="w-12 h-12 rounded-xl bg-[#229ED9]/15 text-[#229ED9] flex items-center justify-center text-2xl group-hover:bg-[#229ED9] group-hover:text-white transition-all">
+                        <i class="fa-brands fa-telegram"></i>
                     </div>
-                    <span class="text-[11px] font-semibold text-teal-600 bg-teal-50 px-2.5 py-1 rounded-full uppercase">Direct</span>
+                    <span class="text-[11px] font-semibold text-[#229ED9] bg-[#229ED9]/10 px-2.5 py-1 rounded-full uppercase">Instant</span>
                 </div>
                 <div>
-                    <h3 class="font-bold text-slate-900 text-base mb-1">Call Us</h3>
-                    <p class="text-xs text-slate-500 mb-2">{{ $phone }}</p>
-                    <span class="text-xs font-semibold text-teal-600 group-hover:text-teal-700 flex items-center gap-1.5">
-                        <span>Click to Call</span>
+                    <h3 class="font-bold text-slate-900 text-base mb-1">Telegram Chat</h3>
+                    <p class="text-xs text-slate-500 mb-2 truncate">@{{ $telegram_handle }}</p>
+                    <span class="text-xs font-semibold text-[#229ED9] group-hover:text-[#1e8ec3] flex items-center gap-1.5">
+                        <span>Message on Telegram</span>
                         <i class="fa-solid fa-arrow-right text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
                     </span>
                 </div>
@@ -357,7 +378,7 @@
 
                     <div class="space-y-3 pt-2">
                         <div class="flex items-center justify-between text-xs bg-white p-3 rounded-xl border border-slate-200/80">
-                            <span class="text-slate-600 font-medium">WhatsApp / Live Chat</span>
+                            <span class="text-slate-600 font-medium">Telegram / WhatsApp Live Chat</span>
                             <span class="font-bold text-emerald-600">5 – 15 Minutes</span>
                         </div>
                         <div class="flex items-center justify-between text-xs bg-white p-3 rounded-xl border border-slate-200/80">

@@ -256,15 +256,21 @@ class HomePageController extends Controller
             ->orderBy('sort_order', 'asc')
             ->get();
 
-        // Optional selected package for this product
+        // Get active packages for this product
+        $productPackages = $product->activePackages;
+
+        // Selected package for this product
         $selectedPackage = null;
         if ($request->has('package_id')) {
             $selectedPackage = \App\Models\Package::where('product_id', $product->id)
                 ->where('is_enabled', true)
                 ->find($request->query('package_id'));
         }
+        if (!$selectedPackage && $productPackages->isNotEmpty()) {
+            $selectedPackage = $productPackages->firstWhere('is_highlight', true) ?? $productPackages->first();
+        }
 
-        return view('Pages.checkout', compact('product', 'configer', 'allProducts', 'dbCartItems', 'paymentMethods', 'selectedPackage'));
+        return view('Pages.checkout', compact('product', 'configer', 'allProducts', 'productPackages', 'dbCartItems', 'paymentMethods', 'selectedPackage'));
     }
 
     /**
@@ -426,6 +432,7 @@ class HomePageController extends Controller
     {
         $validated = $request->validate([
             'product_id' => 'nullable|exists:products,id',
+            'package_id' => 'nullable|exists:packages,id',
             'quantity' => 'nullable|integer|min:1',
             'name' => 'required|string|max:100',
             'email' => 'required|email|max:150',
@@ -442,6 +449,7 @@ class HomePageController extends Controller
         $itemsSummaryText = "";
         $orderProductName = "";
         $totalQuantity = 0;
+        $orderTag = null;
 
         if (is_array($cartItems) && count($cartItems) > 0) {
             $orderProductName = count($cartItems) . " Items (Multi-Product Cart)";
@@ -454,14 +462,21 @@ class HomePageController extends Controller
             }
         } else {
             $product = Product::findOrFail($validated['product_id'] ?? 1);
-            $orderProductName = !empty(trim($product->product_name ?? '')) 
+            $packageId = $request->input('package_id');
+            $package = $packageId ? \App\Models\Package::find($packageId) : null;
+            $pkgName = $package ? $package->package_name : ($request->input('package_name') ?: '');
+
+            $baseProductName = !empty(trim($product->product_name ?? '')) 
                 ? $product->product_name 
                 : (!empty(trim($product->tag ?? '')) 
                     ? $product->tag 
                     : (!empty(trim($product->category ?? '')) 
                         ? ucwords(str_replace('_', ' ', $product->category)) 
                         : 'Product #' . $product->id));
-            $totalQuantity = (int) ($validated['quantity'] ?? 1);
+
+            $orderProductName = $pkgName ? ($baseProductName . ' (' . $pkgName . ')') : $baseProductName;
+            $orderTag = $package ? $package->package_name : $product->tag;
+            $totalQuantity = (int) ($validated['quantity'] ?? ($package ? $package->account_count : 1));
             $itemsSummaryText = "  [1] " . $orderProductName . " - " . $totalQuantity . " accounts ($" . $totalPrice . ")\n";
         }
 
@@ -532,7 +547,7 @@ class HomePageController extends Controller
                 'product_id' => $product->id,
                 'product_name' => $orderProductName,
                 'category' => $product->category,
-                'tag' => $product->tag,
+                'tag' => $orderTag ?? $product->tag,
                 'quantity' => $totalQuantity,
                 'unit_price' => $totalQuantity > 0 ? ((float) $totalPrice / $totalQuantity) : 0.85,
                 'subtotal' => (float) $totalPrice,
